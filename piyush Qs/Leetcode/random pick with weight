@@ -1,0 +1,26 @@
+class Solution {
+public:
+    vector<int> presum;int sum=0;
+    Solution(vector<int>& w) {
+        for (int num : w) {
+            sum += num;
+            presum.push_back(sum);
+        }
+    }
+    
+    int pickIndex() {
+        int target = rand()%sum;
+
+        int l =0,r = presum.size(),mid =0;
+        while(l<r){
+            mid = (l+ r)/2;
+         if(presum[mid] > target){
+                r = mid;
+            }
+            else
+            l = mid+1;
+        }
+        return l;
+        
+    }
+};

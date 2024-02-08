@@ -1,0 +1,28 @@
+class Solution {
+public:
+	vector<string> subdomainVisits(vector<string>& cp) {
+		map<string,int>mp;
+		vector<string> v;
+		for(int i=0;i<cp.size();i++){
+			string str="";
+			string num="";
+			for(int j=0;cp[i][j]!=' ';j++) 
+            num+=cp[i][j];
+			int n=stoi(num);
+
+			for(int j=cp[i].size()-1;cp[i][j]!=' ';j--){
+				if(cp[i][j]=='.') mp[str]+=n;
+				str+=cp[i][j];
+			}
+			mp[str]+=n;
+		}
+        
+		for(auto i:mp){
+			string t=i.first;
+			reverse(t.begin(),t.end());
+			string str=to_string(i.second)+' '+t;
+			v.push_back(str);
+		}
+		return v;
+	}
+};
