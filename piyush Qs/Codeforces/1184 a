@@ -1,0 +1,13 @@
+#include<iostream>
+ 
+using namespace std;
+ 
+int main()
+{
+  long long int n;
+  cin>>n;
+  if(n%2==0||n<5)
+   cout<<"NO"<<endl;
+  else
+    cout<<"1 "<<(n-3)/2<<endl;
+ }

@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main(){
+	int t;
+	cin >> t;
+	while(t--){
+		int n;
+		cin >> n;
+		vector<int> cnt(1030), s;
+		for(int i = 0; i < n; i++){
+			int d;
+			cin >> d;
+			cnt[d]++;
+			s.push_back(d);
+		}
+		int res = -1;
+		for(int i = 1; i < 1024; i++){
+			vector<int> cur(1030);
+			for(int k : s){
+				cur[k ^ i]++;
+			}
+			if(cur == cnt){
+				res = i;
+				break;
+			}
+		}
+		cout << res << endl;
+	}
+}

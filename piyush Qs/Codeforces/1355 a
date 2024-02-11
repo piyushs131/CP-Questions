@@ -1,0 +1,22 @@
+#include<iostream>
+using namespace std;
+int main(){
+	long long t;
+	cin>>t;
+	while(t--){
+		long long n,k;
+		cin>>n>>k;
+		for(long long i=2;i<=k;i++){
+			long long x=9,y=0,p=n;
+			while(p){
+				x=min(x,p%10);
+				y=max(y,p%10);
+				p/=10;
+			}
+			if(!x) 
+			        break;
+			n+=(x*y);
+		}
+		cout<<n<<endl;
+	}
+}
