@@ -1,0 +1,31 @@
+class Solution {
+    void split_r_m( string &s, int& r, int & m ){
+        int l = s.length();
+        int i = 0;
+        string t1 = "" , t2 = "";
+        while ( i < l && s[i] != '+'){
+            t1 += s[i];
+            i++;
+        }
+        i++;
+        r = stoi(t1);
+        while( i < l && s[i] != 'i'){
+            t2 += s[i];
+            i++;
+        }
+        m = stoi(t2);
+    }
+public:
+    string complexNumberMultiply(string num1, string num2) {
+        int r1,m1,r2,m2,r,m;
+        split_r_m( num1,r1,m1);
+        split_r_m( num2,r2,m2);
+        r = ( r1* r2 - m1*m2);
+        m = ( r1*m2 + m1*r2);
+        string s1,s2,s = "";
+        s1 = to_string(r);
+        s2 = to_string(m);
+        s = s1 + '+' + s2 + 'i';
+        return s;
+    }
+};

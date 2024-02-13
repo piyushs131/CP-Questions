@@ -1,0 +1,29 @@
+
+#include <bits/stdc++.h>
+#define li long long
+using namespace std;
+ 
+int main() {
+	li n,m,h;
+	cin>>n>>m>>h;
+	li col[m];
+	for(li i=0;i<m;i++)
+		cin>>col[i];
+	li row[n];
+	for(li i=0;i<n;i++)
+		cin>>row[i];
+	li arr[n][m];
+	for(li i=0;i<n;i++){
+		for(li j=0;j<m;j++){
+			cin>>arr[i][j];
+			if(arr[i][j]==1){
+				li d=min(row[i],col[j]);
+				cout<<d<<" ";
+			}
+			else
+				cout<<"0 ";
+		}
+		cout<<endl;
+	}
+	return 0;
+}

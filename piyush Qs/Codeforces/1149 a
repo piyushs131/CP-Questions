@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const int inf=0x3f3f3f3f;
+ 
+int main()
+{
+	int n,o=0,t=0,a;
+	cin>>n;
+	for(int i=0;i<n;i++){
+		cin>>a;
+		if(a&1)o++;
+		else t++;
+	}
+	if(t>0){
+		cout<<2<<' ';
+		t--;
+	}
+	if(o>0){
+		cout<<1<<' ';
+		o--;
+	}
+	while(t>0){
+		cout<<2<<' ';
+		t--;
+	}
+	while(o>0){
+		cout<<1<<' ';
+		o--;
+	}
+	return 0;
+}
