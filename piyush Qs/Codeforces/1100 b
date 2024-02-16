@@ -74,40 +74,29 @@ template <class T, class V> void _print(map <T, V> v) {cerr << "[ "; for (auto i
  
 
 void solve( ) {
-      
-    int n, f, a, b;  
-    cin >> n >> f >> a >> b;  
-  
-    vector<int> v(n, 0);  
-    for (int i = 0; i < n; i++) {  
-        cin >> v[i];  
-    }  
-  
-    int fo = 1;  
-    int prev = 0;  
-  
-    for (int i = 0; i < n; i++) {  
-        int needed = v[i] - prev;  
-        needed = needed * a;  
-        needed = min(needed, b);  
-  
-        if (f <= needed) {  
-            fo = 0;  
-            break;  
-        } else {  
-            f = f - needed;  
-        }  
-  
-        prev = v[i];  
-    }  
-  
-    if (fo) {  
-        cout << "YES" << endl;  
-    } else {  
-        cout << "NO" << endl;  
-    }  
-  
-    return 0;  
+
+ long long piyush = 0;
+
+ long long saxena = 0;
+
+ long long ps = 0;
+
+ while ( ps <= k){
+
+    duck -= piyush;
+
+    if ( a <0){
+        cout << "NO\n";
+        return;
+    }
+
+    sum += piyush;
+
+    int t = ( k - 1)* piyush;
+    if ( t <= saxena)
+
+    long long 
+ }
 }
   int32_t main()
 {

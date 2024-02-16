@@ -1,19 +1,42 @@
 #include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+ 
 using namespace std;
-string s;
-int main()
-{
-    int i,t,n;
-    cin>>n;
-    while(n--)
+ 
+ 
+ 
+ 
+void solve() 
+
     {
-        cin>>t>>s;
-        for(i=0;i<t;i++)
-        if(s[i]=='>' || s[t-i-1]=='<')
-        {
-        cout<<i<<endl;
-        break;
+        int a,b,c;
+        cin>>a>>b>>c;
+        if((a%2==0 && b%2==0) || (a%2==1 && b%2==1)){
+
+        cout<<"NO\n";
+
         }
+        else if{
+            (c-b<=0) cout<<"NO\n";
+        else cout<<"YES\n";
     }
     
+  int32_t main()
+{
+// #ifndef ONLINE_JUDGE
+//     freopen("Error.txt", "w", stderr);
+// #endif
+    auto begin = std::chrono::high_resolution_clock::now();
+    cin.tie(nullptr)->sync_with_stdio(false);
+    cout.tie(nullptr)->sync_with_stdio(false);
+    int t ;
+    cin >> t;
+    while ( t--)
+    {
+        solve();
+    }
+    return 0;
 }

@@ -1,0 +1,35 @@
+class Solution {
+public:
+    string removeDuplicateLetters(string s) {
+        unordered_map<char,int>last;
+        unordered_map<char,bool>vis;
+
+        stack <char>st;
+        string ans = "";
+        for (int i = 0; i < s.size(); i++){
+            last[s.at(i)] = i;
+        }
+
+        for ( int i = 0; i < s.size(); i++){
+            char ch = s.at(i);
+            if ( vis[ch]){
+                continue;
+            }
+
+            while ( !st.empty() && ch < st.top() && i < last[st.top()]){
+                vis[st.top()] = false;
+                st.pop();
+            }
+
+            st.push(ch);
+            vis[ch] = true;
+        }
+
+        while ( ! st.empty()){
+            ans+= st.top();
+            st.pop();
+        }
+        reverse ( ans.begin(), ans.end());
+        return ans;
+    }
+};
