@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <cmath>
+ 
+using namespace std;
+ 
+ #defin3 int long long
+ 
+ 
+ 
+void solve(){
+     int n;
+    cin >> n;
+    string ps;
+    cin >> ps;
+
+    string cnt = "";
+
+    reverse( ps.begin(), ps.end());
+    int piyush = 0;
+    for ( int i= 0;i < n; i++){
+        piyush+= (ps[i] - '0');
+
+    }
+    int saxena = 0;
+    for ( int i= 0; i < n; i++){
+        char c = 0;
+        c+= (( piyush + saxena)%10);
+        saxena = (( piyush+saxena)/10);
+
+        cnt.push_back(c);
+        piyush -= (ps[i]-'0');
+    }
+    string hu = to_string(saxena);
+    reverse(cnt.begin(), cnt.end());
+    if ( hu == "1"){
+        cout << hu <<cnt<< endl;
+
+    }
+    else {
+        reverse(cnt.begin(), cnt.end());
+        while( cnt.back() == '0'){
+            cnt.pop_back();
+
+        }
+        reverse(cnt.begin(), cnt.end());
+        cout<< cnt<<endl;
+    }
+
+}
+
+
+  int32_t main()
+{
+// #ifndef ONLINE_JUDGE
+//     freopen("Error.txt", "w", stderr);
+// #endif
+    auto begin = std::chrono::high_resolution_clock::now();
+    cin.tie(nullptr)->sync_with_stdio(false);
+    cout.tie(nullptr)->sync_with_stdio(false);
+    int t ;
+    cin >> t;
+    while ( t--)
+
+    {
+        solve();
+    }
+    return 0;
+}

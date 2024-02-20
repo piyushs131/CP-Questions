@@ -1,13 +1,14 @@
 #include <bits/stdc++.h>
-#include <vector>
 using namespace std;
+#define ll long long
 
 const int N = 2e5 + 9;
 int a[N];
 
-void solve(){
+int n;
 
-	cin >> n;
+void solve(){
+	
 
 	for( int i = 0; i < 200001;i++){
 		int p = 0;
@@ -20,11 +21,19 @@ void solve(){
 
 	}
 }
+
 int main() {
+   
     int t;
     cin >> t;
-    while (t--) {
-    solve();
+    while (t--)
+    {
+	solve();
+     cin >> n;
+cout << a[n] << '\n';
+
+       
     }
     return 0;
 }
+
