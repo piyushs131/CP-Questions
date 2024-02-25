@@ -1,22 +1,40 @@
-class Solution {
-public:
-    int minDistance(string s, string t) {
-        int m = s.size();
-        int n = t.size();
-        
-        vector<vector<int>> dp(m+1,vector<int>(n+1,0));
-        for(int i=0;i<=m;i++){
-            for(int j=0;j<=n;j++){
-                if(i==0 || j==0) dp[i][j] = 0;
-                else if(s[i-1] == t[j-1]){
-                    dp[i][j] = 1 + dp[i-1][j-1];
-                }
-                else{
-                    dp[i][j] = max( dp[i-1][j] , dp[i][j-1] );
-                }
-            }
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long int
 
-        }
-        return m+n-(2 * dp[m][n] );
+
+void solve () {
+ ll n,k;
+cin>>n>>k;
+ vector<ll> a(n),x(n);
+for(ll i=0;i<n;i++) cin>>a[i];
+for(ll i=0;i<n;i++) cin>>x[i];
+vector<ll>mon(n+1,0);
+for(int i=0;i<n;i++){
+ mon[abs(x[i])]+=a[i];
+ }
+ll power = k;
+for(ll i=1;i<=n;i++){
+ if(k<mon[i]){
+ cout<<"NO"<<endl;
+ return;
+ }
+k-=mon[i];
+ k+=power;
+ }
+ cout<<"YES"<<endl;
+}
+
+
+int main() {
+
+    long long test;
+    cin >> test;
+    while (test--)
+    {
+      solve();
+
+       
     }
-};
+    return 0;
+}
