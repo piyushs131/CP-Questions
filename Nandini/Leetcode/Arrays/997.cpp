@@ -2,10 +2,12 @@
 using namespace std;
 class Solution {
 public:
-    int findJudge(int n, vector<vector<int>>& trust) {
+    int findJudge(int n, vector<vector<int>>& trust) 
+    {
         map<int, int> mp;
         map<int, int> secret_mp;
-        for(int i = 0; i < trust.size(); i++) {
+        for(int i = 0; i < trust.size(); i++) 
+        {
             mp[trust[i][0]]++;
             secret_mp[trust[i][1]]++;
         }   
