@@ -1,0 +1,37 @@
+class Solution {
+public:
+
+    int search ( vector<int>& post, int start, int end, int val){
+        for ( int i = start; i <= end; i++){
+            if(post[i] == val)
+            return i;
+        }
+        return -1;
+    }
+
+    int pre_idx = 0;
+
+    TreeNode* construct( vector<int>& pre, vector<int>& post, int start, int end){
+        if ( start > end || pre_idx >= pre.size() ){
+            return NULL;
+        }
+
+        TreeNode* root = new TreeNode(pre[pre_idx]);
+        pre_idx++;
+
+        if ( pre_idx >= pre.size() || start == end){
+            return root;
+        }
+
+        int idx = search( post, start, end,pre[pre_idx]);
+        root -> left = construct(pre,post,start, idx);
+        root -> right = construct(pre,post,idx+1, end-1);
+
+        return root;
+    }
+    TreeNode* constructFromPrePost(vector<int>& preorder, vector<int>& postorder) {
+
+      int n = preorder.size();
+      return construct(preorder,postorder,0,n-1);  
+    }
+};

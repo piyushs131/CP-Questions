@@ -1,0 +1,72 @@
+class Trie {
+public:
+    bool isEnd = 0;
+    array<Trie*, 26> links = {};
+
+    Trie() {}
+
+    void insert(string word) {
+        Trie* node = this;
+        for (char c : word) {
+            int i = c - 'a';
+            if (node->links[i] == NULL) {
+                node->links[i] = new Trie();
+            }
+            node = node->links[i];
+        }
+        node->isEnd = 1;
+    }
+};
+
+class Solution {
+public:
+    vector<vector<char>> board;
+    vector<string> ans;
+    int n, m;
+
+    void dfs(int i, int j, Trie* cur, string& word) {
+        if (i < 0 || i >= n || j < 0 || j >= m || board[i][j] == '@')
+            return;
+
+        char c = board[i][j];
+
+        if (cur->links[c - 'a'] == NULL)
+            return;
+
+        word.push_back(c);
+        cur = cur->links[c - 'a'];
+        if (cur->isEnd) {
+            ans.push_back(word);
+            cur->isEnd = 0;
+        }
+       
+        board[i][j] = '@';
+        
+        dfs(i + 1, j, cur, word);
+        dfs(i, j + 1, cur, word);
+        dfs(i - 1, j, cur, word);
+        dfs(i, j - 1, cur, word);
+
+        board[i][j] = c;
+        word.pop_back();
+    }
+
+    vector<string> findWords(vector<vector<char>>& _board, vector<string>& _words) {
+        board = _board;
+        n = board.size();
+        m = board[0].size();
+        Trie* root = new Trie();
+
+        for (auto& w : _words)
+            root->insert(w);
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {
+                string word;
+                dfs(i, j, root, word);
+            }
+        }
+
+        return ans;
+    }
+};
