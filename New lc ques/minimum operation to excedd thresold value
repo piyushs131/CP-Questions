@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minOperations(vector<int>& nums, int k) {
+        long long ans = 0;
+        multiset <long long> ps;
+        
+        for(int i=0;i<nums.size();i++)
+            ps.insert(nums[i]);
+            
+        while(ps.size()>1 && *(ps.begin())<k)
+        {
+            long long a = *(ps.begin());
+            ps.erase(ps.begin());
+            long long b = *(ps.begin());
+            ps.erase(ps.begin());
+            a *= 2;
+            a += b;
+            ps.insert(a);
+            ans++;
+        }
+        return ans;
+     
+    }
+};

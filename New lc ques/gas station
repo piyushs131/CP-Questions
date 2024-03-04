@@ -1,26 +1,103 @@
-class Solution {
-public:
-    int canCompleteCircuit(vector<int>& gas, vector<int>& cost) {
-        int n = gas.size();
-        int sum = 0;
-        for ( int i = 0; i < n;i++){
-            gas[i]-=cost[i];
-            sum+=gas[i];
-        }
+#include <bits/stdc++.h>
+using namespace std;
+ 
+ 
+// DEFINE
+#define boost ios_base::sync_with_stdio(false);cin.tie(0);cout.tie(0);
+#define ll long long
+#define ld long double
+#define all(a) (a).begin(), (a).end()
+#define reall(a) (a).rbegin(), (a).rend()
+#define pii pair<int, int>
+#define pll pair<long long int, long longint>
+#define vi vector<int>
+#define vll vector<long long int>
+#define mii map<int, int>
+#define si set<int>
+#define sc set<char>
+#define vpi vector<pair<int, int>>
+#define vpll vector<pair<ll, ll>>
+#define mp make_pair
+#define ff first
+#define ss second
+ 
+// CONSTANT
+const int MM = 1e9 + 7;
+const ll MOD=1e9;
+const int Z = 1e6;
+#define PI 3.1415926535897932384626433832795l
+ 
+#define FOR(i, s, e) for (ll i = s; i <= e; i++)
+#define F(i, e) for (long long int i = 0; i < = e; i++)
+#define rF(i, e, s) for (long long int i = e; i > = s; i--)
+#define pb push_back
+#define gcd __gcd
+#define MAX *max_element
+ 
+#define MIN *min_element
+#define int ll
+ 
+ 
+void solve(){
+  
+  int n;
+   cin >> n;
 
-        if ( sum < 0){
-            return -1;
-        }
-
-        int gs = 0;
-        int ans = 0;
-        for ( int i = 0; i < n;i++){
-            gs += gas[i];
-            if ( gs< 0){
-                gs = 0;
-                ans = i+1;
-            }
-        }
-        return ans;
+   vector<vector<char>> a(2,vector<char>(n));
+   for ( int i = 0; i < 2;i++){
+    for ( int j = 0; j < n; j++){
+        cin >> a[i][j];
     }
-};
+   }
+   string piyush = "";
+   for ( int i = 0 ; i < n; i++){
+    piyush += a[1][i];
+   }
+
+   string road= "";
+   int cnt = 1;
+   bool dev = true;
+   int saxena = n-1;
+   for ( int i  = 0; i < n; i++){
+    road += a[!dev][i];
+    if ( dev && i != n-1){
+        if (a[0][i+1] > a[1][i]){
+            dev = false;
+            saxena = i;
+            i--;
+        }
+    }
+
+    else if ( dev && i == n-1){
+        road += a[1][n-1];
+    }
+   }
+
+   for ( int i = 0; i < saxena; i++ ){
+    if ( a[0][i+1] == a[1][i]){
+        if ( road.substr( i+1, saxena-i) == piyush.substr(i,saxena-i)){
+            cnt++;
+        }
+    }
+   }
+   cout << road << '\n';
+   cout << cnt << '\n';
+
+}
+
+signed main(){
+    #ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+    #endif
+    
+    
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t=1;cin>>t;
+    while(t--){
+        solve();
+    }
+    return 0;
+}
+ 

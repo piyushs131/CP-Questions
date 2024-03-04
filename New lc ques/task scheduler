@@ -1,40 +1,33 @@
-class Solution {
-public:
-    int leastInterval(vector<char>& tasks, int n) {
-        int size = tasks.size();
+#include <iostream>
+using namespace std;
 
-        unordered_map<char,int>mp;
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        int c = 0;
 
-        for (auto it : tasks){
-            mp[it]++;
-        }        
-
-        priority_queue<int> maxp;
-        for ( auto it : mp){
-            maxp.push(it.second);
-        }
-        queue<pair<int,int>> q;
-
-        int time = 0;
-
-        while ( ! maxp.empty()  || !q.empty()){
-            time++;
-
-            if ( maxp.size() > 0){
-                int curr = maxp.top();
-                maxp.pop();
-
-                int cnt = curr - 1;
-                if ( cnt > 0){
-                    q.push({cnt, time+n});
-                }
-            }
-             if(!q.empty() && q.front().second == time) {
-                maxp.push(q.front().first);
-                q.pop();
+        while (n > 0) {
+            if (n >= 15) {
+                n -= 15;
+                c++;
+            } else if (n >= 10) {
+                n -= 10;
+                c++;
+            } else if (n >= 6) {
+                n -= 6;
+                c++;
+            } else if (n >= 3) {
+                n -= 3;
+                c++;
+            } else if (n >= 1) {
+                n -= 1;
+                c++;
             }
         }
-
-        return time;
+        cout << c << endl;
     }
-};
+    return 0;
+}
