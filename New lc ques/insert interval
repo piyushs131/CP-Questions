@@ -1,0 +1,23 @@
+class Solution {
+public:
+    vector<vector<int>> insert(vector<vector<int>>& in, vector<int>& newin) 
+    {
+        in.push_back(newin);
+        sort(in.begin(),in.end());
+
+        vector<vector<int>>ans;
+        int n = in.size();
+        for(int i=0;i<n;i++)
+        {
+            if(ans.empty()) ans.push_back(in[i]);
+            else 
+            {
+                vector<int>&last = ans.back();
+                int &v = last[1];
+                if(in[i][0]<=v) v = max(v,in[i][1]);
+                else ans.push_back(in[i]);
+            }
+        }
+        return ans;
+    }
+};
