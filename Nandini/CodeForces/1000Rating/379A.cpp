@@ -6,7 +6,7 @@ int main()
     cin >> a >> b;
     int sum=a;
     int n = a;
-    while(n>b)
+    while(n>=b)
     {
         sum+= n/b;
         n = n/b + n%b;
