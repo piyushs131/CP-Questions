@@ -8,33 +8,33 @@ int main()
     cin >> t;
     while (t--)
     {
-        ll n, k, q, c, count = 0,num,result=0;
-        cin >> n >> k >> q;
-        vector<int> v;
-        for (int i = 0; i < n; i++)
+        string s,t;
+        int count =0;
+        cin >> s >> t;
+        int n = s.size(),m = t.size();
+        if(m==1)
         {
-            cin >> c;
-            v.push_back(c);
-        }
-        for(int i=0 ; i<n ; i++)
-        {
-            if(v[i]<=q)
-            count++;
+            if(t[0]=='a')
+            cout << 1 << endl;
             else 
             {
-                if(count>=k)
-                {
-                    num = count-k+1;
-                    result += num*(num+1) /2 ;
-                }
-                count =0;
+                cout << n*2 << endl;
             }
         }
-        if(count!=0 && count>=k)
+        else 
         {
-            num = count-k+1;
-            result += num*(num+1) /2 ;
+            for(int i=0 ;i <m ; i++)
+            if(t[i]=='a')
+            count++;
+
+            if(count>0)
+            {
+                cout << -1 << endl;
+            }
+            else 
+            {
+                cout << 2*n << endl; 
+            }
         }
-        cout << result << endl;
     }
 }
