@@ -22,18 +22,3 @@ void solve(){
 	}
 }
 
-int main() {
-   
-    int t;
-    cin >> t;
-    while (t--)
-    {
-	solve();
-     cin >> n;
-cout << a[n] << '\n';
-
-       
-    }
-    return 0;
-}
-
