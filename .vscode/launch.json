@@ -8,8 +8,8 @@
       "args": [],
       "stopAtEntry": false,
       "externalConsole": true,
-      "cwd": "c:/Users/hp/OneDrive/Desktop/All Codes+coding lang/CP-Questions",
-      "program": "c:/Users/hp/OneDrive/Desktop/All Codes+coding lang/CP-Questions/build/Debug/outDebug",
+      "cwd": "c:/Users/ASUS/OneDrive/Desktop/cpquestions/CP-Questions",
+      "program": "c:/Users/ASUS/OneDrive/Desktop/cpquestions/CP-Questions/build/Debug/outDebug",
       "MIMode": "gdb",
       "miDebuggerPath": "gdb",
       "setupCommands": [
