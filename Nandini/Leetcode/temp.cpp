@@ -1,27 +1,32 @@
 #include<bits/stdc++.h>
 using namespace std;
-class Solution
+int findingMinimumCOst(vector<int> &days,vector<int> cost,int ind,vector<vector<int>> dp,int cost)
 {
-    public :
-    static bool cmp(pair<int,int> a,pair<int,int> b)
+    if(i==a.size() && j==b.size() && k==c.size())
+    return true;
+
+    if(dp[i][j][k]!=-1) return dp[i][j][k];
+
+    if(c[k]==a[i])
     {
-        return a.second<b.second;
+        return findingMinimumCOst(i+1,j,k+1,a,b,c,dp);
     }
-  int maxActivities(vector<pair<int,int> > &v)
-  {
-     int ans =1;
-     sort(v.begin(),v.end(),cmp);
-     for(int i=0 ; i<v.size()-1 ; i++)
-     {
-        if(v[i].second<v[i+1].first)
-        ans++;
-     }
-     return ans;
-  }
-};
+    else if()
+
+
+}
+bool stringCheck(string a,string b,string c)
+{
+    vector<vector<vector<int> > > dp(a.size(),vector<vector<int> > (b.size(),vector<int> (c.size(),-1)));
+    vector<vector<int> > dp2(a.size(),vector<int> (b.size(),-1));
+}
 int main()
 {
-    vector<pair<int,int> > v{{3,4},{6,8},{1,2},{4,9},{10,12},{8,12}};
-    Solution obj;
-    cout << "Max number of acitivites : " << obj.maxActivities(v);
+    string a,b,c;
+    cout << "ENter string a";
+    cin >> a >> b >> c;
+    if(stringCheck(a,b,c))
+    cout << "Valid";
+    else 
+    cout << "INvalid;"
 }
