@@ -31,6 +31,7 @@ int main()
         cout << endl;
         max = (2 * n) - 1;
         min = 1;
+        // minimum to maximum
         for (int i = 0; i < n;)
         {
             if (i < n)
