@@ -1,7 +1,6 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// Function to calculate the greatest common divisor (GCD) of two numbers
 int gcd(int a, int b) {
     if (b == 0)
         return a;
@@ -14,7 +13,6 @@ void solve() {
     vector<int> arr(n+1);
     int check = 0;
 
-    // Reading the array elements
     for (int i = 1; i <= n; i++) {
         cin >> arr[i];
         if (arr[i] == 1) {
@@ -22,13 +20,11 @@ void solve() {
         }
     }
 
-    // Calculate the GCD of the entire array
     int val = arr[1];
     for (int i = 2; i <= n; i++) {
         val = gcd(val, arr[i]);
     }
 
-    // If there's a 1 in the array or the GCD of the entire array is 1, the cost is 0
     if (check == 1 || val == 1) {
         cout << 0;
         return;
@@ -36,7 +32,6 @@ void solve() {
 
     int cost = n;
 
-    // Check the minimum cost by iterating from the end of the array
     for (int i = n; i > 0; i--) {
         int x = gcd(i, arr[i]);
         int y = gcd(x, val);
