@@ -1,37 +1,65 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long
-
-int gcd(int a, int b)
-{
-    if (b == 0)
-        return a;
-    return gcd(b, a % b);
-}
-
-int lcm(int a, int b)
-{
-    return (a / gcd(a, b)) * b;
-}
-
 void solve()
 {
-    ll n;
+    int n;
     cin >> n;
-    ll a=1;
-
-    for (ll i = 2; i* i <= n; ++i)
+    int a[n];
+    unordered_map<int, int> mp;
+    unordered_map<int, int> cp;
+    for (int i = 0; i < n; i++)
     {
-        if(n%i==0)
-        {
-            a = n/i;
-            break;
-        }
+        cin >> a[i];
+        mp[a[i]] = 1;
+    }
+    int b[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        cin >> b[i];
+        cp[b[i]] = 1;
     }
 
-    cout << a << " " << n-a;
-}
+    int count = 1;
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (a[i] == a[i + 1])
+        {
+            count++;
+        }
+        else
+        {
+            count = 1;
+        }
+        int x = mp[a[i]];
+        mp[a[i]] = max(x, count);
+    }
 
+    count = 1;
+    for (int i = 0; i < n - 1; i++)
+    {
+        if (b[i] == b[i + 1])
+        {
+            count++;
+        }
+        else
+        {
+            count = 1;
+        }
+        int x = cp[b[i]];
+        cp[b[i]] = max(x, count);
+    }
+    int ans = 0;
+    for (auto c : mp)
+    {
+        ans = max(ans, c.second + cp[c.first]);
+    }
+    for (auto c : cp)
+    {
+        ans = max(ans, c.second + mp[c.first]);
+    }
+    cout << ans << endl;
+}
 int main()
 {
     int t;
@@ -39,7 +67,7 @@ int main()
     while (t--)
     {
         solve();
-        cout << endl;
     }
+
     return 0;
 }
