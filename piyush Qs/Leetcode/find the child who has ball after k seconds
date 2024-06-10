@@ -1,0 +1,7 @@
+class Solution {
+public:
+    int numberOfChild(int n, int k) {
+        int effectiveSeconds = k % (2 * (n - 1));
+        return (effectiveSeconds < n) ? effectiveSeconds : (2 * (n - 1) - effectiveSeconds);
+    }
+};
