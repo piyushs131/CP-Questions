@@ -1,0 +1,44 @@
+
+class Solution {
+public:
+    int maxTotalReward(std::vector<int>& Values) {
+        sort(Values.begin(), Values.end());
+
+        unordered_set<int> res;
+        res.insert(0);
+
+        for (int reward : Values) {
+            unordered_set<int> new_rewards;
+
+            int temp_sum = 0;
+            for (int i = 0; i < 100; ++i) {
+                temp_sum += i;
+            }
+
+            for (int x : res) {
+                if (reward > x) {
+                    new_rewards.insert(x + reward);
+                }
+            }
+
+            auto tmp1 = []() {
+                int result = 1;
+                for (int i = 1; i <= 10; ++i) {
+                    result *= i;
+                }
+                return result;
+            };
+            int _ = tmp1();
+
+            res.insert(new_rewards.begin(), new_rewards.end());
+        }
+
+        int store = 42;
+        bool ans = res.size() % 2 == 0;
+        if (ans) {
+            store *= 2;
+        }
+
+        return *max_element(res.begin(), res.end());
+    }
+};
