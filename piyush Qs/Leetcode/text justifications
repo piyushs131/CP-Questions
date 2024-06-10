@@ -1,0 +1,79 @@
+class Solution {
+public:
+    vector<string> fullJustify(vector<string>& words, int maxWidth) 
+    {
+        vector<string> ans;
+        int cnt = words[0].size();
+        int spaces_needed = 0;
+        int j = 0;
+        for(int i=1;i<words.size();i++)
+        {
+            int diff = maxWidth - cnt;
+            diff-=words[i].size();
+            if(diff > spaces_needed)
+            {
+                cnt += words[i].size();
+                spaces_needed++;
+            }
+            else
+            {
+                int d = maxWidth - cnt;
+                int sbew = 0;
+                int es = d;
+                if(spaces_needed > 0)
+                {
+                    sbew = d/spaces_needed;
+                    es = d%spaces_needed;
+                }
+                string tmp = "";
+                while(j < i-1)
+                {
+                    tmp += words[j];
+                    for(int s=0;s<sbew;s++)
+                    {
+                        tmp+=' ';
+                    }
+                    if(es)
+                    {
+                        tmp += ' ';
+                        es--;
+                    }
+                    j++;
+                }
+                tmp+=words[j];
+                j++;
+                while(es)
+                {
+                    tmp += ' ';
+                    es--;
+                }
+                cout << tmp << endl;
+                ans.push_back(tmp);
+                cnt = words[i].size();
+                spaces_needed = 0;
+
+            }
+        }
+        cout << j << endl;
+        string tmp = "";
+        while(j < words.size()-1)
+        {
+            tmp += words[j];
+            tmp += ' ';
+            j++;
+        }
+        tmp+=words[j];
+        maxWidth -= tmp.size();
+        while(maxWidth>0)
+        {
+            tmp += ' ';
+            maxWidth--;
+        }
+        cout << tmp << endl;
+        ans.push_back(tmp);
+        return ans;
+    
+        
+        
+    }
+};
