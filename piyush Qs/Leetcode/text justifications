@@ -67,7 +67,7 @@ public:
         while(maxWidth>0)
         {
             tmp += ' ';
-            maxWidth--
+            maxWidth--;
         }
         cout << tmp << endl;
         ans.push_back(tmp);
