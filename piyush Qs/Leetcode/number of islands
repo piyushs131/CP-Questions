@@ -26,7 +26,7 @@ public:
                             continue;
                         }
                         
-                        grid[x][y] = '0'; // mark as visited
+                        grid[x][y] = '0'; 
                         
                         for (auto& dir : directions) {
                             int nx = x + dir.first;
