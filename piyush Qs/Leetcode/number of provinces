@@ -1,0 +1,24 @@
+class Solution {
+public:
+    void dfs(int i, vector<int>&visited, std::vector<std::vector<int>>& roads) {
+    visited[i] = 1;
+    for (int j=0;j<roads[i].size();j++) {
+        if(roads[i][j]==0)continue;
+        if (visited[j]==0) {
+            dfs(j, visited, roads);
+        }
+    }
+}
+    int findCircleNum(vector<vector<int>>& roads) {
+        int n=roads.size();
+        vector<int>visited(n,0); 
+    int ans = 0;
+    for (int i = 0; i < n; i++) {
+        if (visited[i]==0) {
+            ans++;
+            dfs(i, visited, roads);
+        }
+    }
+    return ans;
+    }
+};
