@@ -1,0 +1,47 @@
+class Solution {
+public:
+    int ladderLength(string bw, string ew, vector<string>& wl) {
+        
+        unordered_set<string>ps;
+        int n = wl.size();
+        for ( int i = 0; i < n; i++){
+            ps.insert(wl[i]);
+        }
+
+        queue<string>q;
+        q.push(bw);
+
+        int res = 1;
+
+        while (!q.empty()){
+            int cnt = q.size();
+            for ( int i = 0; i < cnt; i++){
+                string word = q.front();
+                q.pop();
+
+                if ( word == ew){
+                    return res;
+                }
+
+                ps.erase(word);
+
+                for ( int j = 0; j < word.size(); j++){
+                    char c = word[j];
+                    for ( int k = 0; k < 26; k++){
+                        word[j] = k +'a';
+
+                        if ( ps.find(word) != ps.end()){
+                            q.push(word);
+                            ps.erase(word);
+                        }
+                        word[j] = c;
+                    }
+                }
+            }
+
+            res++;
+                    }
+
+                    return 0;
+    }
+};
