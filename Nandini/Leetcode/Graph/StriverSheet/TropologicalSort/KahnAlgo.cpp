@@ -3,18 +3,6 @@ using namespace std;
 class Solution
 {
 	public:
-	void dfs(stack<int> &st,vector<bool> &vis,vector<int> adj[],int node)
-	{
-	    vis[node] = true;
-	    for(auto it : adj[node])
-	    {
-	        if(!vis[it])
-	        {
-	            dfs(st,vis,adj,it);
-	        }
-	    }
-	    st.push(node);
-	}
 	vector<int> topoSort(int V, vector<int> adj[]) 
 	{
 	    vector<int> ans;
