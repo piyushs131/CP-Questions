@@ -3,7 +3,7 @@ using namespace std;
 #define ll long long
 void solve()
 {
-   int n;
+   ll n;
    cin >> n;
    if(n>14 && n%14>=1 && n%14<=6)cout << "Yes" << endl;
    else cout << "No" << endl;    
