@@ -3,22 +3,32 @@ using namespace std;
 #define ll long long
 void solve()
 {
-    int n;
-    cin >> n;
-    if(n==1)
+    int n, d;
+    cin >> n >> d;
+    vector<int> arr(n);
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    sort(arr.begin(), arr.end());
+    int p1 = 0, p2 = n - 1,ans =0;
+    int num = arr[p2];
+    while (p1 < p2)
     {
-        cout << -1 << endl;
-        return;
+        
+        num = num + arr[p2];
+        p1++;
+        if (d >= num)
+            continue;
+        else
+        {
+            ans++;
+            p2--;
+            num = arr[p2];
+        }
     }
-    cout << 2 ;
-    for(int i=0 ; i<n-1 ; i++)
-    cout << 3;
-    cout << endl;
+    cout << ans;
 }
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--) 
         solve();
 }
