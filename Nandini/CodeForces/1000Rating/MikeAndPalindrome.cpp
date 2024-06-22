@@ -13,7 +13,7 @@ void solve()
         if(s[i]!=s[n-i-1])
         count++;
     }
-    if(count==1) 
+    if(count==1 || (count==0 && n%2!=0)) 
     {
         cout << "YES";
     }
