@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main(){
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int n,q;
+        cin>>n>>q;
+        int arr[n];
+        for(int i=0;i<n;i++) cin>>arr[i];
+        map<int,int>mp;
+        int j=0;
+        for(int i=1;i<n;i++)
+        {
+            if(arr[i]>arr[j]) j=i;
+            mp[j+1]++;
+        }
+        mp[j+1]=INT_MAX;
+        for(int i=0;i<q;i++)
+        {
+            int j,k;
+            cin>>j>>k;
+            k-=max(j-2,0);
+            cout<<max(min(mp[j],k),0)<<endl;
+        }
+    }
+}
