@@ -18,11 +18,7 @@ void solve()
    sort(shops.begin(),shops.end());
    for(int i=0 ; i<q ; i++)
    {
-       int j=0,ans=0;
-       while(j<n && coins[i]>=shops[j])
-       {
-         ans++,j++;
-       }
+       int ans = upper_bound(shops.begin(), shops.end(), coins[i]) - shops.begin();
        cout << ans << endl;
    }
 }
