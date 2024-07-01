@@ -20,7 +20,7 @@ public:
                     if(ans[child].size()==0||ans[child].back()!=par){
                         ans[child].push_back(par);
                         q.push(child);
-                    }
+                    
                 }
             }
         }
