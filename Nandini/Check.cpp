@@ -1,35 +1,61 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long int
-void solve()
-{
-    ll n, k, sum = 0, b;
+
+void solve() {
+    int n, k;
     cin >> n >> k;
-    vector<ll> v, pre(n + 1);
-    for (ll i = 0; i < n; i++)
-    {
-        cin >> b;
-        v.push_back(b);
+    vector<vector<int>> grid(n, vector<int>(n, 0));
+    
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cin >> grid[i][j];
+        }
     }
-    ll maxi = 0;
-    sort(v.begin(), v.end());
-    for (ll i = 0; i < n; i++)
+    if(n==1)
     {
-        sum += v[i];
-        pre[i + 1] = pre[i] + v[i];
+        cout << "YES" << endl;
+        return;
     }
-    for (ll i = 0; i <= k; i++)
+    
+    int count = k;
+    bool f = true;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (grid[i][j] != grid[n - i - 1][n - j - 1]) 
+            { 
+               if(count==0)
+               {
+                 f = false;
+                 break;
+               }  
+               count--;
+               grid[i][j] = grid[n - i - 1][n - j - 1];
+            }
+        }
+        if(f==false)  break;
+    }
+
+    int ct =0;
+    for(int i=0 ; i<n ; i++)
     {
-        maxi = max(maxi, pre[n - i] - pre[2 * (k - i)]);
+        for(int j=0 ; j<n ;j ++)
+        {
+            if(grid[i][j]!=grid[n-i-1][n-j-1])
+            ct++;
+        }
     }
-    cout << maxi << endl;
+    if(ct!=0) cout << "NO" << endl;
+    else {
+        if(count%2==0) cout << "YES" << endl;
+        else cout << "NO" << endl;
+    }
 }
-int main()
-{
+
+int main() {
     int t;
     cin >> t;
-    while (t--)
-    {
+    while (t--) {
         solve();
     }
     return 0;
