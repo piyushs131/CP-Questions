@@ -1,0 +1,58 @@
+#include <iostream>
+#include <vector>
+
+ 
+using namespace std;
+ 
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m, k;
+        cin >> n >> m >> k;
+        string res;
+        cin >> res;
+ 
+        vector<vector<bool>> marks(n + 2, vector<bool>(k + 1, false));
+ 
+        function<bool(int, int)> dfs = [&](int may, int july) -> bool {
+            if (may == n + 1) return true;
+            if (marks[may][july]) return false;
+ 
+            marks[may][july] = true;
+ 
+            for (int step = 1; step <= m; step++) {
+                int qs = may + step;
+                if (qs >= n + 2) break;
+ 
+                if (qs == n + 1 || (qs <= n && res[qs - 1] == 'L')) {
+                    if (dfs(qs, july)) {
+                        return true;
+                    }
+                }
+            }
+ 
+            if (may < n && res[may] == 'W' && july > 0) {
+                int qs = may + 1;
+                if (qs <= n && res[qs - 1] != 'C') {
+                    if (dfs(qs, july - 1)) {
+                        return true;
+                    }
+                } else if (qs == n + 1) {
+                    return true;
+                }
+            }
+ 
+            return false;
+        };
+ 
+        bool result = dfs(0, k);
+ 
+        if (result) {
+            cout << "YES" << endl;
+        } else {
+            cout << "NO" << endl;
+        }
+    }
+    return 0;
+}
