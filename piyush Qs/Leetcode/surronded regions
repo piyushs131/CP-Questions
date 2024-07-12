@@ -15,7 +15,7 @@ public:
         }
         for (int i : {0, rows - 1}) {
             for (auto j = 0; j < cols; j++) {
-                if (board[i][j] == 'O') {
+                if (board[i][j] == '') {
                     board[i][j] = '#';
                     q.push({i, j});
                 }
