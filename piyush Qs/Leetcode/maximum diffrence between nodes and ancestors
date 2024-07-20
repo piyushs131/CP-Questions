@@ -1,0 +1,35 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    void maxDiff(int& ans, int maxi, int mini, TreeNode* node) {
+        if ( node == NULL){
+            return;
+        }
+ 
+        maxi = max(maxi, node -> val);
+        mini = min(mini, node -> val);
+
+        ans = max({ans, abs( maxi - node -> val), abs(mini - node -> val)});
+
+        maxDiff (ans, maxi, mini, node -> left);
+        maxDiff(ans, maxi, mini, node->right);
+
+    }
+
+    int maxAncestorDiff(TreeNode* root) {
+    int ans = 0, maxi = root->val, mini = root->val;
+    maxDiff(ans, maxi, mini, root);
+    
+            return ans;
+    }
+};
