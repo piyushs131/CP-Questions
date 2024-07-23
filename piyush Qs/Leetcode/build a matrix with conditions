@@ -58,3 +58,62 @@ private:
         order.push_back(node);
     }
 };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+int n, k;
+cin >> n,k;
+
+int t = n;
+int ans = n*2 - 2;
+
+if ( k == 0){
+    cout << 0 << endl;
+
+    return;
+}
+
+
+if ( k <= n){
+    cout << 1 << endl;
+    return;
+}
+
+
+int cnt = 1;
+sum = n;
+
+for (int i = 0; i < ans/2; i++){
+    t--;
+
+    for ( int j = 0; j < 2; j++){
+        cnt++, sum +=t;
+
+        if ( sum >= k){
+            cout << cnt << endl;
+            return;
+        }
+    }
+}
