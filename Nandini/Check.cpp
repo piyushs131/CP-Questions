@@ -3,24 +3,33 @@ using namespace std;
 #define ll long long
 void solve()
 {
-	int n;
-	cin >> n;
-	vector<int> v(n);
-	int maxi =0;
-	for(int i=0 ; i<n ; i++) {
-		cin >> v[i];
-	    maxi = max(maxi,v[i]);
+	int n,k;
+	cin >> n >> k;
+
+    vector<vector<int> > v(n,vector<int>(n,0));
+	for(int i=0 ;i <n ; i++)
+	{
+		string c;
+		cin >> c;
+		int j=0;
+		for(int h=0 ; h<c.size() ; h++)
+		v[i][j++] = c[h]-'0';
+
+
+	}
+    int i=0;
+	while(i<n)
+	{
+        int j=0; 
+		while(j<n)
+		{
+			cout << v[i][j] ;
+			j+=k;
+		}
+		cout << endl;
+		i+=k;
 	}
 
-	cout << n << endl;
-	for(int i=0 ; i<n ; i++)
-	{
-		ll deg = 1;
-		while(deg<v[i])
-		deg*=2;
-		
-		cout << i+1 << " " << deg-v[i] << endl; 
-	}
 }
 
 int main()
