@@ -1,47 +1,25 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define ll long long
-
-void solve() {
-    ll n, k;
-    cin >> n >> k;
-    vector<ll> in(n);
-    vector<ll> c(n);
-
-    for (ll i = 0; i < n; i++) {
-        cin >> in[i];
+void solve()
+{
+	ll n,x,ans=0;
+    cin >> n >> x;
+    for (int a = 1; a <= x && a<=n; ++a) {
+       for(ll b = 1; a*b<=n && a+b<=x ; b++)
+       {
+          const ll c1 = x-a-b,c2 = max(0ll,n-a*b)/(a+b);
+          ans+=min(c1,c2);
+       }
     }
 
-    for (ll i = 0; i < n; i++) {
-        cin >> c[i];
-    }
-
-    // Priority queue to keep track of the maximum element
-    priority_queue<pair<ll, ll>> pq;
-
-    for (ll i = 0; i < n; i++) {
-        pq.push({in[i], c[i]});
-    }
-
-    ll ans = 0;
-    while (k--) {
-        auto p = pq.top();
-        pq.pop();
-
-        ans += p.first;
-
-        ll new_value = max(0LL, p.first - p.second);
-        pq.push({new_value, p.second});
-    }
-
-    cout << ans << endl;
+	cout << ans << endl;
 }
 
-int main() {
-    int t;
-    cin >> t;
-    while (t--)
-        solve();
-
-    return 0;
+int main()
+{
+	int t;
+	cin >> t;
+	while (t--)
+		solve();
 }
