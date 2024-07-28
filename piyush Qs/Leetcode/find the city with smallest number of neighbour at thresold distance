@@ -18,7 +18,7 @@ public:
 
             while(!pq.empty()) {
                 auto [wt, node] = pq.top();
-                pq.pop();
+                pq.pop()
 
                 for(const auto& it1: adj[node]) {
                     auto [adjNode, edgeWt] = it1;
