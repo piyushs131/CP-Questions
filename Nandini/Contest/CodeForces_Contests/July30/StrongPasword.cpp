@@ -37,6 +37,13 @@ void solve()
             ans+=s[i];
         }
     }
+    if(count==1)
+    {
+        if(ans[ans.size()-1]!='w')
+            ans+='w';
+            else 
+            ans+='k';
+    }
     cout << ans << endl;    
 }
 
