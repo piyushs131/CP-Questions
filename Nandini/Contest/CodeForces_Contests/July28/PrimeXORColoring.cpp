@@ -2,6 +2,7 @@
 using namespace std;
 #define lli long long int
 
+// answers of n<=6 with first element as size
 vector<vector<int> > smallRes = {
     {1,1},
     {2,1,2},
