@@ -1,45 +1,45 @@
 #include <bits/stdc++.h>
 using namespace std;
+#define lli long long int
 
-class Solution {
-public:
-    int minTaps(int n, vector<int>& ranges) 
-    {
-        vector<int> maxReach(n + 1, 0);
-        
-        // Calculate the maximum right reach for each tap
-        for (int i = 0; i <= n; ++i) 
-        {
-            int left = max(0, i - ranges[i]);
-            int right = min(n, i + ranges[i]);
-            maxReach[left] = max(maxReach[left], right);
-        }
-        
-        int taps = 0;
-        int currentEnd = 0;
-        int farthest = 0;
-        
-        for (int i = 0; i <= n; ++i) 
-        {
-            if (i > farthest) 
-            {
-                // If the current position is beyond the farthest reach, return -1
-                return -1;
-            }
-            farthest = max(farthest, maxReach[i]);
-            if (i == currentEnd) 
-            {
-                // When we reach the current end, we need to use another tap
-                taps++;
-                currentEnd = farthest;
-            }
-            if (currentEnd >= n) 
-            {
-                // If the current end reaches or exceeds n, return the number of taps
-                return taps;
-            }
-        }
-        
-        return -1;
-    }
+vector<vector<int> > smallRes = {
+    {1,1},
+    {2,1,2},
+    {2,1,2,2},
+    {3,1,2,2,3},
+    {3,1,2,2,3,3},
+    {4,1,2,2,3,3,4},
 };
+ 
+void solve() {
+    // odd-odd -> XOR-2 prime so edge
+    // even-even-> XOR-2 prime so edge
+    lli n;
+    cin>>n;
+    if(n<=6)
+    {
+        const auto cur=smallRes[n-1];
+        cout<<cur[0]<<endl;
+        for(lli j=1;j<=n;j++)
+            cout<<cur[j]<<" \n"[j==n];
+        return;
+    }
+ 
+    cout<<4<<endl;
+    for(lli j=0;j<n;j++)
+    {
+        const lli r=j%4;
+        cout<<r+1<<" \n"[j+1==n];
+    }
+}
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        solve();
+    }
+}
