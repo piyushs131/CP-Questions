@@ -1,0 +1,25 @@
+class SeatManager {
+public:
+
+set<int> seats;
+int i= 0;
+
+    SeatManager(int n) {
+        for ( int i = 0;i < n; i++){
+            seats.insert(i+1);
+        }
+        
+    }
+    
+    int reserve() {
+
+        int c = *(seats.begin());
+        seats.erase(c);
+        return c;
+        
+    }
+    
+    void unreserve(int seatNumber) {
+         seats.insert(seatNumber);
+    }
+};
