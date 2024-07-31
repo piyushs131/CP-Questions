@@ -22,4 +22,4 @@ int i= 0;
     void unreserve(int seatNumber) {
          seats.insert(seatNumber);
     }
-};
+}
