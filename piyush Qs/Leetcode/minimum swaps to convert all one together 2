@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int minSwaps(vector<int>& nums) {
+        int k = accumulate(nums.begin(), nums.end(), 0);
+        int n = nums.size();
+        int ans = 0, count_1 = 0;
+        
+        for (int i = 0; i < k; i++) {
+            count_1 += nums[i];
+        }
+        
+        ans = count_1;
+        
+        for (int i = k; i < n + k; i++) {
+            count_1 += nums[i % n];
+            count_1 -= nums[(i - k + n) % n];
+            ans = max(ans, count_1);
+        }
+
+        return k - ans;
+    }
+};
