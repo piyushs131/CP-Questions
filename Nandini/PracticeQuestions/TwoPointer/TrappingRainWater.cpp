@@ -26,3 +26,19 @@ public:
       return ans;
     }
 };
+
+class Solution2 {
+public:
+    int trap(vector<int>& ht) 
+    {
+      int l=0,r=ht.size()-1,left =INT_MIN,right = INT_MIN;  
+      int ans =0;
+      while(l<r)
+      {
+        left = max(left,ht[l]);
+        right = max(right,ht[r]);
+        ans+= (left<right)? left-ht[l++]:right-ht[r--];
+      }
+      return ans;
+    }
+};
