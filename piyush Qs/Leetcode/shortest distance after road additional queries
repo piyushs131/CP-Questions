@@ -1,0 +1,64 @@
+class Solution {
+public:
+    vector<int> shortestDistanceAfterQueries(int n, vector<vector<int>>& queries) {
+        vector<vector<pair<int, int>>> cnt(n);
+        for (int i = 0; i < n - 1; ++i) {
+            cnt[i].push_back(make_pair(i + 1, 1));
+        }
+
+        vector<int> dist(n, INT_MAX);
+        priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+        pq.push(make_pair(0, 0));
+        dist[0] = 0;
+
+        while (!pq.empty()) {
+            auto [d, u] = pq.top();
+            pq.pop();
+
+            if (d > dist[u]) continue;
+
+            for (const auto& it : cnt[u]) {
+                int v = it.first;
+                int wt = it.second;
+                int ds = d + wt;
+
+                if (ds < dist[v]) {
+                    dist[v] = ds;
+                    pq.push(make_pair(ds, v));
+                }
+            }
+        }
+
+        vector<int> ans;
+
+        for (const auto& itt : queries) {
+            int ui = itt[0];
+            int vi = itt[1];
+            cnt[ui].push_back(make_pair(vi, 1));
+
+            pq.push(make_pair(dist[ui], ui));
+
+            while (!pq.empty()) {
+                auto [d, u] = pq.top();
+                pq.pop();
+
+                if (d > dist[u]) continue;
+
+                for (const auto& it : cnt[u]) {
+                    int v = it.first;
+                    int wt = it.second;
+                    int ds = d + wt;
+
+                    if (ds < dist[v]) {
+                        dist[v] = ds;
+                        pq.push(make_pair(ds, v));
+                    }
+                }
+            }
+
+            ans.push_back(dist[n - 1]);
+        }
+
+        return ans;
+    }
+};
