@@ -3,7 +3,7 @@ using namespace std;
 #define lli long long int
 void solve()
 {
-    
+     
 }
 int main() 
 {
