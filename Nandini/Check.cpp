@@ -3,22 +3,33 @@ using namespace std;
 #define ll long long int
 void solve()
 {
-   int a1,a2,b1,b2;
-   cin >> a1 >> a2 >> b1 >> b2;
-   int count1 =0;
-   if(a1>b1) count1++;
-   if(a1>b2) count1++;
-   if(a2>b1) count1++;
-   if(a2>b2) count1++;
-
-   if(count1==3)
+   string s,t;
+   cin >> s >> t;
+   int i=0,j=0;
+   while(i<s.size() && j<t.size())
    {
-    cout << 2 << endl;
+    if(s[i]==t[j])
+    {
+        i++,j++;
+    }
+    else if(s[i]=='?'){
+        s[i] = t[j];
+        i++;
+        j++;
+    }
+    else i++;
    }
-   else if(count1==1 || count1==2 || count1==0) {
-    cout << 0 << endl;
+   if(i>=s.size() && j<t.size()){
+    cout << "NO" << endl;
+    
+   }else {
+    for(int i=0 ;i<s.size() ; i++)
+    {
+        if(s[i]=='?') s[i] ='a';
+    }
+    cout << "YES" << endl;
+    cout << s << endl;
    }
-   else cout << 4 << endl;
 }
 int main() 
 {
