@@ -1,0 +1,15 @@
+#include <iostream>
+using namespace std;
+ 
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int x, y, k;
+        cin >> x >> y >> k;
+        int min_x_k = (x < k) ? x : k;
+        int min_y_k = (y < k) ? y : k;
+        cout << min_x_k * min_y_k << endl;
+    }
+    return 0;
+}
