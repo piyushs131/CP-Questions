@@ -5,16 +5,20 @@ void solve()
 {
     int n;
     cin >> n;
-    vector<int> arr(n);
-    for (int i = 0; i < n; i++)
-        cin >> arr[i];
-    for(int i=1 ; i<n ; i++) cout << arr[i] << " ";
-    cout << arr[0] << endl;
+    vector<ll> v(n);
+    for(int i=0 ; i<n ; i++) cin >> v[i];
+    string s;
+    cin >> s;
+
+    int left =0 ,right = n-1;
+    while(left <n && v[left]!='L') left++;
+    while(right>=0 && v[right]!='R') right--;
 }
 int main()
 {
     int t;
     cin >> t;
-    while (t--)
+    while (t--){
         solve();
+    }
 }
