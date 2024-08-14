@@ -1,23 +1,63 @@
-class KthLargest {
-public:
-    priority_queue<int,vector<int>,greater<int>> pq;
-    int sz;
-    KthLargest(int k, vector<int>& nums) {
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
 
-        sz = k;
+const int MAX_NUM = 1000; 
 
-        for(int i=0;i<nums.size();i++){
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
 
-            pq.push(nums[i]);
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int ss;
+        cin >> ss;
+        vector<int> template_array(ss);
+        for (int& num : template_array) {
+            cin >> num;
+        }
+
+        int n;
+        cin >> n;
+
+        while (n--) {
+            string s;
+            cin >> s;
+
+            if (s.length() != ss) {
+                cout << "NO\n";
+                continue;
+            }
+
+            char res[MAX_NUM] = {0}; 
+            int ans[256] = {-1}; 
+            bool res = true;
+
+            for (int i = 0; i < ss; ++i) {
+                int num = template_array[i];
+                char ch = pattern[i];
+
+                if ((res[num] && res[num] != ch) ||
+                    (ans[ch] != -1 && ans[ch] != num)) {
+                    res = false;
+                    break;
+                }
+
+                res[num] = ch;
+                ans[ch] = num;
+            }
+
+            cout << (res ? "YES\n" : "NO\n");
         }
     }
-    
-    int add(int val) {
 
-        pq.push(val);
-        while(pq.size()>sz){
-            pq.pop();
-        }
-        return pq.top();
-    }
-};
+    return 0;
+}
+
+
+
+
