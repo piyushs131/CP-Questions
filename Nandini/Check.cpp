@@ -1,40 +1,55 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define ll long long int
-#define vi vector<ll> 
-void solve()
-{
-    ll n,m,k,w;
-    cin >> n >> m >> k >> w;
-    vi a(w);
-    for(auto &x: a) cin >> x;
 
-    vi b;
-    for(ll i=1 ; i<=n ; i++)
-    {
-        for(ll j=1 ; j<=m ; j++)
-        {
-          ll lx = max(1LL,i-k+1), ly = max(1LL,j-k+1);
-          ll rx = min(i,n-k+1), ry = min(j,m-k+1);
-          ll count = (rx-lx+1) * (ry-ly+1);
-          b.push_back(count);
+#define FOR(i, n) for (int i = 0; i < (n); ++i)
+#define ALL(x) begin(x), end(x)
+#define SIZE(x) ((int)(x).size())
+#define endl "\n"
+
+using ll = long long;
+using vi = vector<ll>;
+using pii = pair<ll, ll>;
+
+const ll INF = 0xFFFFFFFFFFFFFFFLL;
+
+bool check_validity(const string &s, const vi &arr, int n) {
+    map<char, ll> char_to_int;
+    map<ll, char> int_to_char;
+
+    FOR(j, n) {
+        char c = s[j];
+        ll v = arr[j];
+        if (char_to_int.count(c) && char_to_int[c] != v) return false;
+        if (int_to_char.count(v) && int_to_char[v] != c) return false;
+        char_to_int[c] = v;
+        int_to_char[v] = c;
+    }
+    return true;
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    ll T;
+    cin >> T;
+    while (T--) {
+        ll n;
+        cin >> n;
+        vi arr(n);
+        FOR(i, n) cin >> arr[i];
+
+        ll m;
+        cin >> m;
+        while (m--) {
+            string s;
+            cin >> s;
+            if (SIZE(s) != n) {
+                cout << "NO" << endl;
+                continue;
+            }
+            cout << (check_validity(s, arr, n) ? "YES" : "NO") << endl;
         }
     }
-
-    sort(a.begin(),a.end());
-    reverse(a.begin(),a.end());
-    sort(b.begin(),b.end());
-    reverse(b.begin(),b.end());
-
-    ll ans =0;
-    for(int i=0 ; i<w ; i++) ans+= a[i]*b[i];
-    cout << ans << endl;
-}
-int main()
-{
-    ll t;
-    cin >> t;
-    while (t--){
-        solve();
-    }
+    return 0;
 }
