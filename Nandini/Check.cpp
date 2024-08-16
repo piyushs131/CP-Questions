@@ -1,31 +1,36 @@
 #include <bits/stdc++.h>
 using namespace std;
-void solve()
-{
-    int n;
-    cin >> n;
-    vector<int> v(n);
-    for (int i = 0; i < n; i++)
+#define ll long long
+#define all(x) begin(x), end(x)
+void solve() {
+    ll n, k;
+    cin >> n >> k;
+    vector<ll> v(n);
+    
+    for (int i = 0; i < n; i++) 
         cin >> v[i];
 
-    if(n==2)
-    {
-       if(abs(v[0]-v[1])<2)
-       {
-        cout << "NO" << endl;
-       }
-       else cout << "YES" << endl;
+    sort(v.rbegin(), v.rend());
+    ll ans =0;
+     for (int i = 0; i < n; i++) {
+       if(i&1) ans-=v[i]; 
+       else ans+=v[i];
     }
-    else 
+
+    vector<ll> b;
+    for(int i=1 ; i<n ; i+=2)
     {
-        cout << "NO" << endl;
-        return;
+        b.push_back(v[i-1]-v[i]);
     }
+    
+    ans-=min(k,accumulate(all(b),0LL));
+    cout << abs(ans) << endl;
 }
-int main()
-{
+
+int main() {
     int t;
     cin >> t;
-    while (t--)
+    while (t--) {
         solve();
+    }
 }
