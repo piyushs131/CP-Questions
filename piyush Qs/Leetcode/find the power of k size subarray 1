@@ -1,0 +1,18 @@
+class Solution {
+public:
+    vector<int> resultsArray(const vector<int>& nums, int k) {
+        vector<int> res;
+        int n = nums.size();
+
+        for (int i = 0; i <= n - k; ++i) {
+            bool flag = adjacent_find(nums.begin() + i, nums.begin() + i + k, 
+                [](int a, int b) { return b != a + 1; }) == nums.begin() + i + k;
+
+            int cnt = *max_element(nums.begin() + i, nums.begin() + i + k);
+
+            res.push_back(flag ? cnt : -1);
+        }
+
+        return res;
+    }
+};
