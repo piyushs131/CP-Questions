@@ -1,0 +1,86 @@
+#include <iostream>
+#include <vector>
+#include <stack>
+#include <utility>
+
+using namespace std;
+
+int q(int a, int b) {
+    cout << "? " << a << " " << b << endl;
+    int l;
+    cin >> l;
+    return l;
+}
+
+void graph(int a, int b, vector<int> &vis, vector<pair<int, int>> &res) {
+    stack<pair<int, int>> stk;
+    stk.push(make_pair(a, b));
+
+    while (!stk.empty()) {
+
+        pair<int, int> p = stk.top();
+        stk.pop();
+
+        int u = p.first;
+        int v = p.second;
+
+        int x = q(u, v);
+        if (x == u || x == v) {
+
+            res.push_back(make_pair(u, v));
+            vis[x] = 1;
+            vis[v] = 1;
+        } 
+          else {
+             
+              if (!vis[x]) {
+                stk.push(make_pair(x, v));
+               
+                stk.push(make_pair(u, x));
+            } 
+            else
+             {
+                stk.push(make_pair(x, v));
+            }
+        }
+    }
+}
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+       
+        int n;
+        cin >> n;
+
+        if (n == 2) {
+
+            cout << "! 1 2" << endl;
+            continue;
+        }
+
+        vector<int> vis(n + 1, 0);
+
+        vector<pair<int, int>> res;
+
+        for (int i = 1; i < n; ++i) {
+            for (int j = i + 1; j <= n; ++j) {
+
+                if (!vis[i] || !vis[j]) {
+
+                    graph(i, j, vis, res);
+                }
+            }
+        }
+
+        cout << "!";
+        for (const auto &edge : res) {
+            
+            cout << " " << edge.first << " " << edge.second;
+        }
+        cout << endl;
+    }
+
+    return 0;
+}
