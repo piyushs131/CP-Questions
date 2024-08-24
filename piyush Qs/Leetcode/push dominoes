@@ -1,0 +1,50 @@
+class Solution {
+public:
+    string pushDominoes(string str) {
+
+        int n = str.size();
+
+        int l = 0;
+        int r = 0;
+
+        while( r < n){
+            if( str[r] =='.'){
+                r++;
+                continue;
+            }
+
+            if ( str[r] == str[l] || (str[l] =='.' && str[r] =='L')){
+                int i = l;
+                while( i < r){
+                    str[i] = str[r];
+                    i++;
+                }
+            }
+
+            else if( str[l] =='R' && str[r] =='L'){
+                int i = l;
+                int j = r;
+
+                while ( i < j){
+                    str[i] = 'R';
+                    str[j] = 'L';
+                    i++;
+                    j--;
+                }
+            }
+
+            l = r;
+            r++;
+        }
+
+        if( str[l] == 'R'){
+            int i = l;
+            while( i < n){
+                str[i] = 'R';
+                i++;
+            }
+        }
+        return str;
+        
+    }
+};
