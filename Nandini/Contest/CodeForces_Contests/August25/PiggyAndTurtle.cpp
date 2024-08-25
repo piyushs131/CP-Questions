@@ -6,10 +6,12 @@ void solve()
 {
 	int n;
     cin >> n;
-	string s;
-	cin >> s;
-	if(s[0] == s[n - 1]) cout << "No"<< endl;
-    else cout << "Yes"<< endl;
+	vector<int> arr(n);
+	for(int i=0 ; i<n ; i++) cin >> arr[i];
+
+	sort(arr.begin(),arr.end());
+	cout << arr[n/2] << endl;
+	
 }
 
 int main() {
