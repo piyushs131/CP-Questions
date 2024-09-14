@@ -8,27 +8,7 @@ using namespace std;
     int t;
     cin >> t;
     while (t--) {
-    int a, b, c;
-    cin >> a >> b >> c;
  
-    for (int i = a; i >= 1; --i) {
-        if (i >= c) {
- 
-            cout << i << " ";
-        } 
-        else if (c < b && i > c && i < b) {
-            cout << i << " ";
-        }
-         else if (c > b && i > b && i < c) {
-            cout << i << " ";
-        }
-    }
- 
-    for (int i = 1; i <= b; ++i) {
-        cout << i << " ";
-    }
- 
-    cout << endl;
     }
     return 0;
 }
