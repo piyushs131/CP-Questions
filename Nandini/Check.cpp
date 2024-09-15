@@ -5,30 +5,18 @@ using namespace std;
 void solve() {
     ll n;
     cin >> n;
-    ll left = 1, right = cbrt(n);
-
-    while (left <= right) {
-        ll a = left * left * left;
-        ll b = right * right * right;
-
-        if (a + b == n) {
-            cout << "YES" << endl;
-            return;
-        }
-        else if (a + b < n) {
-            left++;
-        }
-        else {
-            right--;
-        }
+    if(n<5) {
+        cout << -1 << endl;
+        return;
     }
 
-    cout << "NO" << endl;
+    // sudoko solver 
 }
 
 int main() {
-    int t;
-    cin >> t;
-    while(t--) solve();
+    // int t;
+    // cin >> t;
+    // while(t--) solve();
+    solve();
     return 0;
 }
