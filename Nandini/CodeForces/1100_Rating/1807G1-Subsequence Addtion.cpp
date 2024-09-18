@@ -83,45 +83,34 @@ bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)re
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
 
-ll getPrime(ll n)
-{
-    while (n % 2 == 0)
-    {
-        return 2;
-    }
-    for (ll i = 3; i <= sqrt(n); i = i + 2)
-    {
-        if (n % i == 0)
-        {
-            return i;
-        }
-    }
-    if (n > 2)
-        return n;
-}
+auto comp = [] (int a, int b) {
+        return a > b;
+    };
 
 void solve() {
-    ll l,r;
-    cin >> l >> r;
-    if(r<=3)
+    ll n;
+    cin >> n;
+    vll v(n);
+    fl(i,n) cin >> v[i];
+    sort(v.begin(),v.end(),comp);
+    for(int i=0 ;i <n ;i ++)
     {
-        cout << -1 << endl;
-        return;
+        int val = v[i];
+        // cout << "val=" << val << endl;
+        if(v[i]==1) break;
+        for(int j=i+1 ; j<n ; j++)
+        {
+            if(v[j]<=val)
+            val-=v[j];
+            // else break;
+        }
+        if(val==0) continue;
+        else{
+            cout << "NO" << endl;
+            return;
+        }
     }
-    if(l<r)
-    {
-        if(r%2!=0)
-        r--;
-        cout << 2 << " " << r-2 << endl;
-    }
-    else // l==r
-    {
-      ll prime = getPrime(l);
-      if(prime==l) cout << -1 << endl;
-      else {
-        cout << prime << " " << l-prime << endl;
-      }
-    }
+    cout << "YES" << endl;
 }
 
 int main() {

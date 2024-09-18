@@ -83,45 +83,20 @@ bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)re
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
 
-ll getPrime(ll n)
-{
-    while (n % 2 == 0)
-    {
-        return 2;
-    }
-    for (ll i = 3; i <= sqrt(n); i = i + 2)
-    {
-        if (n % i == 0)
-        {
-            return i;
-        }
-    }
-    if (n > 2)
-        return n;
-}
-
 void solve() {
-    ll l,r;
-    cin >> l >> r;
-    if(r<=3)
-    {
-        cout << -1 << endl;
-        return;
+    ll n;
+    cin >> n;
+    vll v(n);
+    vector<bool> m(n,0);
+    ll mex(0);
+    fl(i,n) {
+        long long a;
+        cin >> a;
+        v[i] = mex - (a<0?a:0);
+        m[v[i]] = 1;
+        while(m[mex])mex++;
     }
-    if(l<r)
-    {
-        if(r%2!=0)
-        r--;
-        cout << 2 << " " << r-2 << endl;
-    }
-    else // l==r
-    {
-      ll prime = getPrime(l);
-      if(prime==l) cout << -1 << endl;
-      else {
-        cout << prime << " " << l-prime << endl;
-      }
-    }
+    printvec(v);
 }
 
 int main() {

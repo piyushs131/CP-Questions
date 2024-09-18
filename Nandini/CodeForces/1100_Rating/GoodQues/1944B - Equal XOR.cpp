@@ -83,45 +83,56 @@ bool isPrime(ll n){if(n<=1)return false;if(n<=3)return true;if(n%2==0||n%3==0)re
 bool isPowerOfTwo(int n){if(n==0)return false;return (ceil(log2(n)) == floor(log2(n)));}
 bool isPerfectSquare(ll x){if (x >= 0) {ll sr = sqrt(x);return (sr * sr == x);}return false;}
 
-ll getPrime(ll n)
-{
-    while (n % 2 == 0)
+void solve() {
+    ll n,k;
+    cin >> n >> k;
+    int t;
+    vector<ll> a(n);
+    vector<ll> b(n);
+    for(int i=0 ; i<n ;i ++) cin >> a[i];
+    for(int i=0 ; i<n ; i++) cin >> b[i];
+
+    ll k1=2*k, k2 = 2*k;
+    vll ans1,ans2;
+    unordered_map<ll,ll> mp;
+    fl(i,n) mp[a[i]]++;
+
+    for(int i=1 ; i<=n ; i++)
     {
-        return 2;
-    }
-    for (ll i = 3; i <= sqrt(n); i = i + 2)
-    {
-        if (n % i == 0)
+        if(mp[i]==1 && k1>0)
         {
-            return i;
+            k1--;
+            k2--;
+            ans1.push_back(i);
+            ans2.push_back(i);
         }
     }
-    if (n > 2)
-        return n;
-}
 
-void solve() {
-    ll l,r;
-    cin >> l >> r;
-    if(r<=3)
+    if(ans1.size()%2==1)
     {
-        cout << -1 << endl;
-        return;
+        ans1.pop_back();
+        ans2.pop_back();
+        k1++,k2++;
     }
-    if(l<r)
-    {
-        if(r%2!=0)
-        r--;
-        cout << 2 << " " << r-2 << endl;
-    }
-    else // l==r
-    {
-      ll prime = getPrime(l);
-      if(prime==l) cout << -1 << endl;
-      else {
-        cout << prime << " " << l-prime << endl;
-      }
-    }
+
+    for(int i=1;i<=n;i++){
+       if(mp[i]==2&&k1>0){
+           k1-=2;
+           ans1.push_back(i);
+           ans1.push_back(i);
+       }
+   }
+   for(int i=1;i<=n;i++){
+       if(mp[i]==0&&k2>0){
+           k2-=2;
+           ans2.push_back(i);
+           ans2.push_back(i);
+       }
+   }
+
+   printvec(ans1) ;
+   printvec(ans2);
+   
 }
 
 int main() {
