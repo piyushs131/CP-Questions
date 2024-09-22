@@ -217,28 +217,41 @@ void solve()
 {
     ll n;
     cin >> n;
-    vector<ll> arr(n);
-    for(int i=0 ; i<n ; i++)cin >> arr[i];
-    if(n==1){
-        cout <<1 << endl;
-        return;
+    string s;
+    cin >> s;
+    map<char, int> mp;
+    priority_queue<pair<ll, char>> pq;
+    for (auto it : s)
+        mp[it]++;
+    for (auto it : mp)
+        pq.push({it.second, it.first});
+
+    string ans = "";
+    while (pq.size() > 1)
+    {
+        int f1 = pq.top().first;
+        char ch1 = pq.top().second;
+        pq.pop();
+
+        int f2 = pq.top().first;
+        char ch2 = pq.top().second;
+        pq.pop();
+
+        ans += ch1;
+        ans += ch2;
+        if (f1 != 1)
+            pq.push({f1 - 1, ch1});
+        if (f2 != 1)
+            pq.push({f2 - 1, ch2});
     }
-    else {
-        ll state =0,c=0;
-        for(int i=1 ; i<n ; i++)
-        {
-           if(arr[i-1]>arr[i] and state!=1){
-            c++;
-            state = 1;
-           }
-           else if(arr[i-1]<arr[i] && state!=-1)
-           {
-              c++;
-              state = -1;
-           }
-        }
-        cout << c+1 << endl;
+    while (!pq.empty())
+    {
+        auto it = pq.top();
+        pq.pop();
+        for (int i = 0; i < it.first; i++)
+            ans += it.second;
     }
+    cout << ans << endl;
 }
 
 int main()
