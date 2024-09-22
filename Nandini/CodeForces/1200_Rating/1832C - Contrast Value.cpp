@@ -219,14 +219,9 @@ void solve()
     cin >> n;
     vector<ll> arr(n);
     for(int i=0 ; i<n ; i++)cin >> arr[i];
-
-    int cont = 0;
-    for(int i=0 ; i<n-1 ; i++){
-        cont = abs(arr[i]-arr[i+1]);
-    }
-
-    if(cont==0){
-        cout << 1 << endl;
+    if(n==1){
+        cout <<1 << endl;
+        return;
     }
     else {
         ll state =0,c=0;
@@ -236,7 +231,7 @@ void solve()
             c++;
             state = 1;
            }
-           else if(arr[i+1]>arr[i] && state!=-1)
+           else if(arr[i-1]<arr[i] && state!=-1)
            {
               c++;
               state = -1;
