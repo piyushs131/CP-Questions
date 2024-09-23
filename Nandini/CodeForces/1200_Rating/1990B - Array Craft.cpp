@@ -215,23 +215,25 @@ ll getPrime(ll n)
 
 void solve()
 {
-    ll n,k;
+    ll n;
     cin >> n;
-    vector<ll> a(n);
-    unordered_map<ll,ll> freq;
-    for(ll i=0 ; i<n ; i++) 
-        cin >> a[i];
+    ll x,y;
+    cin >> x >> y;
+    vector<int> v(n);
+    x--;
+    y--; // zero based index now
+    for(int i=y ; i<=x ; i++) v[i]=1;
 
-    ll count =0;
-     for (ll i = 0; i < n; i++) 
-     {
-        ll key = a[i] - i;
-        count += freq[key];
-        freq[key]++;
+    for(int i=y-1;i>=0 ; i--) {
+        if(v[i+1]>0) v[i] = -1;
+        else v[i] = 1;
     }
 
-    cout << count << endl;
-
+    for(int i=x+1 ; i<n ; i++){
+        if(v[i-1]>0) v[i] = -1;
+        else v[i] = 1;
+    }
+    printvec(v);
 }
 
 int main()

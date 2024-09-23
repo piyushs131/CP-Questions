@@ -217,21 +217,21 @@ void solve()
 {
     ll n,k;
     cin >> n;
-    vector<ll> a(n);
-    unordered_map<ll,ll> freq;
-    for(ll i=0 ; i<n ; i++) 
-        cin >> a[i];
-
-    ll count =0;
-     for (ll i = 0; i < n; i++) 
-     {
-        ll key = a[i] - i;
-        count += freq[key];
-        freq[key]++;
+    int m = (n * (n - 1)) / 2; 
+    vector<int> b(m);
+    for (int i = 0; i < m; ++i) {
+        cin >> b[i];
     }
-
-    cout << count << endl;
-
+    
+    sort(b.begin(), b.end());
+    vector<int> a(n);
+    ll x= n,e=0;
+    for (int i = 0; i < n; i++) {
+        x--;
+        e+=x;
+        a[i] = b[e-1]; 
+    }
+    printvec(a);
 }
 
 int main()
