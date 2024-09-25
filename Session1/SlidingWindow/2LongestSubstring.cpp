@@ -216,22 +216,45 @@ ll getPrime(ll n)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    for(int i=0 ;i <n ; i++) cin >> v[i];
-    ll l=0,u=n-1;
-    while(l<=u)
+    string s;
+    cin >> s;
+    vector<int> hashMap(128, -1); // Using 128 for all ASCII characters
+    int l = 0, ans = 0, u = 0, n = s.size();
+    while (u < n)
     {
-        // jab tk l is 0 -> l++
-        while(l <n && v[l]==0) l++;
-        // jab tk u is 1 -> u--
-        while(u>=0 && v[u]==1) u--;
-
-        if(l<=u)
-        swap(v[l],v[u]);
+        char c = s[u];
+        if (hashMap[c] != -1 && hashMap[c] >= l)
+        {
+            l = hashMap[c] + 1;
+        }
+        hashMap[c] = u;
+        ans = max(ans, u - l + 1);
+        u++;
     }
-    printvec(v);
+    cout << ans << endl;
+}
+
+int lengthOfLongestSubstring(string s)
+{
+    int l = 0, r = 0;
+    int ans = 0, len = 0;
+    int n = s.size();
+    map<int, int> mp;
+    while (r < n)
+    {
+        if (mp.find(s[r]) != mp.end())
+        {
+            if (mp[s[r]] >= l)
+            {
+                l = mp[s[r]] + 1;
+            }
+        }
+        len = r - l + 1;
+        ans = max(ans, len);
+        mp[s[r]] = r;
+        r++;
+    }
+    return ans;
 }
 
 int main()
@@ -239,6 +262,6 @@ int main()
     // int t;
     // cin >> t;
     // while (t--)
-        solve();
+    solve();
     return 0;
 }
