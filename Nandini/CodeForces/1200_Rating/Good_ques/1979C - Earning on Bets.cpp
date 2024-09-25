@@ -217,27 +217,27 @@ void solve()
 {
     ll n;
     cin >> n;
-    vector<ll> v(n);
-    for(int i=0 ;i <n ; i++) cin >> v[i];
-    ll l=0,u=n-1;
-    while(l<=u)
-    {
-        // jab tk l is 0 -> l++
-        while(l <n && v[l]==0) l++;
-        // jab tk u is 1 -> u--
-        while(u>=0 && v[u]==1) u--;
+    vector<ll> a(n);
+    for(ll i=0 ; i<n ; i++) 
+        cin >> a[i];
 
-        if(l<=u)
-        swap(v[l],v[u]);
+    ll lcmVal =1;
+    for(auto it : a) lcmVal = lcm(lcmVal,it);
+    // cout << "lcm=" << lcmVal << endl;
+    vector<ll> ans(n);
+    for(int i=0 ;i <n ; i++){
+        ans[i] = lcmVal/a[i];
     }
-    printvec(v);
+
+    if(sumvec(ans)>=lcmVal) cout << "-1" << endl;
+    else printvec(ans);
 }
 
 int main()
 {
-    // int t;
-    // cin >> t;
-    // while (t--)
+    int t;
+    cin >> t;
+    while (t--)
         solve();
     return 0;
 }

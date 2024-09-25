@@ -216,28 +216,48 @@ ll getPrime(ll n)
 void solve()
 {
     ll n;
-    cin >> n;
+    cin >> n ;
     vector<ll> v(n);
-    for(int i=0 ;i <n ; i++) cin >> v[i];
-    ll l=0,u=n-1;
+    vector<ll> sortVec;
+    for(int i=0 ;i <n ; i++) {
+        cin >> v[i];
+        sortVec.push_back(v[i]);
+    }
+    sort(sortVec.begin(),sortVec.end());
+
+    int l =0,u  = n-1;
+    int mini =0,maxi =n-1;
     while(l<=u)
     {
-        // jab tk l is 0 -> l++
-        while(l <n && v[l]==0) l++;
-        // jab tk u is 1 -> u--
-        while(u>=0 && v[u]==1) u--;
-
-        if(l<=u)
-        swap(v[l],v[u]);
+      if(sortVec[mini]==v[l]) {
+        mini++;
+        l++;
+      }
+      else if(sortVec[maxi]==v[u]){
+        u--;
+        maxi--;
+      }
+      else if(sortVec[maxi]==v[l]){
+        l++;
+        maxi--;
+      }
+      else if(sortVec[mini]==v[u]){
+        u--;
+        mini++;
+      }
+      else {
+        cout << l+1 << " " << u+1 << endl;
+        return;
+      }
     }
-    printvec(v);
+    cout << -1 << endl;
 }
 
 int main()
 {
-    // int t;
-    // cin >> t;
-    // while (t--)
+    int t;
+    cin >> t;
+    while (t--)
         solve();
     return 0;
 }

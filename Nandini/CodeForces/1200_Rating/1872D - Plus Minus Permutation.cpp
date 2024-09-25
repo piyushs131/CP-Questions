@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+#include <iostream>
 using namespace std;
 
 // Speed
@@ -215,29 +216,19 @@ ll getPrime(ll n)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    vector<ll> v(n);
-    for(int i=0 ;i <n ; i++) cin >> v[i];
-    ll l=0,u=n-1;
-    while(l<=u)
-    {
-        // jab tk l is 0 -> l++
-        while(l <n && v[l]==0) l++;
-        // jab tk u is 1 -> u--
-        while(u>=0 && v[u]==1) u--;
-
-        if(l<=u)
-        swap(v[l],v[u]);
-    }
-    printvec(v);
+    ll n, x, y;
+    cin >> n >> x >> y;
+    ll c=n/lcm(x,y); 
+    ll a=n-n/x+c;
+    ll b=n/y-c;
+    cout<<(n*(n+1)-a*(a+1)-b*(b+1))/2<<'\n';
 }
 
 int main()
 {
-    // int t;
-    // cin >> t;
-    // while (t--)
+    int t;
+    cin >> t;
+    while (t--)
         solve();
     return 0;
 }
