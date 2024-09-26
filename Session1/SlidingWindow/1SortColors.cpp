@@ -1,5 +1,4 @@
 #include <bits/stdc++.h>
-#include <iostream>
 using namespace std;
 
 // Speed
@@ -216,7 +215,7 @@ ll getPrime(ll n)
 
 void solve()
 {
-    ll n;
+     ll n;
     cin >> n;
     vector<ll> v(n);
     for(int i=0 ;i <n ; i++) cin >> v[i];
