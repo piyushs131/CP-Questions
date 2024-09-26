@@ -215,30 +215,39 @@ ll getPrime(ll n)
 
 void solve()
 {
-    ll n, l;
-   cin >> n >> l;
-   vector<double> v(n);
-   for(int i = 0; i < n; i++) cin >> v[i];
-   sort(v.begin(), v.end());
+    ll n;
+    cin >> n;
+    vector<ll> v(n);
+    map<int,int> mp;
+    for(int i=0 ;i <n ; i++) {
+        cin >> v[i];
+        mp[v[i]]++;
+    }
+    ll ans =0;
+    ll tot =0;
+    for (auto& occur : mp) {
+            int x = occur.second;
+            if (x > 1) {
+                if (x > 2) {
+                    ans += 1LL * x * (x - 1) * (x - 2) / (3 * 2 * 1);
+                    ans += 1LL * x * (x - 1) / 2 * tot;
+                    tot += x;
 
-   double maxDiff = 0;
-   
-   maxDiff = max(maxDiff, v[0]);          
-   maxDiff = max(maxDiff, l - v[n-1]);  
+                } else {
+                    tot += x;
+                    ans += tot - x;
+                }
 
-   for(int i = 0; i < n - 1; i++) {
-      maxDiff = max((double)maxDiff, (v[i+1] - v[i]) / 2.0);
-   }
-
-   cout  << maxDiff << endl;
-      
+            } else tot += x;
+        }
+	cout<<ans<<endl;
 }
 
 int main()
 {
-    // int t;
-    // cin >> t;
-    // while (t--)
+    int t;
+    cin >> t;
+    while (t--)
         solve();
     return 0;
 }

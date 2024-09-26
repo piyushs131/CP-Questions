@@ -220,7 +220,7 @@ void solve()
     cin >> n >> k;
     vector<ll> v(n);
     for(int i=0 ;i <n ; i++) cin >> v[i];
-    ll l=0,u=0,odds=0,count=0;
+    ll l=0,u=0,odds=0,ans=0;
     // k or less than k included
     while(u<n)
     {
@@ -228,10 +228,12 @@ void solve()
         odds += v[u]%2;
         while(odds>k)
         {
-           odds -= v[l]%2;
+           if(v[l]%2!=0)
+           odds--;
+
            l++;
         }
-        count+= (u-l+1);
+        ans+= (u-l+1);
         u++;
     } 
 }
