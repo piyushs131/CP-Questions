@@ -1,0 +1,32 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+ 
+ 
+main(){
+    int t;
+    cin>>t;
+    while(t--){
+        long long n,k;
+        cin>>n>>k;
+        long long a[n+1],i,mx=0,s=0;
+        for(i=1;i<=n;i++){
+             cin>>a[i];
+             mx=max(a[i],mx);
+             s+=a[i];
+        }
+        
+        for(i=n;i>=1;i--){
+            long long x=s%i;
+            if(x!=0)
+              x=i-x;
+            x=max(x,mx*i-s);
+            if(k>=x){
+                cout<<i<<endl;
+                break;
+            }
+        }
+ 
+}}
+        
+       
