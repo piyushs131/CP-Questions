@@ -1,0 +1,29 @@
+
+class Solution {
+public:
+    long long maximumTotalSum(vector<int>& maximumHeight) {
+        priority_queue<int> pq(maximumHeight.begin(), maximumHeight.end());
+        
+        long long res = 0;
+        int cnt = pq.top();
+        pq.pop();
+
+        res += cnt;
+        
+        while (!pq.empty()) {
+            int next = pq.top();
+            int ans = min(next, cnt - 1);
+            
+            if (ans <= 0) {
+                return -1;
+            }
+
+            res += ans;
+            cnt = ans;
+            pq.pop();
+        }
+        
+        return res;
+    }
+};
+
