@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int countOfSubstrings(string word, int k) {
+        int n = word.size();
+        int cnt = 0;
+
+        for (int i = 0; i < n; i++) {
+            int cons = 0;
+            unordered_set<char> vowel;
+
+            for (int j = i; j < n; j++) {
+                char curr = word[j];  // Corrected from 'end' to 'j'
+                
+                if (curr == 'a' || curr == 'e' ||
+                    curr == 'i' || curr == 'o' ||
+                    curr == 'u') {
+                    vowel.insert(curr);
+                } else {
+                    cons++;
+                }
+
+                if (vowel.size() == 5 && cons == k) {
+                    cnt++;
+                }
+            }
+        }
+
+        return cnt;
+    }
+};
