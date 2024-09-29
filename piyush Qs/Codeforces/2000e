@@ -1,0 +1,37 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+#define endl '\n'
+ 
+int main() {
+	ios::sync_with_stdio(false); cin.tie(NULL);
+	long long t;
+	cin>>t;
+	while(t--){
+		long long n,m,k,w;
+		cin>>n>>m>>k>>w;
+		vector<long long> a(w);
+		for(long long i=0;i<w;i++) cin>>a[i];
+		vector<long long> times;
+		for(long long i=0;i<n;i++)
+		{
+			for(long long j=0;j<m;j++)
+			{
+				long long top,left;
+				top=min({(n-k+1),k,(n-i),(i+1)});
+				left=min({(m-k+1),k,(m-j),(j+1)});
+				times.push_back(top*left);
+			}
+		}
+		sort(times.begin(),times.end(),greater<int>());
+		sort(a.begin(),a.end(),greater<int>());
+		long long ans=0;
+		for(int i=0;i<w;i++)
+		{
+			ans+= a[i]*times[i];
+		}
+		cout<<ans<<endl;
+	}
+}
+ 
+ 
