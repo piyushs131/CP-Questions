@@ -215,27 +215,39 @@ ll getPrime(ll n)
 
 void solve()
 {
-    ll k;
-    cin >> k;
-    if(k==1 || k==2) {
-        cout << k+1 << endl;
-        return;
-    }
-    ll l=0,e=2e18,num_of_sq,val,ans=-1,mid;
-    while(l<=e)
+    ll n;
+    cin >> n;
+    vector<vector<ll> > v(n, vector<ll> (n, 0));
+    vector<ll> ans(n, 0);
+    for (int i = 0 ; i < n ; i++)
     {
-        mid =  l + (e - l) / 2;
-        num_of_sq = floor(sqrtl(mid));
-        val = mid-num_of_sq;
-        // cout << "val: " << val << endl; 
-        if(val>=k)
+        ll tmp((1LL << 30) - 1); //2^31-1
+        for (int j = 0 ; j < n ; j++)
         {
-            ans = mid;
-            e = mid-1;
+            cin >> v[i][j];
+            if (i == j) continue;
+            tmp = tmp & v[i][j];
         }
-        else l = mid+1;
+        ans[i] = tmp;
     }
-    cout << ans << endl;
+
+    bool possible = true;
+    for (ll row = 0; possible && row < n; row++) {
+        for (ll col = 0; possible && col < n; col++) {
+            if (row == col) {continue;}
+            if ((ans[row] | ans[col]) != v[row][col]) 
+                possible = false;
+        }
+    }
+
+    if(possible)
+    {
+        cout << "YES" << endl;
+        printvec(ans);
+    }
+    else cout << "NO" << endl;
+
+
 }
 
 int main()
@@ -244,7 +256,7 @@ int main()
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
-    int t=1;
+    int t = 1;
     cin >> t;
     while (t--)
         solve();
