@@ -1,0 +1,16 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+	int t;
+	cin >> t;
+	while (t--) {
+		long long int  n, m;
+		cin >> n >> m;
+		long long int ans = 0;
+		for (long long int i = 1; i <= m; i++) {
+			ans += (n+i) / (i*i);
+		}
+		cout << ans - 1 << endl;
+	}
+}
