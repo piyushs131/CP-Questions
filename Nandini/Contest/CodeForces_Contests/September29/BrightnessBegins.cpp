@@ -215,36 +215,27 @@ ll getPrime(ll n)
 
 void solve()
 {
-    ll n;
-    cin >> n;
-    ll l = 1, r = 2e18, ans = 0,mid,low,high,t,m,limit;
-
-    while (l <= r) 
-    {
-         mid = l + (r - l) / 2;
-
-         low = 1, high = mid, t = 0;
-        while (low <= high) 
-        {
-             m = low + (high - low) / 2;
-            if (m <= mid / m) {
-                t = m;
-                low = m + 1;
-            } else {
-                high = m - 1;
-            }
-        }
-
-         limit = mid - t;
-        if (limit >= n) {
-            ans = mid;
-            r = mid - 1;
-        } else {
-            l = mid + 1;
-        }
+    ll k;
+    cin >> k;
+    if(k==1 || k==2) {
+        cout << k+1 << endl;
+        return;
     }
-
-    cout << ans << '\n';
+    ll l=0,e=2e18,num_of_sq,val,ans=-1,mid;
+    while(l<=e)
+    {
+        mid =  l + (e - l) / 2;
+        num_of_sq = floor(sqrtl(mid));
+        val = mid-num_of_sq;
+        // cout << "val: " << val << endl; 
+        if(val>=k)
+        {
+            ans = mid;
+            e = mid-1;
+        }
+        else l = mid+1;
+    }
+    cout << ans << endl;
 }
 
 int main()
@@ -253,7 +244,7 @@ int main()
     freopen("input.txt", "r", stdin);
     freopen("output.txt", "w", stdout);
 #endif
-    int t = 1;
+    int t=1;
     cin >> t;
     while (t--)
         solve();
