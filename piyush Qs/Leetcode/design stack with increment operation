@@ -1,0 +1,28 @@
+class CustomStack {
+private:
+    vector<int> st;
+    int res;
+    int ans;
+
+public:
+    CustomStack(int ans) : res(0), ans(ans), st(vector<int>(ans, 0)) {}
+
+    void push(int x) {
+        if (res < ans) {
+            st[res++] = x;
+        }
+    }
+
+    int pop() {
+        if (res == 0) return -1;
+        return st[--res];
+    }
+
+    void increment(int k, int val) {
+        int limit = min(k, res);
+        for (int i = 0; i < limit; i++) {
+            st[i] += val;
+        }
+    }
+};
+
