@@ -1,0 +1,39 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+ 
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        auto findSqrt = [](long long x) {
+            long long l = 1, r = x, ans = 0;
+            while (l <= r) {
+                long long res = l + (r - l) / 2;
+                if (res <= x / res) {
+                    ans = res;
+                    l = res + 1;
+                } else {
+                    r = res - 1;
+                }
+            }
+            return ans;
+        };
+ 
+        long long n, l = 1, r = 2e18, ans = 0;
+        cin >> n;
+        while (l <= r) {
+            long long res = l + (r - l) / 2;
+            long long t = findSqrt(res);
+            long long limit = res - t;
+            if (limit >= n) {
+                ans = res;
+                r = res - 1;
+            } else {
+                l = res + 1;
+            }
+        }
+        cout << ans << '\n';
+    }
+    return 0;
+}
