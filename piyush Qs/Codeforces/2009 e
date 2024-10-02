@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long int
+ 
+main()
+{
+    int t;
+    cin >> t;
+    while(t--)
+    {
+        int k,n;
+        cin >> n >> k;
+        int a=(k*(k-1)+(k+n)*(k+n-1))/2;
+        int b=sqrt(a);
+        int ans=b*(b+1)-a;
+        if(ans<0)
+        {
+            ans=ans*(-1);
+        }
+ 
+        cout << ans << endl;
+    }
+ 
+    return 0;
+}
