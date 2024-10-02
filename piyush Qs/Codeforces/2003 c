@@ -1,0 +1,20 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+int main(){
+	int t;cin>>t;
+	while(t--){
+		int n;cin>>n;
+		string s;cin>>s;
+		sort(s.begin(),s.end());
+		int l=0;
+		int r=n-1;
+		while(l<r){
+			cout<<s[l]<<s[r];
+			l++,r--;
+		}
+		if(l==r)cout<<s[l];
+		cout<<endl;
+	}
+	return 0;
+}
