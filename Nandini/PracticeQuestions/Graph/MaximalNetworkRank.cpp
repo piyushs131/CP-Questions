@@ -34,3 +34,30 @@ public:
         return maxRank;
     }
 };
+class Solution2 {
+public:
+    int maximalNetworkRank(int n, vector<vector<int>>& roads) 
+    {
+      vector<int> degree(n,0);
+      vector<vector<int> > connected(n,vector<int>(n,0));
+      for(auto it : roads)
+      {
+        degree[it[0]]++;
+        degree[it[1]]++;
+        connected[it[0]][it[1]] = 1;
+        connected[it[1]][it[0]] = 1;
+      }  
+
+      int final =0,ans=0;
+      for(int i=0 ;i <n ;i ++)
+      {
+        for(int j=i+1 ; j<n ; j++)
+        {
+            ans = degree[i]+degree[j];
+            if(connected[i][j]==1)ans--;
+            final = max(ans,final);
+        }
+      }
+      return final;
+    }
+};
