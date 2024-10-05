@@ -217,33 +217,34 @@ ll getPrime(ll n)
 
 void solve()
 {
-   string str;
-   cin >> str;
-   int n= str.size();
-   if(n<3) {
-    cout << "No";
-    return;
-   }
-   int ind =2;
-   string s ="san";
-   for(int i=n-1 ; i>=n-3 ; i--)
+   string s1,s2;
+   cin >> s1 >> s2 ;
+   int n1 =s1.size(),n2 = s2.size();
+   int i=0;
+   for( i=0 ; i<min(n1,n2) ; i++)
    {
-      if(s[ind]!=str[i])
-      {
-        cout << "No" ;
+     if(s1[i]!=s2[i])
+     {
+        cout << i+1 ;
         return;
-      }
-      ind--;
+     }
    }
-   cout << "Yes" ;
+
+   if(i==n1 && i==n2)
+   {
+     cout << 0 ;
+     return;
+   }
+   cout << i+1 ;
+   return;
 }
 
 int main()
 {
-// #ifndef ONLINE_JUDGE
-//     freopen("input.txt", "r", stdin);
-//     freopen("output.txt", "w", stdout);
-// #endif
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
     cout << fixed << setprecision(6) ;
     int t=1;
     // cin >> t;
