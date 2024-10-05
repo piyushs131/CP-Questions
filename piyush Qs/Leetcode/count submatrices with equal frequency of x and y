@@ -1,0 +1,53 @@
+class Solution {
+public:
+    int numberOfSubmatrices(vector<vector<char>>& grid) {
+       
+
+       int numrows = grid.size();
+       int numcols = grid[0].size();
+
+       int res = 0;
+
+       vector<vector<int>> countx( numrows, vector<int>(numcols,0));
+       vector<vector<int>>county(numrows, vector<int>(numcols,0));
+
+
+       for( int i = 0; i < numrows; i++){
+
+               int currx = 0, curry = 0;
+
+        for ( int j = 0; j < numcols; j++){
+            if ( grid[i][j] == 'X'){
+                currx++;
+            }
+
+            if ( grid[i][j] == 'Y'){
+                curry++;
+            }
+
+            countx[i][j] = currx;
+            county[i][j] = curry;
+        }
+       }
+
+       for ( int i = 1; i < numrows; i++){
+        for ( int j= 0; j < numcols;j++){
+            countx[i][j] += countx[i-1][j];
+            county[i][j] += county[i-1][j];
+        }
+       }
+
+       for ( int i = 0; i < numrows; i++){
+        for ( int j = 0; j < numcols;j++){
+            if ( countx[i][j] == county[i][j] && countx[i][j] > 0){
+                res++;
+            }
+        }
+       }
+
+       return res;
+
+
+           }
+};
+
