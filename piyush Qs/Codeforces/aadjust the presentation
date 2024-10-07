@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+ 
+int32_t main()
+{
+    int t;
+    cin >> t;
+    while (t--)
+    {
+        int a, b, c;
+        cin >> a >> b >> c;
+        int sum[a];
+        vector<int> resList, s;
+        for (int i = 0; i < a; i++)
+            cin >> sum[i];
+ 
+        int prev = -1;
+ 
+        for (int i = 0; i < b; i++)
+        {
+            int q;
+            cin >> q;
+ 
+            if (q != prev)
+            {
+                resList.push_back(q);
+                prev = q;
+            }
+        }
+ 
+        b = resList.size();
+ 
+        int ans = 1;
+        int lr = 0;
+ 
+        for (int i = 0; i < b; i++)
+        {
+            if (resList[i] == sum[lr])
+            {
+                s.push_back(sum[lr]);
+                lr++;
+            }
+            else
+            {
+                if (find(s.begin(), s.end(), resList[i]) != s.end())
+                {
+                    
+                }
+                else
+                {
+                    ans = 0;
+                    break;
+                }
+            }
+        }
+ 
+        if (ans)
+        {
+            cout << "YA" << endl;
+        }
+        else
+        {
+            cout << "TIDAK" << endl;
+        }
+    }
+}
