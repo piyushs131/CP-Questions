@@ -1,0 +1,171 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Base class: Employee
+class Employee {
+protected:
+    string name;
+    int number;
+
+public:
+    // Default constructor
+    Employee() : name("Unknown"), number(0) {
+        cout << "Employee default constructor called." << endl;
+    }
+
+    // Parameterized constructor
+    Employee(string empName, int empNumber) : name(empName), number(empNumber) {
+        cout << "Employee parameterized constructor called." << endl;
+    }
+
+    // Get data method
+    virtual void getdata() {
+        cout << "Enter employee name: ";
+        cin >> name;
+        cout << "Enter employee number: ";
+        cin >> number;
+    }
+
+    // Put data method
+    virtual void putdata() const {
+        cout << "Employee Name: " << name << endl;
+        cout << "Employee Number: " << number << endl;
+    }
+
+    // Destructor
+    virtual ~Employee() {
+        cout << "Employee destructor called." << endl;
+    }
+};
+
+// Derived class: Manager
+class Manager : public Employee {
+private:
+    string title;
+    double club_dues;
+
+public:
+    // Default constructor
+    Manager() : Employee(), title("None"), club_dues(0.0) {
+        cout << "Manager default constructor called." << endl;
+    }
+
+    // Parameterized constructor
+    Manager(string mgrName, int mgrNumber, string mgrTitle, double mgrClubDues)
+        : Employee(mgrName, mgrNumber), title(mgrTitle), club_dues(mgrClubDues) {
+        cout << "Manager parameterized constructor called." << endl;
+    }
+
+    // Get data method
+    void getdata() override {
+        Employee::getdata();
+        cout << "Enter manager title: ";
+        cin >> title;
+        cout << "Enter club dues: ";
+        cin >> club_dues;
+    }
+
+    // Put data method
+    void putdata() const override {
+        Employee::putdata();
+        cout << "Manager Title: " << title << endl;
+        cout << "Club Dues: " << club_dues << endl;
+    }
+
+    // Destructor
+    ~Manager() override {
+        cout << "Manager destructor called." << endl;
+    }
+};
+
+// Derived class: Scientist
+class Scientist : public Employee {
+private:
+    int publications;
+
+public:
+    // Default constructor
+    Scientist() : Employee(), publications(0) {
+        cout << "Scientist default constructor called." << endl;
+    }
+
+    // Parameterized constructor
+    Scientist(string sciName, int sciNumber, int sciPublications)
+        : Employee(sciName, sciNumber), publications(sciPublications) {
+        cout << "Scientist parameterized constructor called." << endl;
+    }
+
+    // Get data method
+    void getdata() override {
+        Employee::getdata();
+        cout << "Enter number of publications: ";
+        cin >> publications;
+    }
+
+    // Put data method
+    void putdata() const override {
+        Employee::putdata();
+        cout << "Number of Publications: " << publications << endl;
+    }
+
+    // Destructor
+    ~Scientist() override {
+        cout << "Scientist destructor called." << endl;
+    }
+};
+
+// Derived class: Laborer
+class Laborer : public Employee {
+public:
+    // Default constructor
+    Laborer() : Employee() {
+        cout << "Laborer default constructor called." << endl;
+    }
+
+    // Parameterized constructor
+    Laborer(string labName, int labNumber) : Employee(labName, labNumber) {
+        cout << "Laborer parameterized constructor called." << endl;
+    }
+
+    // Get data method
+    void getdata() override {
+        Employee::getdata();
+    }
+
+    // Put data method
+    void putdata() const override {
+        Employee::putdata();
+    }
+
+    // Destructor
+    ~Laborer() override {
+        cout << "Laborer destructor called." << endl;
+    }
+};
+
+// Main program to create objects and demonstrate constructors
+int main() {
+    // Creating objects using default constructors
+    Manager mgr1;
+    Scientist sci1;
+    Laborer lab1;
+
+    // Creating objects using parameterized constructors
+    Manager mgr2("Alice", 101, "Senior Manager", 1500.5);
+    Scientist sci2("Bob", 102, 15);
+    Laborer lab2("Charlie", 103);
+
+    // Displaying data using putdata()
+    cout << "\nDisplaying data for default constructor objects:" << endl;
+    mgr1.putdata();
+    sci1.putdata();
+    lab1.putdata();
+
+    cout << "\nDisplaying data for parameterized constructor objects:" << endl;
+    mgr2.putdata();
+    sci2.putdata();
+    lab2.putdata();
+
+    return 0;
+}

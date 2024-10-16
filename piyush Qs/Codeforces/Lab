@@ -1,0 +1,161 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+// Base class Employee
+class Employee {
+protected:
+    string name;
+    int number;
+
+public:
+    // Default Constructor
+    Employee() : name("Unknown"), number(0) {
+        cout << "Employee Default Constructor Called\n";
+    }
+
+    // Parameterized Constructor
+    Employee(string n, int num) : name(n), number(num) {
+        cout << "Employee Parameterized Constructor Called\n";
+    }
+
+    // Virtual Function for getdata
+    virtual void getdata() {
+        cout << "Enter name: ";
+        cin >> name;
+        cout << "Enter number: ";
+        cin >> number;
+    }
+
+    // Virtual Function for putdata
+    virtual void putdata() const {
+        cout << "Name: " << name << ", Number: " << number << endl;
+    }
+
+    // Virtual Destructor
+    virtual ~Employee() {
+        cout << "Employee Destructor Called\n";
+    }
+};
+
+// Derived class Manager inheriting Employee
+class Manager : public virtual Employee {
+private:
+    string title;
+    double club_dues;
+
+public:
+    // Default Constructor
+    Manager() : title("None"), club_dues(0.0) {
+        cout << "Manager Default Constructor Called\n";
+    }
+
+    // Parameterized Constructor
+    Manager(string n, int num, string t, double dues) : Employee(n, num), title(t), club_dues(dues) {
+        cout << "Manager Parameterized Constructor Called\n";
+    }
+
+    void getdata() override {
+        Employee::getdata();
+        cout << "Enter title: ";
+        cin >> title;
+        cout << "Enter club dues: ";
+        cin >> club_dues;
+    }
+
+    void putdata() const override {
+        Employee::putdata();
+        cout << "Title: " << title << ", Club Dues: " << club_dues << endl;
+    }
+
+    ~Manager() override {
+        cout << "Manager Destructor Called\n";
+    }
+};
+
+// Derived class Scientist inheriting Employee
+class Scientist : public virtual Employee {
+private:
+    int publications;
+
+public:
+    // Default Constructor
+    Scientist() : publications(0) {
+        cout << "Scientist Default Constructor Called\n";
+    }
+
+    // Parameterized Constructor
+    Scientist(string n, int num, int pubs) : Employee(n, num), publications(pubs) {
+        cout << "Scientist Parameterized Constructor Called\n";
+    }
+
+    void getdata() override {
+        Employee::getdata();
+        cout << "Enter number of publications: ";
+        cin >> publications;
+    }
+
+    void putdata() const override {
+        Employee::putdata();
+        cout << "Publications: " << publications << endl;
+    }
+
+    ~Scientist() override {
+        cout << "Scientist Destructor Called\n";
+    }
+};
+
+// Derived class Laborer inheriting Employee
+class Laborer : public Employee {
+public:
+    // Default Constructor
+    Laborer() {
+        cout << "Laborer Default Constructor Called\n";
+    }
+
+    // Parameterized Constructor
+    Laborer(string n, int num) : Employee(n, num) {
+        cout << "Laborer Parameterized Constructor Called\n";
+    }
+
+    void getdata() override {
+        Employee::getdata();
+    }
+
+    void putdata() const override {
+        Employee::putdata();
+    }
+
+    ~Laborer() override {
+        cout << "Laborer Destructor Called\n";
+    }
+};
+
+int main() {
+    // Creating objects with default and parameterized constructors
+    Manager m1;
+    Manager m2("Alice", 101, "Senior Manager", 1500.0);
+
+    Scientist s1;
+    Scientist s2("Bob", 102, 25);
+
+    Laborer l1;
+    Laborer l2("Charlie", 103);
+
+    cout << "\nManager m1 data:" << endl;
+    m1.putdata();
+    cout << "\nManager m2 data:" << endl;
+    m2.putdata();
+
+    cout << "\nScientist s1 data:" << endl;
+    s1.putdata();
+    cout << "\nScientist s2 data:" << endl;
+    s2.putdata();
+
+    cout << "\nLaborer l1 data:" << endl;
+    l1.putdata();
+    cout << "\nLaborer l2 data:" << endl;
+    l2.putdata();
+
+    return 0;
+}
