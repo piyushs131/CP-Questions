@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string solve(int n, int idx, string &s){
+        if(idx == n){
+            return s; 
+        }
+        
+        string rev = "";
+        for(auto c : s){
+            if(c == '0') rev += to_string(1); 
+            else rev += to_string(0); 
+        }
+        reverse(rev.begin(), rev.end()); 
+        
+        string temp = s + "1" + rev;
+        
+        return solve(n, idx + 1, temp);
+    }
+    
+    char findKthBit(int n, int k) {
+        string s = "0"; 
+        string res = solve(n, 1, s); 
+        return res[k - 1]; 
+    }
+};
