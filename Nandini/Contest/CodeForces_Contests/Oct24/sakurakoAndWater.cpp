@@ -207,9 +207,27 @@ ll getPrime(ll n)
 
 void solve()
 {
-   ll n;
+   int n;
    cin >> n;
-   cout << (n%2 ? "Kosuke":"Sakurako") << endl;
+   vector<vector<ll> > v(n,vector<ll> (n));
+   for(int i=0 ;i <n ; i++)
+   {
+    for(int j=0 ;j <n ; j++) cin >> v[i][j] ;
+   }
+   vector<ll> diff(2*n-1,0);
+   for(int i=0 ; i<n ; i++)
+   {
+    for(int j=0 ;j <n ; j++){
+        diff[i-j+n-1] = min(diff[i-j+n-1],v[i][j]);
+    }
+   }
+
+   int ans =0;
+   for(auto it : diff)
+   {
+     if(it<0) ans-=it;
+   }
+   cout << ans << endl;
 }
 
 int main()
