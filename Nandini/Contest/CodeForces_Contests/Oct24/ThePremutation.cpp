@@ -207,9 +207,25 @@ ll getPrime(ll n)
 
 void solve()
 {
-   ll n;
+   ll n, ans =0;
    cin >> n;
-   cout << (n%2 ? "Kosuke":"Sakurako") << endl;
+   vl v(n); ipt(v,n);
+   unordered_map<ll,ll> mp;
+   for(int i=0 ; i<n ; i++)
+   {
+     v[i]--;
+     mp[v[i]] = i;
+   }
+
+   for (int i = 0; i < n; ++i) 
+   {
+        if (v[i] == i) continue;
+        else if (v[v[i]] == i) continue;
+        ans++;
+        swap(v[v[i]],v[mp[i]]);
+        mp[v[mp[i]]] = mp[i];
+    }
+   cout << ans << endl;
 }
 
 int main()

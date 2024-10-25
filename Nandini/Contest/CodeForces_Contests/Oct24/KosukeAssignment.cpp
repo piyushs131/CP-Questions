@@ -207,9 +207,29 @@ ll getPrime(ll n)
 
 void solve()
 {
-   ll n;
-   cin >> n;
-   cout << (n%2 ? "Kosuke":"Sakurako") << endl;
+    ll n;
+    cin >> n;
+    vl v(n);
+    ipt(v, n);
+    int ans = 0;
+    map<int, int> mp;
+    ll curr =0;
+    mp[0] = 1;
+    for(int i=0 ;i <n ; i++)
+    {
+        curr+= v[i];
+        if(mp.find(curr)!=mp.end())
+        {
+            ans++;
+            mp.clear();
+            mp[0] = 1;
+            curr=0;
+        }
+        else mp[curr] = 1;
+    }
+    
+    cout << ans << endl;
+
 }
 
 int main()
@@ -219,7 +239,7 @@ int main()
     freopen("output.txt", "w", stdout);
 #endif
     cout << fixed << setprecision(6) ;
-    int t=1;
+    int t = 1;
     cin >> t;
     while (t--)
         solve();

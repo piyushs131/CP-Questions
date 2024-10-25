@@ -209,7 +209,22 @@ void solve()
 {
    ll n;
    cin >> n;
-   cout << (n%2 ? "Kosuke":"Sakurako") << endl;
+   vl v(n); ipt(v,n);
+   int i=0,j=1;
+   ll ans =1;
+   while(j<n)
+   {
+     if(v[j]==v[j-1]) {
+        ans+= j-i+1;
+     }
+     else {
+        ans++;
+        i=j;
+     }
+
+     j++;
+   }     
+   cout << ans << endl;
 }
 
 int main()

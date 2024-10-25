@@ -211,7 +211,7 @@ void solve()
    n++;
    vl v(n);
    ipt(v,n);
-   ll last = v[n-1];
+   ll last = v[n-1];    
    sort(all(v));
    int i=0;
    int sum =0;
