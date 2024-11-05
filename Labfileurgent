@@ -169,3 +169,154 @@ int main() {
 
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+using namespace std;
+
+class Date {
+private:
+    int day, month, year;
+    static int dateCount;  // Static member to keep track of how many Date objects are created
+
+public:
+    // Default constructor
+    Date() : day(0), month(0), year(0) {
+        dateCount++;
+    }
+
+    // Parameterized constructor to initialize date
+    Date(int d, int m, int y) : day(d), month(m), year(y) {
+        dateCount++;
+    }
+
+    // Setter functions to change day, month, and year
+    void setDay(int d) { day = d; }
+    void setMonth(int m) { month = m; }
+    void setYear(int y) { year = y; }
+
+    // Getter functions to retrieve day, month, and year
+    int getDay() const { return day; }
+    int getMonth() const { return month; }
+    int getYear() const { return year; }
+
+    // Function to display date in "dd/mm/yyyy" format
+    void display() const {
+        cout << (day < 10 ? "0" : "") << day << "/"
+             << (month < 10 ? "0" : "") << month << "/"
+             << year << endl;
+    }
+
+    // Static function to get the number of dates created
+    static int getDateCount() {
+        return dateCount;
+    }
+
+    // Operator overloads for comparing two Date objects
+    bool operator<(const Date& other) const {
+        if (year < other.year) return true;
+        if (year == other.year && month < other.month) return true;
+        if (year == other.year && month == other.month && day < other.day) return true;
+        return false;
+    }
+
+    bool operator>(const Date& other) const {
+        return other < *this;
+    }
+
+    bool operator==(const Date& other) const {
+        return day == other.day && month == other.month && year == other.year;
+    }
+
+    bool operator!=(const Date& other) const {
+        return !(*this == other);
+    }
+
+    // Pre-increment operator overload (increments day by 1)
+    Date& operator++() {
+        ++day;
+        return *this;
+    }
+
+    // Post-increment operator overload (increments day by 1)
+    Date operator++(int) {
+        Date temp = *this;
+        ++day;
+        return temp;
+    }
+
+    // Pre-decrement operator overload (decrements day by 1)
+    Date& operator--() {
+        --day;
+        return *this;
+    }
+
+    // Post-decrement operator overload (decrements day by 1)
+    Date operator--(int) {
+        Date temp = *this;
+        --day;
+        return temp;
+    }
+};
+
+// Initialize static member
+int Date::dateCount = 0;
+
+int main() {
+    Date date1;                  // Default date (0/0/0)
+    Date date2(15, 10, 2023);    // Date with values (15/10/2023)
+
+    date1.display();             // Display default date
+    date2.display();             // Display initialized date
+
+    date1.setDay(12);            // Set day
+    date1.setMonth(9);           // Set month
+    date1.setYear(2022);         // Set year
+    date1.display();             // Display updated date
+
+    cout << "Number of dates created: " << Date::getDateCount() << endl;
+
+    // Comparing dates
+    if (date1 < date2) cout << "date1 is less than date2" << endl;
+    if (date2 > date1) cout << "date2 is greater than date1" << endl;
+    if (date1 != date2) cout << "date1 is not equal to date2" << endl;
+
+    ++date1;                     // Increment day by 1 (pre-increment)
+    date1.display();
+
+    date2--;                     // Decrement day by 1 (pre-decrement)
+    date2.display();
+
+    return 0;
+}
+
