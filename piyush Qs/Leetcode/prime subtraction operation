@@ -1,0 +1,47 @@
+int primes[1001];
+class Solution {
+public:
+    void sieve()
+    {
+        primes[0]=primes[1]=0;
+        for(int i=0;i<=1000;i++)
+        {
+            if(primes[i])
+            {
+                for(int j=i*i;j<=1000;j+=i)
+                {
+                    primes[j]=0;
+                }
+            }
+        }
+    }
+    bool primeSubOperation(vector<int>& nums) {
+        ios_base::sync_with_stdio(0);
+        cin.tie(0);
+        cout.tie(0);
+        int n=nums.size();
+        for(int i=0;i<1001;i++) primes[i]=1;
+        sieve();
+        int prev=nums[n-1];
+        for(int i=n-2;i>=0;i--)
+        {
+            bool flag=false;
+            if(nums[i]<prev)
+            {
+                prev=nums[i];
+                continue;
+            }
+            for(int j=nums[i];j>0;j--){
+                
+                if(primes[nums[i]-j] and j<prev)
+                {
+                    prev=j;
+                    flag=true;
+                    break;
+                }
+            }
+            if(!flag) return false;
+        }
+        return true;
+    }
+};
