@@ -42,12 +42,26 @@ void solve();
 
 
 int main() {
+    auto begin = std::chrono::high_resolution_clock::now();
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    cout << setprecision(10) << fixed;
+
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--) {
         solve();
         }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cerr << "Time measured: " << elapsed.count() * 1e-6 << "ms\n";
 
     return 0;
 }
@@ -79,24 +93,10 @@ int main() {
 #define py() cout<<"YES\n"
 #define pn() cout<<"NO\n"
 
-void solve()
+void solve() 
 {
-   ll n,b,c;
-   cin >> n >> b >> c;
-  if (n <= c) {
-            pe(n);
-        }
-        
-        else if (b == 0 && (c + 1) < n - 1) {
-            pe(-1);
-        }
-        
-        else if (b == 0) {
-            pe(n - 1);
-        }
-
-           ll y = (n - c + b - 1) / b;
-        pe(max(n - y, 0LL));
-
+   string s;
+   cin >> s;
+   cout << s[1] << s[2] << s[0] << " " << s[2] << s[0] << s[1] << endl;
 }
 
