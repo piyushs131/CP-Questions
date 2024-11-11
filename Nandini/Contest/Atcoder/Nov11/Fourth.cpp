@@ -42,12 +42,26 @@ void solve();
 
 
 int main() {
+    auto begin = std::chrono::high_resolution_clock::now();
+    ios_base::sync_with_stdio(0);
+    cin.tie(0); cout.tie(0);
+    cout << setprecision(10) << fixed;
+
+#ifndef ONLINE_JUDGE
+    freopen("input.txt", "r", stdin);
+    freopen("output.txt", "w", stdout);
+#endif
+
     int t = 1;
-    cin >> t;
+    // cin >> t;
 
     while (t--) {
         solve();
         }
+
+    auto end = std::chrono::high_resolution_clock::now();
+    auto elapsed = std::chrono::duration_cast<std::chrono::nanoseconds>(end - begin);
+    cerr << "Time measured: " << elapsed.count() * 1e-6 << "ms\n";
 
     return 0;
 }
@@ -79,24 +93,41 @@ int main() {
 #define py() cout<<"YES\n"
 #define pn() cout<<"NO\n"
 
-void solve()
+void solve() 
 {
-   ll n,b,c;
-   cin >> n >> b >> c;
-  if (n <= c) {
-            pe(n);
+   ll q;
+   cin >> q;
+   vl v;
+   ll days,harvest,val;
+   while(q--)
+   {
+     cin >> val;
+     if(val==1)
+     {
+        v.push_back(0);
+     }
+     else if(val==2)
+     {
+        cin >> days;
+        for(int i=0 ;i<v.size() ; i++) {
+            v[i]+=days;
         }
-        
-        else if (b == 0 && (c + 1) < n - 1) {
-            pe(-1);
+     }
+     else 
+     {
+        cin >> harvest;
+        sort(v.begin(),v.end());
+        ll n = v.size(),count=0;
+        for(int i= n-1; i>=0 ;i--)
+        {
+           if(v[i]>=harvest) {
+            count++;
+            v.pop_back();
+           }
+           else break;
         }
-        
-        else if (b == 0) {
-            pe(n - 1);
-        }
-
-           ll y = (n - c + b - 1) / b;
-        pe(max(n - y, 0LL));
-
+        cout << count << endl;
+     }
+   }
 }
 
