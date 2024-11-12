@@ -519,3 +519,169 @@ public class ProducerConsumerExample {
 
 
 
+
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+class RowSumThread extends Thread {
+    private int[] row;
+    private int rowIndex;
+    private int sum;
+
+    public RowSumThread(int[] row, int rowIndex) {
+        this.row = row;
+        this.rowIndex = rowIndex;
+    }
+
+    @Override
+    public void run() {
+        sum = 0;
+        for (int num : row) {
+            sum += num;
+        }
+        System.out.println("Sum of row " + rowIndex + " is: " + sum);
+    }
+}
+
+public class MatrixRowSum {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter number of rows (m): ");
+        int m = scanner.nextInt();
+        System.out.print("Enter number of columns (n): ");
+        int n = scanner.nextInt();
+
+        int[][] matrix = new int[m][n];
+        System.out.println("Enter the elements of the matrix:");
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+
+        Thread[] threads = new Thread[m];
+        for (int i = 0; i < m; i++) {
+            threads[i] = new RowSumThread(matrix[i], i);
+            threads[i].start();
+        }
+
+        // Wait for all threads to complete
+        for (int i = 0; i < m; i++) {
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        scanner.close();
+    }
+}
+
+
+
+
+
+
+
+
+import java.util.Stack;
+
+class SharedStack {
+    private final Stack<Integer> stack = new Stack<>();
+    private final int MAX_SIZE = 10;
+
+    public synchronized void push(int item) throws InterruptedException {
+        while (stack.size() == MAX_SIZE) {
+            wait();
+        }
+        stack.push(item);
+        System.out.println("Pushed: " + item);
+        notifyAll();
+    }
+
+    public synchronized int pop() throws InterruptedException {
+        while (stack.isEmpty()) {
+            wait();
+        }
+        int item = stack.pop();
+        System.out.println("Popped: " + item);
+        notifyAll();
+        return item;
+    }
+}
+
+class Producer extends Thread {
+    private final SharedStack stack;
+    private final int producerId;
+
+    public Producer(SharedStack stack, int producerId) {
+        this.stack = stack;
+        this.producerId = producerId;
+    }
+
+    @Override
+    public void run() {
+        try {
+            for (int i = 1; i <= 7; i++) {
+                stack.push(i + (producerId * 10)); // Unique values from each producer
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class Consumer extends Thread {
+    private final SharedStack stack;
+
+    public Consumer(SharedStack stack) {
+        this.stack = stack;
+    }
+
+    @Override
+    public void run() {
+        try {
+            for (int i = 0; i < 14; i++) {
+                stack.pop();
+                Thread.sleep(600);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+public class ProducerConsumerStack {
+    public static void main(String[] args) {
+        SharedStack stack = new SharedStack();
+
+        Producer producer1 = new Producer(stack, 1);
+        Producer producer2 = new Producer(stack, 2);
+        Consumer consumer = new Consumer(stack);
+
+        producer1.start();
+        producer2.start();
+        consumer.start();
+
+        try {
+            producer1.join();
+            producer2.join();
+            consumer.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+
