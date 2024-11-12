@@ -320,3 +320,491 @@ int main() {
     return 0;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+class RowSumCalculator extends Thread {
+    private final int[] row;
+    private final int rowIndex;
+    private int sum;
+
+    // Constructor to initialize the row and rowIndex
+    public RowSumCalculator(int[] row, int rowIndex) {
+        this.row = row;
+        this.rowIndex = rowIndex;
+    }
+
+    // Method to calculate the sum of the row
+    @Override
+    public void run() {
+        sum = 0;
+        for (int value : row) {
+            sum += value;
+        }
+        System.out.println("Sum of row " + rowIndex + ": " + sum);
+    }
+}
+
+public class MatrixRowSum {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        // Reading matrix dimensions
+        System.out.print("Enter the number of rows: ");
+        int rows = scanner.nextInt();
+        System.out.print("Enter the number of columns: ");
+        int cols = scanner.nextInt();
+
+        int[][] matrix = new int[rows][cols];
+
+        // Input matrix elements
+        System.out.println("Enter the elements of the matrix:");
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+
+        // Create an array to hold thread references
+        RowSumCalculator[] threads = new RowSumCalculator[rows];
+
+        // Initialize and start each thread
+        for (int i = 0; i < rows; i++) {
+            threads[i] = new RowSumCalculator(matrix[i], i);
+            threads[i].start();
+        }
+
+        // Wait for all threads to complete
+        for (RowSumCalculator thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        System.out.println("Summation of all rows completed.");
+    }
+}
+
+
+
+
+
+
+
+import java.util.Stack;
+
+// Shared Stack class with synchronized methods
+class SharedStack {
+    private final Stack<Integer> stack = new Stack<>();
+    private final int MAX_SIZE = 10;
+
+    // Method to push an item into the stack
+    public synchronized void push(int item) {
+        while (stack.size() == MAX_SIZE) {
+            try {
+                wait(); // Wait if the stack is full
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        stack.push(item);
+        System.out.println("Pushed: " + item);
+        notifyAll(); // Notify any waiting threads
+    }
+
+    // Method to pop an item from the stack
+    public synchronized int pop() {
+        while (stack.isEmpty()) {
+            try {
+                wait(); // Wait if the stack is empty
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        int item = stack.pop();
+        System.out.println("Popped: " + item);
+        notifyAll(); // Notify any waiting threads
+        return item;
+    }
+}
+
+// Producer class implementing Runnable
+class Producer implements Runnable {
+    private final SharedStack stack;
+
+    public Producer(SharedStack stack) {
+        this.stack = stack;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 1; i <= 7; i++) {
+            stack.push(i);
+            try {
+                Thread.sleep(500); // Sleep for 500 ms
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// Consumer class implementing Runnable
+class Consumer implements Runnable {
+    private final SharedStack stack;
+
+    public Consumer(SharedStack stack) {
+        this.stack = stack;
+    }
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 14; i++) { // Total 14 items to pop
+            stack.pop();
+            try {
+                Thread.sleep(600); // Sleep for 600 ms
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+}
+
+// Main class to run the Producer-Consumer problem
+public class ProducerConsumerExample {
+    public static void main(String[] args) {
+        SharedStack sharedStack = new SharedStack();
+
+        // Create producer and consumer threads
+        Thread producer1 = new Thread(new Producer(sharedStack));
+        Thread producer2 = new Thread(new Producer(sharedStack));
+        Thread consumer = new Thread(new Consumer(sharedStack));
+
+        // Start the threads
+        producer1.start();
+        producer2.start();
+        consumer.start();
+
+        // Wait for all threads to finish
+        try {
+            producer1.join();
+            producer2.join();
+            consumer.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println("All items have been processed successfully.");
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+import java.util.Scanner;
+
+class RowSumThread extends Thread {
+    private int[] row;
+    private int rowIndex;
+    private int sum;
+
+    public RowSumThread(int[] row, int rowIndex) {
+        this.row = row;
+        this.rowIndex = rowIndex;
+    }
+
+    @Override
+    public void run() {
+        sum = 0;
+        for (int num : row) {
+            sum += num;
+        }
+        System.out.println("Sum of row " + rowIndex + " is: " + sum);
+    }
+}
+
+public class MatrixRowSum {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter number of rows (m): ");
+        int m = scanner.nextInt();
+        System.out.print("Enter number of columns (n): ");
+        int n = scanner.nextInt();
+
+        int[][] matrix = new int[m][n];
+        System.out.println("Enter the elements of the matrix:");
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                matrix[i][j] = scanner.nextInt();
+            }
+        }
+
+        Thread[] threads = new Thread[m];
+        for (int i = 0; i < m; i++) {
+            threads[i] = new RowSumThread(matrix[i], i);
+            threads[i].start();
+        }
+
+        // Wait for all threads to complete
+        for (int i = 0; i < m; i++) {
+            try {
+                threads[i].join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        scanner.close();
+    }
+}
+
+
+
+
+
+
+
+
+import java.util.Stack;
+
+class SharedStack {
+    private final Stack<Integer> stack = new Stack<>();
+    private final int MAX_SIZE = 10;
+
+    public synchronized void push(int item) throws InterruptedException {
+        while (stack.size() == MAX_SIZE) {
+            wait();
+        }
+        stack.push(item);
+        System.out.println("Pushed: " + item);
+        notifyAll();
+    }
+
+    public synchronized int pop() throws InterruptedException {
+        while (stack.isEmpty()) {
+            wait();
+        }
+        int item = stack.pop();
+        System.out.println("Popped: " + item);
+        notifyAll();
+        return item;
+    }
+}
+
+class Producer extends Thread {
+    private final SharedStack stack;
+    private final int producerId;
+
+    public Producer(SharedStack stack, int producerId) {
+        this.stack = stack;
+        this.producerId = producerId;
+    }
+
+    @Override
+    public void run() {
+        try {
+            for (int i = 1; i <= 7; i++) {
+                stack.push(i + (producerId * 10)); // Unique values from each producer
+                Thread.sleep(500);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+class Consumer extends Thread {
+    private final SharedStack stack;
+
+    public Consumer(SharedStack stack) {
+        this.stack = stack;
+    }
+
+    @Override
+    public void run() {
+        try {
+            for (int i = 0; i < 14; i++) {
+                stack.pop();
+                Thread.sleep(600);
+            }
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+public class ProducerConsumerStack {
+    public static void main(String[] args) {
+        SharedStack stack = new SharedStack();
+
+        Producer producer1 = new Producer(stack, 1);
+        Producer producer2 = new Producer(stack, 2);
+        Consumer consumer = new Consumer(stack);
+
+        producer1.start();
+        producer2.start();
+        consumer.start();
+
+        try {
+            producer1.join();
+            producer2.join();
+            consumer.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+#include <iostream>
+using namespace std;
+
+// Define a Node class
+class Node {
+public:
+    int data;
+    Node* next;
+
+    // Constructor to initialize the node
+    Node(int val) {
+        data = val;
+        next = nullptr;
+    }
+};
+
+// Define a LinkedList class
+class LinkedList {
+private:
+    Node* head;
+
+public:
+    // Constructor to initialize the linked list
+    LinkedList() {
+        head = nullptr;
+    }
+
+    // Function to insert a new node at the end
+    void insertAtEnd(int value) {
+        Node* newNode = new Node(value);
+
+        if (head == nullptr) { // If the list is empty
+            head = newNode;
+        } else {
+            Node* temp = head;
+            while (temp->next != nullptr) { // Traverse to the last node
+                temp = temp->next;
+            }
+            temp->next = newNode;
+        }
+        cout << "Inserted " << value << " at the end of the list." << endl;
+    }
+
+    // Function to delete a node from the beginning
+    void deleteFromBeginning() {
+        if (head == nullptr) { // If the list is empty
+            cout << "The list is empty. Nothing to delete." << endl;
+            return;
+        }
+
+        Node* temp = head;
+        head = head->next;
+        cout << "Deleted " << temp->data << " from the beginning of the list." << endl;
+        delete temp;
+    }
+
+    // Function to display the list
+    void display() {
+        if (head == nullptr) {
+            cout << "The list is empty." << endl;
+            return;
+        }
+
+        Node* temp = head;
+        while (temp != nullptr) {
+            cout << temp->data << " -> ";
+            temp = temp->next;
+        }
+        cout << "NULL" << endl;
+    }
+
+    // Destructor to clean up memory
+    ~LinkedList() {
+        while (head != nullptr) {
+            deleteFromBeginning();
+        }
+    }
+};
+
+// Main function
+int main() {
+    LinkedList list;
+    int choice, value;
+
+    while (true) {
+        cout << "\nMenu:\n";
+        cout << "1. Insert at End\n";
+        cout << "2. Delete from Beginning\n";
+        cout << "3. Display List\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+        case 1:
+            cout << "Enter value to insert: ";
+            cin >> value;
+            list.insertAtEnd(value);
+            break;
+        case 2:
+            list.deleteFromBeginning();
+            break;
+        case 3:
+            list.display();
+            break;
+        case 4:
+            cout << "Exiting program." << endl;
+            return 0;
+        default:
+            cout << "Invalid choice. Please try again." << endl;
+        }
+    }
+}
+
+
+

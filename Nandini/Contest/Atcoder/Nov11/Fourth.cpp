@@ -95,38 +95,36 @@ int main() {
 
 void solve() 
 {
-   ll q;
+   ll q,j=0;
    cin >> q;
    vl v;
-   ll days,harvest,val;
+   ll days,harvest,val,count=0;
    while(q--)
    {
      cin >> val;
      if(val==1)
      {
-        v.push_back(0);
+        // take ek count variable me sabse days maintain rahe aur jo new aye uski value phele he -count ho
+        v.push_back(-count);
      }
      else if(val==2)
      {
         cin >> days;
-        for(int i=0 ;i<v.size() ; i++) {
-            v[i]+=days;
-        }
+        count+=days;
      }
      else 
      {
         cin >> harvest;
-        sort(v.begin(),v.end());
-        ll n = v.size(),count=0;
-        for(int i= n-1; i>=0 ;i--)
+        ll n = v.size(),ans=0;
+        for(int i= j; i<n ;i++)
         {
-           if(v[i]>=harvest) {
-            count++;
-            v.pop_back();
+           if(v[i]+count>=harvest) {
+            ans++;
+            j++;
            }
            else break;
         }
-        cout << count << endl;
+        cout << ans << endl;
      }
    }
 }
