@@ -97,17 +97,12 @@ void solve()
 {
   ll n;
   cin >> n;
-  vl b;
+  vl b(n);
   ipt(b,n);  
 
-  ll count1=0,count2=0;
-  for(int i=0 ;i<n-1 ;i ++)
-    if(b[i]==1) count1++;
-
-  for(int i=1 ; i<n ; i++)
-    if(b[i]==0) count2++;
-
-  ll ans = min(count1+count2,n-1);
-  cout << ans+n << endl;
+  ll ans = 2*n-1;
+  if(b[0]==0 && b[n-1]==1) ans--;
+  
+  cout << ans << endl;
 }
 
