@@ -92,17 +92,14 @@ int main() {
 #define pr(x) cout<<(x)<<'\n'; return
 #define py() cout<<"YES\n"
 #define pn() cout<<"NO\n"
-
+   
 void solve() 
 {
-  ll n;
-  cin >> n;
-  vl b(n);
-  ipt(b,n);  
-
-  ll ans = 2*n-1;
-  if(b[0]==0 && b[n-1]==1) ans--;
-  
-  cout << ans << endl;
+   ll n,k;
+   cin >> n >> k;
+   ll mini = 10*n,maxi = 12*n;
+   if(k>=mini && k<=maxi) cout << "YES" << endl;
+   else 
+    cout << "NO" << endl;
 }
 

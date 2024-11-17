@@ -35,7 +35,6 @@ ll binexp(ll a, ll b) {ll res = 1; while (b > 0) {if (b & 1) res = (res % mod * 
 ll fact(ll e, ll s = 1) {if (s == e) return s % mod; return (fact(s + (e - s) / 2, s) % mod * fact(e, s + (e - s) / 2 + 1) % mod) % mod;}
 ll inv(ll x) {return binexp(x, mod - 2);}
 
-
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve();
@@ -97,12 +96,17 @@ void solve()
 {
   ll n;
   cin >> n;
-  vl b(n);
-  ipt(b,n);  
-
-  ll ans = 2*n-1;
-  if(b[0]==0 && b[n-1]==1) ans--;
-  
-  cout << ans << endl;
+  unordered_map<int,int> mp;
+  for(int i=0 ;i <n ;i ++)
+  {
+    int c;
+    cin >> c ;
+    mp[c]++;
+  }  
+  ll count =0;
+  for(auto it :mp)
+  {
+    count+= it.second/2;
+  }
+  cout << count << endl;
 }
-

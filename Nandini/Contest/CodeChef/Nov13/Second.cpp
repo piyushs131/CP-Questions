@@ -95,14 +95,27 @@ int main() {
 
 void solve() 
 {
-  ll n;
-  cin >> n;
-  vl b(n);
-  ipt(b,n);  
-
-  ll ans = 2*n-1;
-  if(b[0]==0 && b[n-1]==1) ans--;
-  
-  cout << ans << endl;
+   ll n,m;
+   cin >> n >> m;
+   string s,t;
+   cin >> s >> t;
+   
+   string s1,t1;
+   int count=0;
+   for(auto c : s)
+   {
+     if(c=='a') count++;
+     if(count!=0 && c=='b') continue;
+     else s1+=c;
+   }
+   count=0;
+   for(auto c : t)
+   {
+    if(c=='a') count++;
+    if(count && c=='b') continue;
+    else t1+=c;
+   }
+   if(s1==t1) cout << "Yes" << endl;
+   else cout <<"No" << endl;
 }
 

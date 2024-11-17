@@ -35,6 +35,14 @@ ll binexp(ll a, ll b) {ll res = 1; while (b > 0) {if (b & 1) res = (res % mod * 
 ll fact(ll e, ll s = 1) {if (s == e) return s % mod; return (fact(s + (e - s) / 2, s) % mod * fact(e, s + (e - s) / 2 + 1) % mod) % mod;}
 ll inv(ll x) {return binexp(x, mod - 2);}
 
+bool isPal(string a){
+    int i = 0, j = a.length()-1;
+    while(i<j){
+        if(a[i++]!=a[j--]) return 0;
+    }
+    return 1;
+}
+
 
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 
@@ -66,6 +74,9 @@ int main() {
     return 0;
 }
 
+
+
+
 /*
 --------------------------------------------------------------------------------------------------------------
 
@@ -95,14 +106,14 @@ int main() {
 
 void solve() 
 {
-  ll n;
-  cin >> n;
-  vl b(n);
-  ipt(b,n);  
-
-  ll ans = 2*n-1;
-  if(b[0]==0 && b[n-1]==1) ans--;
-  
-  cout << ans << endl;
+   ll n,b,c;
+   cin >> n >> b >> c;
+   if(b==0)
+   {
+     if(c>=n) pe(n);
+     else if(c>=n-2) pe(n-1);
+     else pe(-1);
+   } 
+   else if(c<=n-1) pe(n-(n-1-c)/b-1);
+   else pe(n);
 }
-
