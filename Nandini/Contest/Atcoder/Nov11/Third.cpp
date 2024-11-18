@@ -35,7 +35,6 @@ ll binexp(ll a, ll b) {ll res = 1; while (b > 0) {if (b & 1) res = (res % mod * 
 ll fact(ll e, ll s = 1) {if (s == e) return s % mod; return (fact(s + (e - s) / 2, s) % mod * fact(e, s + (e - s) / 2 + 1) % mod) % mod;}
 ll inv(ll x) {return binexp(x, mod - 2);}
 
-
 mt19937_64 rng(chrono::steady_clock::now().time_since_epoch().count());
 
 void solve();
@@ -95,36 +94,26 @@ int main() {
 
 void solve() 
 {
-   ll n,m;
-   cin >> n >> m;
-   vl x(m);
-   vl a(m);
-   ipt(x,m);
-   ipt(a,m);
-   ll ans=0;
-   
-   for(int i=0 ; i<m ; i++)
-   {
-     int upto;
-     if(i+1<m)
-      upto = x[i+1]-1;
-     else  upto = n;
+    ll n,m;
+    cin >> n >> m;
+    vector<pll> v(m);
+    for(int i=0 ; i<m ; i++) cin >> v[i].f;
+    for(int i=0 ; i<m ; i++) cin >> v[i].s;
+    
+    v.push_back({n+1,1});
+    sort(all(v));
 
-     // cout << x[i] << " " << a[i] << " " << upto << endl;
-     while(upto!=x[i])
-     {
-        a[i]--;
-        ans+= upto-x[i];
-        upto--;
-        // cout << a[i] << " " << upto << endl;
-        if(a[i]==0 && upto!=x[i])
-        {
-            cout << -1 ;
-            return;
+    ll avail = 0, req = 0,last = 0,ans=0;
+    for(int i=0 ;i<=m ; i++)
+    {
+        req = v[i].f - 1 - last;
+        if(avail<req) {
+            pe(-1); return;
         }
-     }
-
-   }
-   cout << ans ;
+        ans+= (req)*(req+1)/2 + (avail-req)*(req+1); // aage dena+ bache huye dena
+        avail = avail-req + v[i].s-1;
+        last = v[i].f;
+    }    
+    if(avail) pe(-1);
+    else pe(ans);
 }
-
