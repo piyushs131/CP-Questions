@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int takeCharacters(string s, int k) 
+    {
+        int n=s.size(),m=n;
+        unordered_map<char,int> a;
+        for(auto x:s)
+            a[x]++;
+        if(a['a']<k or a['b']<k or a['c']<k)
+            return -1;
+        int j=0;
+        for(int i=0;i<n;i++)
+        {
+            a[s[i]]--;
+            for(;j<=i and (a['a']<k or a['b']<k or a['c']<k);j++)
+                a[s[j]]++;
+            m=min(m,n-(i-j+1));
+        }
+        return m;
+    }
+};
