@@ -1,1 +1,69 @@
 
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+
+
+   struct rectangle {
+
+    int x1, y1;
+
+    int x2, y2;
+   };
+
+
+   bool overloap(  rectangle rect1,  rectangle rect2){
+
+
+    if ( rect1.x2 <= rect2.x1 || rect2.x2 <= rect1.x1){
+        return false;
+    }
+
+    if (rect1.y2 <= rect2.y1 || rect2.y2 <= rect1.y1){
+        return false;
+    }
+
+
+    return true;
+   }
+
+
+
+
+
+   int main(){
+
+    int n;
+
+    cin >> n;
+
+
+
+    for ( int i = 0 ; i  < n; i++){
+
+    rectangle rect1, rect2;
+
+    cin >>   rect1.x1 >> rect1.y1 >> rect1.x2 >> rect1.y2 ;
+
+    cin >> rect2.x1 >> rect2.y1 >> rect2.x2 >> rect2.y2 ;
+
+
+
+    if ( overloap ( rect1, rect2)){
+
+        cout << i + 1  << "rect overlap"  << endl;
+
+
+    }
+
+    else {
+
+        cout << i + 1 << " rect not overlap" << endl;
+    }
+
+
+            }
+
+            return 0;
+   }
