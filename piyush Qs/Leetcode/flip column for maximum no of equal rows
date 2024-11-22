@@ -1,0 +1,60 @@
+class Solution {
+public:
+    int maxEqualRowsAfterFlips(vector<vector<int>>& matrix) {
+        
+        //Storing states
+        unordered_map<string, int> mp;
+
+        int rowSize = matrix.size();
+        int colSize = matrix[0].size();
+
+        int result = 0;
+
+        //Calulating results before flipping
+        for(int i = 0; i < rowSize; i++){
+
+            string temp = "";
+
+            for(int j = 0; j < colSize; j++){
+
+                int num = matrix[i][j];
+
+                if(num){
+                    temp += "1";
+                }
+                else{
+                    temp += "0";
+                }
+            }
+
+            mp[temp]++;
+
+            result = max(result, mp[temp]);
+        }
+
+        //Calulating results after flipping
+        for(int i = 0; i < rowSize; i++){
+
+            string temp = "";
+
+            for(int j = 0; j < colSize; j++){
+
+                int num = matrix[i][j];
+                
+                //Flipping the bits
+                if(num){
+                    temp += "0";
+                }
+                else{
+                    temp += "1";
+                }
+            }
+
+            mp[temp]++;
+
+            result = max(result, mp[temp]);
+        }
+
+        return result;
+    }
+};
