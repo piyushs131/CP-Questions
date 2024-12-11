@@ -13,7 +13,6 @@ int lcm(int a, int b) {
 int main() {
     int n = 8;
     vector<int> arr1 = {0, 1, 0, 1, 1, 0, 0, 1};
-    vector<int> arr2 = arr1;
     vector<int> cnt(n, 0);
 
     for (int i = 0; i < n; i++) {
@@ -22,7 +21,6 @@ int main() {
 
         do {
             vector<int> ns(n);
-
             for (int j = 0; j < n; j++) {
                 if (j == 0 || j == n - 1) {
                     ns[j] = 0;
@@ -34,7 +32,6 @@ int main() {
                     }
                 }
             }
-
             temp = ns;
             days++;
         } while (temp != arr1);
@@ -43,7 +40,6 @@ int main() {
     }
 
     int td = cnt[0];
-
     for (int i = 1; i < n; i++) {
         td = lcm(td, cnt[i]);
     }
