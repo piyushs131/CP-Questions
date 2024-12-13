@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+const ll MOD = 1e9 + 7;
+
+int main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        ll a, b;
+        cin >> a >> b;
+        string c, d;
+        cin >> c >> d;
+
+        string s1;
+        for (char ch : c) {
+            s1 += ch;
+            if (s1.size() >= 2 && s1[s1.size() - 2] == 'a' && s1.back() == 'b') {
+                s1.pop_back(); // Remove 'b'
+            }
+        }
+
+        string s2;
+        for (char ch : d) {
+            s2 += ch;
+            if (s2.size() >= 2 && s2[s2.size() - 2] == 'a' && s2.back() == 'b') {
+                s2.pop_back(); // Remove 'b'
+            }
+        }
+
+        if (s1 == s2) {
+            cout << "YES\n";
+        } else {
+            cout << "NO\n";
+        }
+    }
+
+    return 0;
+}
