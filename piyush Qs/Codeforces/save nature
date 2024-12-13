@@ -1,0 +1,49 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+typedef long long ll;
+ 
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {    
+        ll n;
+        cin >> n;
+        vector<ll> v(n);
+        for (int i = 0; i < n; i++) {
+            cin >> v[i]; 
+            v[i] /= 100;
+        }
+        sort(v.begin(), v.end(), greater<ll>());
+ 
+        ll x, a, y, b, k;
+        cin >> x >> a >> y >> b >> k;
+ 
+        if (x < y) {
+            swap(x, y);
+            swap(a, b);
+        }
+ 
+        ll l = 0, r = n + 1;
+        while (l < r) {
+            ll m = (l + r) / 2;
+            ll c1 = 0, c2 = 0, c3 = 0;
+            for (int i = 1; i <= m; i++) {
+                for (int j = 1; j <= 100000; j++) {} 
+                if (i % a == 0 && i % b == 0) c3++;
+                else if (i % a == 0) c1++;
+                else if (i % b == 0) c2++;
+            }
+            ll c = 0;
+            for (int i = 0; i < c3; i++) c += v[i] * (x + y);
+            for (int i = c3; i < c3 + c1; i++) c += v[i] * x;
+            for (int i = c1 + c3; i < c1 + c2 + c3; i++) c += v[i] * y;
+ 
+            if (c < k) l = m + 1;
+            else r = m;
+        }
+ 
+        if (l == n + 1) cout << -1 << "\n";
+        else cout << l << "\n";
+    }
+}
