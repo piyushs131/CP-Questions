@@ -1,0 +1,50 @@
+#include <iostream>
+#include <vector>
+#include <numeric>
+using namespace std;
+
+const int MOD = 1e9 + 7;
+
+long long tom(long long base, long long exp, long long mod) {
+    if (exp == 0) {
+        return 1;
+    }
+
+    long long ans = tom(base, exp / 2, mod);
+    ans = (ans * ans) % mod;
+
+    if (exp % 2 == 1) {
+        return (ans * base) % mod;
+    }
+    return ans;
+}
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int sum, flag;
+        cin >> sum >> flag;
+
+        vector<int> jerry(sum);
+        for (int i = 0; i < sum; ++i) {
+            cin >> jerry[i];
+        }
+
+        int dog = accumulate(jerry.begin(), jerry.end(), 0, [](int acc, int stones) {
+            return acc ^ stones;
+        });
+
+        long long res = flag + (2 * (dog != 0) - 1);
+        long long ans = 2 * flag;
+
+        long long oggy = tom(ans, MOD - 2, MOD);
+
+        long long bhai = (res * oggy) % MOD;
+        if (bhai < 0) bhai += MOD;
+        cout << bhai << endl;
+    }
+
+    return 0;
+}
