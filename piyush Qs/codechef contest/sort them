@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+const int mm = 1e9 + 7;
+
+signed main() {
+    ios_base::sync_with_stdio(0);
+    cin.tie(0);
+    cout.tie(0);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        int r;
+        cin >> r;
+        string p, q;
+        cin >> p >> q;
+
+        vector<int> cnt(26);
+        for (int i = 0; i < 26; ++i) {
+            cnt[q[i] - 'a'] = i;
+        }
+
+        vector<char> flag(26);
+        transform(cnt.begin(), cnt.end(), flag.begin(), [&](int x) {
+            return q[25 - x];
+        });
+
+        vector<int> res(26, 0);
+
+        for (int i = 0; i < r; ++i) {
+            char s = p[i];
+            char t = flag[p[i] - 'a'];
+
+            vector<int> ans(26, mm);
+            int sum = mm;
+
+            for (int j = 0; j < 26; ++j) {
+                sum = min(sum, res[j]);
+                if (j == s - 'a') {
+                    ans[j] = min(ans[j], sum);
+                }
+                if (j == t - 'a') {
+                    ans[j] = min(ans[j], sum + 1);
+                }
+            }
+
+            res = ans;
+        }
+
+        int min_cost = *min_element(res.begin(), res.end());
+        cout << (min_cost >= mm / 2 ? -1 : min_cost) << '\n';
+    }
+}
