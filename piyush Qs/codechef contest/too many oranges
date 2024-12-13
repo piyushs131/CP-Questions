@@ -1,0 +1,29 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int cnt;
+    cin >> cnt;
+    vector<string> res;
+
+    for (int i = 0; i < cnt; ++i) {
+        int sum, ans;
+        cin >> sum >> ans;
+
+        int mis = 10 * sum;
+        int ms = 12 * sum;
+
+        if (mis <= ans && ans <= ms) {
+            res.push_back("YES");
+        } else {
+            res.push_back("NO");
+        }
+    }
+
+    for (const auto &r : res) {
+        cout << r << endl;
+    }
+
+    return 0;
+}
