@@ -1,0 +1,36 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+typedef long long ll;
+ 
+int main() {
+    int t;
+    cin >> t;
+ 
+    while (t--) {
+        string n;
+        cin >> n;
+        int size = n.size();
+ 
+        for (int i = 0; i < size; i++) {
+            int left = n[i] - '0';
+            int right = i;
+ 
+            for (int j = i + 1; j < min(size, i + 10); j++) {
+                int new_left = n[j] - '0' - (j - i);
+                if (new_left > left && new_left >= 0) {
+                    left = new_left;
+                    right = j;
+                }
+            }
+ 
+            if (right != i) {
+                char ss = '0' + left;
+                rotate(n.begin() + i, n.begin() + right, n.begin() + right + 1);
+                n[i] = ss;
+            }
+        }
+ 
+        cout << n << "\n";
+    }
+}
