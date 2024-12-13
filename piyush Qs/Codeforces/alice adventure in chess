@@ -1,0 +1,39 @@
+
+#include <iostream>
+#include <string>
+#include <set>
+using namespace std;
+ 
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, a, b;
+        cin >> n >> a >> b;
+        string s;
+        cin >> s;
+        
+        int x = 0, y = 0;
+        bool res = false;
+        set<pair<int, int>> cnn;
+        
+        for (int cnt = 0; cnt < 100; cnt++) {
+            cnn.insert({x, y});
+            for (int i = 0; i < n; i++) {
+                if (s[i] == 'N') y++;
+                else if (s[i] == 'S') y--;
+                else if (s[i] == 'E') x++;
+                else if (s[i] == 'W') x--;
+ 
+                if (x == a && y == b) {
+                    res = true;
+                    break;
+                }
+            }
+            if (res || cnn.count({x, y})) break;
+        }
+        
+        cout << (res ? "YES" : "NO") << endl;
+    }
+    return 0;
+}
