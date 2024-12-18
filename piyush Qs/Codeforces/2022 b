@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+#define lli long long int
+ 
+int main(){
+	int t;
+	cin >> t;
+ 
+	while(t--){
+		int n,x;
+		cin >> n >> x;
+ 
+		vector<lli> arr(n);
+ 
+		for(lli& i:arr) cin >> i;
+ 
+		
+		lli s = 0,mx = 0;
+		for(lli i:arr) s+=i,mx = max(mx,i);
+ 
+		cout << max(mx,(s/x)+(s%x!=0)) << endl;
+	}
+}
