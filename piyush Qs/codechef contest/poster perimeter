@@ -1,0 +1,25 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+
+int main() {
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        int N, M, K;
+        cin >> N >> M >> K;
+        
+        int d = INT_MAX;
+        for (int l = 1; l <= N; ++l) {
+            for (int w = 1; w <= M; ++w) {
+                int p = 2 * (l + w);
+                d = min(d, abs(p - K));
+            }
+        }
+        cout << d << '\n';
+    }
+    
+    return 0;
+}
