@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long 
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        ll n,m;
+        cin>>n>>m;
+ 
+        ll curr = max((ll)0,n-m);
+ 
+ 
+        ll k = 0;
+ 
+        while(curr<n+m)
+        {
+            curr = curr | (1<<k);
+            k++;
+ 
+        }
+ 
+        cout<<curr<<endl;
+    }
+ 
+    return 0;
+ 
+}
