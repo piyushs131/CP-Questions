@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main(){
+int t;
+cin>>t;
+while(t--){
+    int n,a,b,c;
+    cin>>n>>a>>b>>c;
+
+    int sum=a+b+c;
+    int count=0;
+    while(n>=sum){
+
+    count+=(n/sum)*3;
+    n=n%sum;
+
+    }
+    if(n>0){
+        n-=a;count++;
+        }
+    if(n>0){
+        n-=b;count++;
+        }
+    if(n>0){
+        n-=c;count++;
+        }
+  cout<<count<<endl;
+}
+}
