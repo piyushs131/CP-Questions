@@ -1,0 +1,27 @@
+class Solution {
+public:
+    int maxDistinctElements(vector<int>& nums, int k) {
+
+        vector<pair<int, int>> vs;
+        for (int x : nums) {
+
+            vs.push_back({x - k, x + k});
+        }
+        sort(vs.begin(), vs.end());
+
+        set<int> st;
+        int cnt = INT_MIN;
+        for (const auto& it : vs) {
+            
+            int start = it.first, end = it.second;
+
+            int val = max(cnt, start);
+
+            if (val <= end && (st.empty() || st.find(val) == st.end())) {
+                st.insert(val);
+                cnt = val + 1;
+            }
+        }
+        return st.size();
+    }
+};
