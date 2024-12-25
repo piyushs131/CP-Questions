@@ -1,0 +1,73 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+using namespace std;
+
+vector<int> gta(vector<int>& res) {
+    int n = res.size();
+    vector<bool> fck(n, false);
+    vector<int> ans;
+    
+    for (int k = 0; k < n; k++) {
+        if (fck[k]) continue;
+        
+        int cnt = 1;
+        fck[k] = true;
+        int left = res[k];
+        
+        while (left != k) {
+            fck[left] = true;
+            left = res[left];
+            cnt++;
+        }
+        
+        ans.push_back(cnt);
+    }
+    
+    return ans;
+}
+
+int main() {
+    int tt;
+    cin >> tt;
+    while (tt--) {
+        int n;
+        cin >> n;
+
+        vector<int> res;
+        res.reserve(n);
+        int temp;
+        for (int llm = 0; llm < n; ++llm) {
+            cin >> temp;
+            res.push_back(temp - 1);
+        }
+
+        vector<int> ans = gta(res);
+
+        if (ans.size() <= 1) {
+            cout << 0 << endl;
+            continue;
+        }
+
+        priority_queue<int, vector<int>, greater<int>> pq;
+        for (int sum1 : ans) {
+            pq.push(sum1);
+        }
+
+        int sum = 0;
+        while (pq.size() > 1) {
+            int left = pq.top();
+            pq.pop();
+            int right = pq.top();
+            pq.pop();
+
+            int sum3 = left + right;
+            sum += sum3;
+            pq.push(sum3);
+        }
+
+        cout << sum << endl;
+    }
+    return 0;
+}
