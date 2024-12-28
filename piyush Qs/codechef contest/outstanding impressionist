@@ -1,0 +1,72 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(0);
+ 
+    int t;
+    cin >> t;
+    const int MAX_VALUE = 400005;
+    vector<int> cnt(MAX_VALUE, 0);
+ 
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<pair<int, int>> mfs(n);
+ 
+        for (auto &kk : mfs) {
+            cin >> kk.first >> kk.second;
+        }
+ 
+        unordered_map<int, int> abc;
+        for (auto &kk : mfs) {
+            if (kk.first == kk.second) {
+                abc[kk.first]++;
+            }
+        }
+ 
+        vector<int> unique_fixed;
+        unique_fixed.reserve(abc.size());
+        for (const auto &it : abc) {
+            unique_fixed.push_back(it.first);
+            cnt[it.first] += it.second;
+        }
+ 
+        sort(unique_fixed.begin(), unique_fixed.end());
+ 
+        string res = "";
+        res.reserve(n);
+ 
+        for (const auto &kk : mfs) {
+            int left = kk.first, right = kk.second;
+ 
+            if (left < right) {
+                int lower = lower_bound(unique_fixed.begin(), unique_fixed.end(), left) - unique_fixed.begin();
+                int upper = upper_bound(unique_fixed.begin(), unique_fixed.end(), right) - unique_fixed.begin();
+                int num_fixed = upper - lower;
+                int size = right - left + 1;
+ 
+                if (num_fixed < size) {
+                    res += '1';
+                } else {
+                    res += '0';
+                }
+            } else {
+                if (cnt[left] <= 1) {
+                    res += '1';
+                } else {
+                    res += '0';
+                }
+            }
+        }
+ 
+        cout << res << "\n";
+ 
+        for (const auto &it : abc) {
+            cnt[it.first] -= it.second;
+        }
+    }
+ 
+    return 0;
+}
