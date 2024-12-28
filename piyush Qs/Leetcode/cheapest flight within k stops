@@ -1,0 +1,49 @@
+class Solution {
+public:
+    int findCheapestPrice(int n, vector<vector<int>>& f, int src, int dst, int k) {
+        int sz = f.size();
+        vector<vector<pair<int, int>>> adj(n);
+
+        for (int i = 0; i < sz; i++) {
+            int a = f[i][0];
+            int b = f[i][1];
+            int c = f[i][2];
+            adj[a].push_back({b, c});
+        }
+
+        priority_queue<pair<int, pair<int, int>>, vector<pair<int, pair<int, int>>>, greater<pair<int, pair<int, int>>>> pq;
+        pq.push({0, {src, 0}});
+
+        vector<int> dist(n, -1);
+        dist[src] = 0;
+
+        while (!pq.empty()) {
+
+            int stops = pq.top().first;
+            int u = pq.top().second.first;
+            int cost = pq.top().second.second;
+            pq.pop();
+
+            for (auto it : adj[u]) {
+                auto [v, c] = it;
+
+                if (dist[v] == -1) {
+                    if (v == dst && stops > k) 
+                    continue;
+                    dist[v] = cost + c;
+
+                    pq.push({stops + 1, {v, dist[v]}});
+                }
+
+                else if (dist[v] > cost + c) {
+                    if (v == dst && stops > k)
+                     continue;
+                    dist[v] = cost + c;
+                    pq.push({stops + 1, {v, dist[v]}});
+                }
+            }
+        }
+
+        return dist[dst];
+    }
+};
