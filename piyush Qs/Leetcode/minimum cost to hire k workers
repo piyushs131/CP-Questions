@@ -1,0 +1,34 @@
+class Solution {
+public:
+    double mincostToHireWorkers(vector<int>& q, vector<int>& w, int k) {
+
+        int n = q.size();
+        double sum = 0, res = DBL_MAX;
+
+        vector<pair<double, int>> eff;
+
+        for (int i = 0; i < n; i++) {
+            eff.push_back({(double)w[i] / q[i], q[i]});
+        }
+
+        sort(eff.begin(), eff.end());
+
+        priority_queue<int> pq;
+
+        for (int i = 0; i < n; i++) {
+            pq.push(eff[i].second);
+            sum += eff[i].second;
+
+            if (pq.size() > k) {
+                sum -= pq.top();
+                pq.pop();
+            }
+
+            if (pq.size() == k) {
+                res = min(res, sum * eff[i].first);
+            }
+        }
+
+        return res;
+    }
+};
