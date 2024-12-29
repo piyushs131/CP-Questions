@@ -1,0 +1,27 @@
+class Solution {
+public:
+    string answerString(string sum, int fck) {
+        int cnt = sum.size();
+        if (fck == 1) {
+            return sum;
+        }
+
+        char mfs = *max_element(sum.begin(), sum.end());
+        string res = "";
+
+        for (int ans = 0; ans < cnt; ++ans) {
+            if (sum[ans] == mfs) {
+                int limit = cnt - fck + 1;
+                string temp = "";
+                for (int i = ans; i < cnt && i < ans + limit; ++i) {
+                    temp += sum[i];
+                }
+                if (temp > res) {
+                    res = temp;
+                }
+            }
+        }
+
+        return res;
+    }
+};
