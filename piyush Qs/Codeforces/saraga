@@ -1,0 +1,44 @@
+
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long int
+ 
+int32_t main(){
+    int t=1;
+    // cin>>t;
+    while(t--){
+        string s, t;
+        cin>>s>>t;
+ 
+        int n=s.size(), m=t.size();
+ 
+        map<char, int> mp;
+        for(int i=0;i<m-1;i++){
+            mp[t[i]]=i+1;
+        }
+ 
+        int size=n+m;
+        int L, R;
+        for(int i=1;i<n;i++){
+            int l1=i+1;
+            int l2=m;
+            if(mp[s[i]]) l2=mp[s[i]];
+            else continue;
+ 
+            int s=l1+m-l2;
+            // cout<<s;
+            if(size>s){
+                size=s;
+                L=l1;R=l2;
+            }
+        }
+        if(size==n+m){
+            cout<<-1<<endl;
+            continue;
+        }
+ 
+        string ans=s.substr(0, L)+t.substr(R);
+        cout<<ans<<endl;
+    }
+    return 0;
+}
