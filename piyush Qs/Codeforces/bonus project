@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+#define ll long long
+#define fi first
+#define se second
+#define fastio ios_base::sync_with_stdio(false); cin.tie(0); cout.tie(0);
+using namespace std;
+ 
+const ll MOD=1e9+7;
+ll T,N,K,a[1005],b[1005],c[1005],suff[1005];
+int main(){
+	cin>>N>>K;
+	for(int i=1;i<=N;i++){
+		cin>>a[i];
+	}
+	for(int i=1;i<=N;i++){
+		cin>>b[i];
+		c[i]=a[i]/b[i];
+	}
+	suff[N+1]=0;
+	for(int i=N;i>=1;i--){
+		suff[i]=suff[i+1]+c[i];
+	}
+	for(int i=1;i<=N;i++){
+		if(K>suff[i]){
+			cout<<0<<' ';
+			continue;
+		}
+		else{
+			ll cur=max(0ll,K-suff[i+1]);
+			cout<<cur<<' ';
+			K-=cur;
+		}
+	}
+	cout<<endl;
+}
