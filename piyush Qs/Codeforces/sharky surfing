@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, m, l;
+        cin >> n >> m >> l;
+        vector<int> pos_l(n), pos_r(n), pos_p(m), power(m);
+        
+        for (int i = 0; i < n; i++) {
+            cin >> pos_l[i] >> pos_r[i];
+        }
+        
+        for (int i = 0; i < m; i++) {
+            cin >> pos_p[i] >> power[i];
+        }
+        
+        priority_queue<int, vector<int>> pq;
+        int ans = 0, cur = 1;
+        
+        for (int i = 0, j = 0; i < n; i++) {
+            while (j < m && pos_p[j] < pos_l[i]) {
+                pq.push(power[j]);
+                j++;
+            }
+            
+            while (cur < pos_r[i] - pos_l[i] + 2) {
+                if (pq.empty()) {
+                    cout << -1 << endl;
+                    goto next_test;
+                }
+                cur += pq.top();
+                pq.pop();
+                ans++;
+            }
+        }
+        cout << ans << endl;
+        next_test:;
+    }
+    return 0;
+}
