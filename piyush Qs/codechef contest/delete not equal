@@ -1,0 +1,28 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define int long long
+
+int32_t main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+
+    while (n--) {
+        int sum;
+        cin >> sum;
+        string res;
+        cin >> res;
+
+        if (all_of(res.begin(), res.end(), [](char ch) { return ch == '0'; }) || 
+            all_of(res.begin(), res.end(), [](char ch) { return ch == '1'; })) {
+            cout << sum << '\n';
+        } else {
+            cout << 1 << '\n';
+        }
+    }
+
+    return 0;
+}
