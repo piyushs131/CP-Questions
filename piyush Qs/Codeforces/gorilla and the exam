@@ -1,0 +1,51 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+ 
+int main() {
+   
+    int t;
+    cin >> t;
+ 
+    while (t--) {
+        int n, sum;
+        cin >> n >> sum;
+ 
+        vector<int> arr(n);
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+ 
+        sort(arr.begin(), arr.end());
+ 
+        vector<pair<int, int>> res;
+        int cnt = 1;
+        for (int i = 1; i <= n; i++) {
+            if (i == n || arr[i] != arr[i - 1]) {
+                res.push_back({arr[i - 1], cnt});
+                cnt = 1;
+            } else {
+                cnt++;
+            }
+        }
+ 
+        vector<int> ans;
+        for (auto& pair : res) {
+            ans.push_back(pair.second);
+        }
+ 
+        sort(ans.begin(), ans.end());
+ 
+        int summ = 0, rr = ans.size();
+        for (size_t i = 0; i < ans.size() && sum >= ans[i]; i++) {
+            sum -= ans[i];
+            summ++;
+            rr--;
+        }
+ 
+        cout << max(1, rr) << "\n";
+    }
+ 
+    return 0;
+}
