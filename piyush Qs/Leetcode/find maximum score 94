@@ -1,0 +1,34 @@
+class Solution {
+public:
+    char computeMirror(char ch) {
+        return 'z' - (ch - 'a');
+    }
+
+    long long computeMirrorScore(const string& s) {
+        int cnt = s.size();
+        vector<bool> res(cnt, false);
+        unordered_map<char, vector<int>> mp;
+        long long ans = 0;
+
+        for (auto it = s.begin(); it != s.end(); ++it) {
+            char rr = computeMirror(*it);
+            int ll = distance(s.begin(), it);
+
+            if (mp[rr].empty()) {
+                mp[*it].push_back(ll);
+            } else {
+                int idx = mp[rr].back();
+                mp[rr].pop_back();
+                res[ll] = true;
+                res[idx] = true;
+                ans += ll - idx;
+            }
+        }
+
+        return ans;
+    }
+
+    long long calculateScore(const string& s) {
+        return computeMirrorScore(s);
+    }
+};
