@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int res = 0;
+    int maxLength(vector<int>& nums) {
+        int cnt = nums.size();
+        for (int ll = 0; ll < cnt; ll++) {
+            long double sum = 1;
+            int ans = 0;
+            long long lcm_val = 1;
+            for (int rr = ll; rr < cnt; rr++) {
+                sum *= nums[rr];
+                ans = gcd(ans, nums[rr]);
+                lcm_val = lcm(lcm_val, static_cast<long long>(nums[rr]));
+                if (sum <= LLONG_MAX && sum == ans * lcm_val) {
+                    res = max(res, rr - ll + 1);
+                }
+            }
+        }
+        return res;
+    }
+};
