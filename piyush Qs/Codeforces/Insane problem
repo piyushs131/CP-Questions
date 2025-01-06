@@ -1,0 +1,21 @@
+
+
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+int main(){
+	int t; cin>>t;
+	while(t--){
+		ll k, l1, r1, l2, r2;
+		cin>>k>>l1>>r1>>l2>>r2;
+		ll cnt = 0;
+		ll x = k;
+		k = 1;
+		while(k<=r2){
+			cnt += max(0ll,1-max((l2+k-1)/k, l1)+min(r1, r2/k));
+			//cout << max((l2+k-1)/k, l1)<<" -- "<<min(r1, r2/k)<<endl;
+			k*=x;
+		}
+		cout << cnt<<endl;
+	}
+}
