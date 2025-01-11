@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+#define int long long
+using namespace std;
+ 
+main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int n;
+        cin >> n;
+        int A = 0, B = 0, mia = 1e9+7, mib = 1e9+7, AA = 0, BB = 0, ans = 1e18+7;
+        vector<int> a(n + 1);
+        for (int i = 1; i <= n; i++) cin >> a[i];
+        for (int i = 1; i <= n; i++) {
+            if (i & 1) {
+                A++;
+                mia = min(mia, a[i]);
+                AA += a[i];
+            } else {
+                B++;
+                mib = min(mib, a[i]);
+                BB += a[i];
+            }
+            if (i < 2) continue;
+            int res = mia * (n - A) + AA + mib * (n - B) + BB;
+            ans = min(ans, res);
+        }
+        cout << ans << '\n';
+    }
+}
