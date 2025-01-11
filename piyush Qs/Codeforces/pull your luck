@@ -1,0 +1,29 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+ 
+int main() {
+    int T;
+	cin>>T;
+	while(T--){
+		int n,x,p;
+		cin>>n>>x>>p;
+		bool flag=0;
+		int q=min(2*n,p);
+		for(int i=1;i<=q;i++){
+			if((x+i)%n==0){
+				flag=1;
+				break;
+			}
+			x+=i;
+			x%=n;
+		}
+		if(flag==1){
+			cout<<"YES\n";
+		}
+		else{
+		cout<<"NO"<<endl;
+	}
+	}
+	return 0;
+}
