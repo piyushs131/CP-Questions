@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+ 
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        ll n, a, b;
+        cin >> n >> a >> b;
+        ll am = 1;
+        bool flag = false;
+        while (am <= n) {
+            if ((n - am) % b == 0) {
+                flag = true;
+                break;
+            }
+            am *= a;
+            if (a == 1) {
+                break;
+            }
+        }
+        cout << (flag ? "Yes" : "No") << endl;
+    }
+    return 0;
+}
