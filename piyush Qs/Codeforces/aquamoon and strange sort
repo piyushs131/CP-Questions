@@ -1,0 +1,43 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+using namespace std;
+ 
+int main() {
+    int T;
+    cin >> T;
+    while (T--) {
+        int n;
+        cin >> n;
+ 
+        vector<int> a(n), b(n);
+        map<int, int> res, ans;
+ 
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+            b[i] = a[i];
+            if (i % 2 == 1) {
+                res[a[i]]++;
+            }
+        }
+ 
+        sort(b.begin(), b.end());
+        for (int i = 0; i < n; i++) {
+            if (i % 2 == 1) {
+                ans[b[i]]++;
+            }
+        }
+ 
+        bool flag = true;
+        for (int i = 0; i < n; i++) {
+            if (res[a[i]] != ans[a[i]]) {
+                flag = false;
+                break;
+            }
+        }
+ 
+        cout << (flag ? "YES" : "NO") << endl;
+    }
+    return 0;
+}
