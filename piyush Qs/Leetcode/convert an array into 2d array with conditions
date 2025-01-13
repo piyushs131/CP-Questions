@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<int>> findMatrix(vector<int>& nums) {
+        vector<vector<int>> res;
+        vector<int> cr;
+        map<int, int> mp;
+        
+        int cnt = 0;
+
+        for (auto it : nums) {
+            mp[it]++;
+            cnt++;
+        }
+
+        while (cnt > 0) {
+            for (auto& it : mp) {
+                if (it.second > 0) {
+                    cr.push_back(it.first);
+                    it.second--;
+                    cnt--;
+                }
+            }
+
+            res.push_back(cr);
+            cr.clear();
+            if (cnt <= 0)
+                break;
+        }
+        return res;
+    }
+};
