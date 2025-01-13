@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int minimumLength(string s) {
+
+        vector<int>vc(26,0);
+
+        int res = 0;
+
+        for ( char it : s){
+            vc[it - 'a']++;
+
+        }
+
+        for ( auto f : vc){
+            if ( f == 0)
+            continue;
+
+
+            if ( f % 2 == 0){
+                res+=2;
+
+            }
+
+            else{
+                res +=1;
+            }
+        }
+
+        return res;
+
+
+        
+    }
+};
