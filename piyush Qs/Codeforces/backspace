@@ -1,0 +1,35 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+ 
+    int t;
+    cin >> t;
+    while (t--) {
+        string s, t;
+        cin >> s >> t; 
+ 
+        int n = s.length();
+        int m = t.length();
+ 
+        int p = n - 1;
+        int q = m - 1;
+ 
+        while (p >= 0 && q >= 0) {
+            if (s[p] == t[q]) {
+                p--;
+                q--;
+            } else {
+                p -= 2;
+            }
+        }
+ 
+        if (q == -1) 
+            cout << "YES" << endl;
+        else 
+            cout << "NO" << endl;
+    }
+    return 0;
+}
