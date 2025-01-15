@@ -1,0 +1,63 @@
+#include <iostream>
+#include <vector>
+#include <map>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+    while (t--) {
+        long long n, k;
+        cin >> n >> k;
+        vector<long long> v(n);
+
+        for (long long i = 0; i < n; ++i) cin >> v[i];
+
+        map<long long, long long> cnt;
+        for (const auto& val : v) {
+            cnt[val]++;
+        }
+
+        long long ans = cnt[k];
+        long long maxFreq = 0;
+        for (const auto& [key, value] : cnt) {
+            maxFreq = max(maxFreq, value);
+        }
+
+        if (ans == maxFreq) {
+            cout << 0 << endl;
+        } else {
+            cnt.clear();
+            long long sum = 0, fck = 0;
+
+            for (long long i = 0; i < n; ++i) {
+                cnt[v[i]]++;
+                sum = max(sum, cnt[v[i]]);
+                if (sum == cnt[k]) {
+                    fck = 1;
+                    break;
+                }
+            }
+
+            cnt.clear();
+            sum = 0;
+
+            for (long long i = n - 1; i >= 0; --i) {
+                cnt[v[i]]++;
+                sum = max(sum, cnt[v[i]]);
+                if (sum == cnt[k]) {
+                    fck = 1;
+                    break;
+                }
+            }
+
+            cout << (fck ? 1 : 2) << endl;
+        }
+    }
+
+    return 0;
+}
