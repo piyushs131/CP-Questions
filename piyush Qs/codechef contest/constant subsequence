@@ -1,0 +1,74 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        long long a;
+        cin >> a;
+        
+        vector<long long> p, q;
+        p.reserve(a);
+        q.reserve(a);
+        
+        for(long long i = 0; i < a; i++) {
+            long long b;
+            cin >> b;
+            if(b >= 0) p.push_back(b);
+            else q.push_back(b);
+        }
+        
+        if(p.empty()) {
+            cout << "0\n";
+            continue;
+        }
+        
+        long long left = *max_element(p.begin(), p.end());
+        long long right = 0;
+        for(auto b : p) right += b;
+        long long res = right;
+        
+        while(left <= right) {
+            long long mid = left + (right - left) / 2;
+            
+            bool ck = true;
+            long long pos = 0, neg = 0;
+            long long sum = 0, fck = 0;
+            
+            while(pos < p.size() || neg < q.size()) {
+                if(pos < p.size() && sum + p[pos] <= mid) {
+                    sum += p[pos++];
+                    fck = max(fck, sum);
+                } else if(neg < q.size()) {
+                    sum += q[neg++];
+                    fck = max(fck, sum);
+                    if(fck > mid) {
+                        ck = false;
+                        break;
+                    }
+                    sum = max(0LL, sum);
+                } else {
+                    ck = false;
+                    break;
+                }
+            }
+            
+            if(ck) {
+                res = mid;
+                right = mid - 1;
+            } else {
+                left = mid + 1;
+            }
+        }
+        
+        cout << res << "\n";
+    }
+    
+    return 0;
+}
