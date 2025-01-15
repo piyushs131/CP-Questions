@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+const int N=11, M=20;
+string g[N];
+bool vis[N][M];
+ 
+int main(){
+	int t;
+	cin>>t;
+	while (t--){
+		int n, m, k;
+		cin>>n>>m>>k;
+		for (int i=0; i<n; i++){
+			cin>>g[i];
+			for (int j=0; j<m; j++) vis[i][j]=0;
+		}
+		for (int i=1; i<n; i++){
+			for (int j=1; j<m; j++){
+				if (g[i][j]=='*'){
+					int h;
+					for (h=1; i-h>=0; h++){
+						if (j-h<0 || j+h>=m || g[i-h][j-h]=='.' || g[i-h][j+h]=='.') break;
+					}
+					if (h>k){
+						for (int ii=0; ii<h; ii++){
+							vis[i-ii][j-ii]=1;
+							vis[i-ii][j+ii]=1;
+						}
+					}
+				}
+			}
+		}
+		bool ok=1;
+		for (int i=0; i<n; i++){
+			for (int j=0; j<m; j++){
+				if (g[i][j]=='*' && !vis[i][j]){
+					ok=0;
+					break;
+				}
+			}
+			if (!ok) break;
+		}
+		if (ok) cout<<"YES"<<endl;
+		else cout<<"NO"<<endl;
+	}	
+}
