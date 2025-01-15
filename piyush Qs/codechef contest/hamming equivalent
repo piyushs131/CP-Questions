@@ -1,0 +1,48 @@
+#include<iostream>
+#include<vector>
+#include<map>
+#include<algorithm>
+using namespace std;
+
+int cb(int x) {
+    return __builtin_popcount(x);
+}
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        int n;
+        cin >> n;
+        vector<int> nums(n);
+        
+        for(int i = 0; i < n; i++) {
+            cin >> nums[i];
+        }
+        
+        map<int, vector<int>> groups;
+        for(int x : nums) {
+            groups[cb(x)].push_back(x);
+        }
+        
+        for(auto& [bits, values] : groups) {
+            sort(values.rbegin(), values.rend());
+        }
+        
+        vector<int> sorted = nums;
+        for(int i = 0; i < n; i++) {
+            int bits = cb(nums[i]);
+            nums[i] = groups[bits].back();
+            groups[bits].pop_back();
+        }
+        
+        sort(sorted.begin(), sorted.end());
+        cout << (nums == sorted ? "YES\n" : "NO\n");
+    }
+    return 0;
+}
