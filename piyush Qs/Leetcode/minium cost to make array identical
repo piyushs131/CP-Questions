@@ -1,0 +1,44 @@
+class Solution {
+public:
+    long long minCost(vector<int>& arr, vector<int>& brr, long long kk) {
+        int cnt = arr.size();
+        
+        long long sum = 0;
+        for (int i = 0; i < cnt; i++) {
+            sum += abs(arr[i] - brr[i]);
+        }
+        
+        unordered_map<int, int> res, ans;
+        for (int i = 0; i < cnt; i++) {
+            res[arr[i]]++;
+            ans[brr[i]]++;
+        }
+        
+        long long fck = kk;
+        vector<int> a, b;
+        for (auto& [num, cnt] : res) {
+            int t = ans[num];
+            while (cnt > t) {
+                a.push_back(num);
+                cnt--;
+            }
+        }
+        
+        for (auto& [num, cnt] : ans) {
+            int t = res[num];
+            while (cnt > t) {
+                b.push_back(num);
+                cnt--;
+            }
+        }
+        
+        sort(a.begin(), a.end());
+        sort(b.begin(), b.end());
+        
+        for (int i = 0; i < a.size(); i++) {
+            fck += abs(a[i] - b[i]);
+        }
+        
+        return min(sum, fck);
+    }
+};
