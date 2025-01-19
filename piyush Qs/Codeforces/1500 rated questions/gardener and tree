@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+const int maxn = 4e5 + 100;
+vector<int> G[maxn];
+bool de[maxn];
+int du[maxn];
+int n, k;
+ 
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    int T;
+    cin >> T;
+    
+    while (T--) {
+        cin >> n >> k;
+        
+        for (int i = 1; i <= n; ++i) {
+            G[i].clear();
+            du[i] = 0;
+            de[i] = 0;
+        }
+ 
+        for (int i = 1, u, v; i < n; ++i) {
+            cin >> u >> v;
+            G[u].push_back(v);
+            G[v].push_back(u);
+            du[u]++;
+            du[v]++;
+        }
+ 
+        queue<pair<int, int>> que;
+        
+        for (int i = 1; i <= n; ++i) {
+            if (du[i] <= 1) {
+                que.push({i, 1});
+            }
+        }
+ 
+        while (!que.empty()) {
+            pair<int, int> p = que.front();
+            que.pop();
+ 
+            if (de[p.first]) continue;
+ 
+            de[p.first] = 1;
+ 
+            if (p.second == k) continue;
+ 
+            for (int v : G[p.first]) {
+                du[v]--;
+ 
+                if (du[v] <= 1 && !de[v]) {
+                    que.push({v, p.second + 1});
+                }
+            }
+        }
+ 
+        int ans = n;
+        for (int i = 1; i <= n; ++i) {
+            if (de[i]) --ans;
+        }
+ 
+        cout << ans << "\n";
+    }
+ 
+    return 0;
+}
