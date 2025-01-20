@@ -1,0 +1,60 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+#define ll long long
+#define MOD 998244353
+ 
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
+ 
+        map<int, int> pp, kk;
+        pp[0] = 1;
+ 
+        for (int i = 0; i < n; i++) {
+            int ai = a[i];
+            int res = (pp[ai] + kk[ai]) % MOD;
+            if (res < 0) res += MOD;
+ 
+            map<int, int> cur_pp, cur_kk;
+ 
+            if (res > 0) {
+                cur_pp[ai] = res;
+            }
+ 
+            for (const auto& p : pp) {
+                int l = p.first;
+                int cnt = p.second;
+                cur_kk[l + 1] = (cur_kk[l + 1] + cnt) % MOD;
+            }
+ 
+            swap(pp, cur_pp);
+            swap(kk, cur_kk);
+        }
+ 
+        int ans = 0;
+        for (auto it = pp.begin(); it != pp.end(); ++it) {
+            ans = (ans + it->second) % MOD;
+        }
+ 
+        for (auto it = kk.begin(); it != kk.end(); ++it) {
+            ans = (ans + it->second) % MOD;
+        }
+ 
+        cout << ans << "\n";
+    }
+ 
+    return 0;
+}
