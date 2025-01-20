@@ -1,0 +1,56 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+# define ll long long
+ 
+int cnt(int num) {
+    if (num == 0) return 0;
+    int res = 0;
+    while ((num & 1) == 0) {
+        num >>= 1;
+        res++;
+    }
+    return res;
+}
+ 
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        int n;
+        cin >> n;
+        vector<int> a(n);
+ 
+        for (int &x : a) {
+            cin >> x;
+        }
+ 
+        priority_queue<pair<int, int>> pq;
+        for (int x : a) {
+            pq.push({cnt(x), x});
+        }
+ 
+        int sum = 0, ans = 0;
+        while (!pq.empty()) {
+            int x = pq.top().second;
+            pq.pop();
+ 
+            sum += x;
+            if (sum % 2 == 0) {
+                ans++;
+                while (sum % 2 == 0) {
+                    sum /= 2;
+                }
+            }
+        }
+ 
+        cout << ans << '\n';
+    }
+    
+    return 0;
+}
