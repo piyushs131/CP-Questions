@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+ 
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(0);
+    cout.tie(0);
+    
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        int n;
+        cin >> n;
+ 
+        vector<int> pp(n);
+        for (int i = 0; i < n; ++i) {
+            cin >> pp[i];
+        }
+ 
+        sort(pp.begin(), pp.end());
+ 
+        map<int, int> cnt;
+ 
+        for (int i = 0; i < n; ++i) {
+            cnt[pp[i]]++;
+        }
+ 
+        auto it = cnt.begin();
+        bool fck = false;
+        bool kk = false;
+        int res = -1, ans = -1;
+ 
+        while (it != cnt.end()) {
+            if (it->second >= 2) {
+                if (!fck) {
+                    res = it->first;
+                    fck = true;
+                } else if (!kk) {
+                    ans = it->first;
+                    kk = true;
+                }
+            }
+            ++it;
+            if (fck && kk) {
+                break;
+            }
+        }
+ 
+        if (!fck) {
+            cout << "-1\n";
+            continue;
+        }
+ 
+        if (fck && kk) {
+            cout << res << " " << res << " "
+                 << ans << " " << ans << "\n";
+            continue;
+        }
+ 
+        int sum = res;
+ 
+        vector<int> rem;
+        int rmv = 0;
+        for (int num : pp) {
+            if (num == sum && rmv < 2) {
+                rmv++;
+            } else {
+                rem.push_back(num);
+            }
+        }
+ 
+        int ll = 0, rr = 1;
+        while (rr < rem.size()) {
+            if (rem[rr] < rem[ll] + 2 * sum) {
+                cout << sum << " " << sum << " "
+                     << rem[ll] << " " << rem[rr] << "\n";
+                break;
+            }
+            ll++;
+            rr++;
+        }
+ 
+        if (rr == rem.size()) {
+            cout << "-1\n";
+        }
+    }
+    
+    return 0;
+}
