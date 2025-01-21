@@ -1,0 +1,37 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+int main(){
+ios_base::sync_with_stdio(false);
+cin.tie(NULL);
+ll t;
+cin>>t;
+while(t--){
+    
+    ll q;
+    cin>>q;
+    ll a[26]={1};
+    ll b[26]={1};
+    while(q--){
+
+        ll s,k;
+        cin>>s>>k;
+        string x;
+        cin>>x;
+
+        for(ll i=0;i<x.size();i++){
+            ll p=x[i]-'a';
+            (s==1)?a[p]+=k:b[p]+=k;
+        }
+
+        ll d=-1,c1=0; 
+        for(ll i=0;i<26;i++){
+            if(a[i]!=0) c1++;
+            if(b[i]!=0) d=max(d,i);
+        }
+
+        (a[0]>b[d] && d==0 || a[0]<=b[d] && c1>1 && d==0 || a[0]>=b[d] && c1==1 && d==0)?cout<<"NO":cout<<"YES";
+        cout<<endl;
+    }
+}
+}
