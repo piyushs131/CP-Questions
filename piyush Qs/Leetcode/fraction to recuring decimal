@@ -1,0 +1,33 @@
+class Solution {
+public:
+    string fractionToDecimal(int n, int d) {
+        string ans = "";
+        string temp = "";
+        unordered_map<int, int> mp;
+
+        if (!n) return "0";
+
+        if ((n > 0 && d < 0) || (n < 0 && d > 0)) temp += '-';
+
+        long nn = abs((long)n);
+        long dd = abs((long)d);
+
+        ans += to_string(nn / dd);
+        nn %= dd;
+
+        if (nn) {
+            ans += '.';
+            while (nn && mp.find(nn) == mp.end()) {
+                mp[nn] = ans.size();
+                nn *= 10;
+                ans += to_string(nn / dd);
+                nn %= dd;
+            }
+            if (nn) {
+                ans = ans.substr(0, mp[nn]) + '(' + ans.substr(mp[nn]) + ')';
+            }
+        }
+
+        return temp + ans;
+    }
+};
