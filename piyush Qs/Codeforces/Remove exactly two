@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+int T,n,d[200005];
+map<int,bool>g[200005];
+pair<int,int> tmp[200005];
+signed main(){
+	cin>>T;
+	while(T--){
+		cin>>n;
+		for(int i=1;i<=n;i++) d[i]=0,g[i].clear();
+		for(int i=1;i<n;i++){
+			int u,v;
+			cin>>u>>v;
+			d[u]++;
+			d[v]++;
+			g[u][v]=1;
+			g[v][u]=1;
+		}
+		for(int i=1;i<=n;i++) tmp[i]=make_pair(d[i],i);
+		sort(tmp+1,tmp+n+1);
+        reverse(tmp+1,tmp+n+1);
+		int ans=0;
+		for(int i=1;i<=n;i++){
+			int k=0;
+			for(int j=1;j<=min(d[i]+2,n);j++){
+				int v=tmp[j].second;
+				if(i==v) continue;
+				if(g[i][v]) k=max(k,d[v]-1);
+				else k=max(k,d[v]);
+			}
+			ans=max(ans,d[i]+k-1);
+		}
+		cout<<ans<<endl;
+	}
+	return 0;
+}
