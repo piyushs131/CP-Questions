@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define ll long long
+ll a;
+int main(){
+	int t;cin>>t;
+	while(t--){
+		int n,m;cin>>n>>m;
+		ll mx=0;
+		while(n--){
+			int l;cin>>l;
+			set<ll> s;
+			while(l--){
+				
+				cin>>a;
+				s.insert(a);
+			}
+			ll cur=0;
+			while(s.count(cur))cur++;
+			s.insert(cur);
+			while(s.count(cur))cur++;
+			mx=max(mx,cur);	
+			
+		}
+		ll ans=0;
+		if(m>mx)ans=(mx+1)*mx+(mx+1+m)*(m-mx)/2;
+		else ans=(m+1)*mx;
+		cout<<ans<<endl;
+	}
+	return 0;
+}
