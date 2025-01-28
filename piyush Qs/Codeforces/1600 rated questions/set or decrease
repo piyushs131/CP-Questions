@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+ 
+int main()
+{
+    ll t;
+    cin >> t;  
+    while (t--)
+    {
+        ll n, k;
+        cin >> n >> k;  
+        vector <int> a(n + 1);
+        ll sum = 0;
+        a[0] = 0;  
+ 
+        for (int i = 0; i < n; i++)
+        {
+            cin >> a[i];
+            sum += a[i];
+        }
+ 
+        if (sum <= k)
+        {
+            cout << 0 << "\n";
+            continue;
+        }
+ 
+        else if (sum == k + 1)
+        {
+            cout << 1 << "\n";
+            continue;
+        }
+ 
+        sort(a.begin(), a.end());
+ 
+        ll diff = sum - k;
+        ll ans = diff;  
+ 
+        sum = 0;
+        for (int i = n; i > 1; i--)
+        {
+            sum += a[i];  
+ 
+            ll x;
+            if (sum - (n - i + 1) * a[1] >= diff)
+            {
+                x = 0;  
+            }
+            else {
+                ll y = ceil((diff - sum + (n - i + 1) * a[1]) / (float)(n - i + 2));
+                x = max(y, 0ll);  
+            }
+ 
+            ans = min(ans, (x + n - i + 1));
+        }
+ 
+        cout << ans << "\n";
+    }
+ 
+}
