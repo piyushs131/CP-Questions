@@ -1,0 +1,22 @@
+#include <bits/stdc++.h>
+using namespace std;
+const int N = 2e5 + 10;
+int n;
+int num[N];
+char s[N];
+int main()
+{
+	int t;
+	cin >> t;
+	while (t--)
+	{
+		cin >> s;
+		for (n = 0; s[n]; n++)
+			num[n + 1] = num[n] + (s[n] == '1');
+		int ans = num[n];
+		for (int i = 0; i + num[n] <= n; i++)
+			ans = min(ans, num[n] - num[i + num[n]] + num[i]);
+		cout << ans << endl;
+	}
+	return 0;
+}
