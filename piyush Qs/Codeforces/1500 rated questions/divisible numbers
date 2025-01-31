@@ -1,0 +1,29 @@
+#include<bits/stdc++.h>
+ 
+using namespace std;
+ 
+int main(){
+	int t;
+	cin>>t;
+	while(t--){
+		long long int a,b,c,d;
+		cin>>a>>b>>c>>d;
+		long long int a1=-1,a2=-1;
+		int k1=0;
+		for(int i=a+1;i<=c;i++){
+			long long int temp=(a*b)/gcd(a*b,i);
+			long long int x=d/temp;
+			if(x>=1 && (x*temp)>b){
+				k1++;
+				a1=i;
+				a2=x*temp;
+				break;
+			} 
+			if(k1>0){
+				break;
+			}
+		}
+		cout<<a1<<" "<<a2<<endl;
+	}
+	return 0;
+}
