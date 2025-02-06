@@ -1,0 +1,54 @@
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+#define ll long long
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+        int n;
+        ll c, d;
+        cin >> n >> c >> d;
+
+        vector<int> arr(n);
+        for (int i = 0; i < n; i++) {
+            cin >> arr[i];
+        }
+
+        sort(arr.rbegin(), arr.rend());
+
+        int ans = -1, l = 0, r = d;
+
+        while (l <= r) {
+            int k = l + (r - l) / 2;
+            ll temp = 0;
+            int j = 0;
+
+            for (int i = 0; i < d; i++) {
+                if (j < n) temp += arr[j];
+                j++;
+                if (j > k) j = 0;
+            }
+
+            if (temp >= c) {
+                ans = k;
+                l = k + 1;
+            } else {
+                r = k - 1;
+            }
+        }
+
+        if (ans == -1) {
+            cout << "Impossible" << endl;
+        } else if (ans == d) {
+            cout << "Infinity" << endl;
+        } else {
+            cout << ans << endl;
+        }
+    }
+
+    return 0;
+}
