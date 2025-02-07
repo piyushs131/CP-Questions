@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define int long long
+#define endl "\n"
+ 
+main() {
+    ios_base::sync_with_stdio(false); cin.tie(NULL);
+	int t;
+	cin>>t;
+	while(t--){
+	    int n;
+        cin>>n;
+        int a[n];
+        for(int i=0;i<n;i++)
+        cin>>a[i];
+        vector<int> ans(n,-1);
+        
+        for(int i=1;i<n-1;i++) 
+        ans[i]=max(0ll,max(a[i-1],a[i+1])-a[i]+1);
+        
+        if(n&1){
+            int p=0;
+            for(int i=1;i<n-1;i+=2) p+=ans[i];
+            cout<<p<<endl;
+            continue;
+        }
+        
+        vector<int> pre=ans;
+        for(int i=n-4;i>=0;i--) 
+        pre[i]+=pre[i+2];        
+        int p=0;
+        for(int i=1;i<n-1;i+=2) 
+        p+=ans[i];
+        
+        int pp=p;
+        for(int i=1;i<n-1;i+=2){
+            int c=p-pre[i]+pre[i+1];
+            pp=min(pp,c);
+        }
+ 
+        cout<<pp<<endl;
+	}
+	return 0;
+}
