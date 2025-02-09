@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+
+
+        int n, x;
+        cin >> n >> x;
+
+        vector<int> a(n+1);
+
+        if (  n % x != 0){
+            cout << -1 << endl;
+            continue;
+        }
+
+                for ( int i = 1; i <= n; i++){
+                a[i] = i;
+            }
+
+                a[1] = x;
+                a[n] = 1;
+            
+    
+        if ( x != n){
+
+            for ( int i = 2*x; i <= n; i+=x){
+                if ( n % i == 0){
+                    a[x] = i;
+                    x = i;
+                }
+            }
+        }
+
+         for(int i=1;i<=n;i++) 
+        cout<<a[i]<<" ";
+      cout << endl;
+
+}
+return 0;
+
+
+}
