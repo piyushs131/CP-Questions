@@ -1,0 +1,52 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+int main() {
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+
+
+        ll n, m, s1 = 0, s2 = 0, ans = 1;
+
+        cin >> n >> m;
+
+        ll nn = n;
+
+        while ( nn%2 == 0){
+            nn/= 2;
+            s1++;
+        }
+
+        while ( nn%5 == 0){
+            nn/= 5;
+            s2++;
+        }
+
+        while ( s1 < s2 && ans *2 <= m){
+            ans *= 2;
+            s1++;
+
+        }
+
+        while ( s2 < s1 && ans *5 <= m){
+            ans*= 5;
+            s2++;
+        }
+
+        while ( ans * 10  <= m){
+            ans*= 10;
+        }
+
+          ans *= (m / ans);
+    cout << ans * n << '\n';
+
+}
+return 0;
+
+
+}
