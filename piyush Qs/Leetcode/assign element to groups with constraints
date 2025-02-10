@@ -1,0 +1,27 @@
+class Solution {
+public:
+    vector<int> assignElements(vector<int>& groups, vector<int>& elements) {
+        unordered_map<int, int> res;
+        for (int i = 0; i < elements.size(); i++) {
+            if (!res.count(elements[i])) {
+                res[elements[i]] = i;
+            }
+        }
+        
+        int n = groups.size();
+        vector<int> ans(n, -1);
+        
+        for (int i = 0; i < n; i++) {
+            int temp = INT_MAX;
+            for (int x = 1; x * x <= groups[i]; x++) {
+                if (groups[i] % x == 0) {
+                    if (res.count(x)) temp = min(temp, res[x]);
+                    if (res.count(groups[i] / x)) temp = min(temp, res[groups[i] / x]);
+                }
+            }
+            if (temp != INT_MAX) ans[i] = temp;
+        }
+        
+        return ans;
+    }
+};
