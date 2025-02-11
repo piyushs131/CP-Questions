@@ -1,0 +1,50 @@
+#include <iostream>
+#include <map>
+using namespace std;
+#define ll long long
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+
+    ll t;
+    cin >> t;
+    while (t--) {
+        ll n;
+        cin >> n;
+        map<ll, ll> mp;
+
+        ll cnt = n;
+        while (cnt--) {
+            ll a;
+            cin >> a;
+            if (a > 0 && a <= n) {
+                mp[a]++;
+            }
+        }
+
+        bool flag1 = true;
+        for (ll pp = 1; pp < n; pp++) {
+            if (mp[pp] == 1) {
+                flag1 = false;
+                break;
+            }
+            if (mp[pp] >= 3) {
+                ll ans = mp[pp] - 2;
+                mp[pp + 1] += ans;
+                mp[pp] = 2;
+            }
+        }
+
+        auto frq = mp.begin();
+        while (flag1 && frq != mp.end()) {
+            if (frq->second % 2 != 0) {
+                flag1 = false;
+            }
+            ++frq;
+        }
+
+        cout << (flag1 ? "Yes" : "No") << "\n";
+    }
+    return 0;
+}
