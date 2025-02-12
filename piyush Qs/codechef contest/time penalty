@@ -1,0 +1,13 @@
+#include <iostream>
+using namespace std;
+
+int computePenalty(int X, int Y) {
+    return X + 10 * Y;
+}
+
+int main() {
+    int X, Y;
+    cin >> X >> Y;
+    cout << computePenalty(X, Y) << endl;
+    return 0;
+}
