@@ -1,0 +1,51 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define MAXN 100010
+typedef long long ll;
+ 
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+ 
+        int n, m;
+        cin >> n >> m;
+ 
+        vector<int> v(m + 1);
+        int rr = 0, ll = 0;
+ 
+        for (int i = 0; i < n; i++) {
+            int x;
+            cin >> x;
+ 
+            if (x == -1) 
+            ll++;
+            else if (x == -2) 
+            rr++;
+            else v[x]++;
+        }
+ 
+        int res = 0;
+        int l = 0, r = 0;
+        for (int i = 1; i <= m; i++) {
+            if (v[i]) res++;
+        }
+ 
+        r = m - res;
+        int ans = 0;
+        for (int i = 1; i <= m; i++) {
+ 
+            if (v[i]) {
+                ans = max(ans, res + min(ll, l) + min(rr, r));
+            }
+            else {
+                r--;
+                l++;
+            }
+        }
+ 
+        ans = max(ans, max(ll, rr) + res);
+        cout << min(ans, m) << "\n";
+    }
+    return 0;
+}
