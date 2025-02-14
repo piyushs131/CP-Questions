@@ -1,0 +1,33 @@
+#include <bits/stdc++.h>
+#define ll long long
+using namespace std;
+int main()
+{
+  
+  int t;
+  cin >> t;
+  while (t--)
+  {
+    ll r, a, b,ans=0;
+    cin >> a >> b >> r;
+    if (a > b)
+
+      swap(a, b);
+
+    for (ll i =61, o = 1; i>=0; i--){
+      ll z=(o << i);
+      bool x =(b&(o<<i));
+      bool y =(a&(o<<i));
+
+      if (x && !y && (ans+z)<= r && a+z<=b-z)
+      {
+        ans +=z;
+        b -=z;
+        a+=z;
+      }
+    }
+  //  cout<<a<<" "<<b<<'\n';
+    cout <<b-a<< '\n';
+
+  }
+}
