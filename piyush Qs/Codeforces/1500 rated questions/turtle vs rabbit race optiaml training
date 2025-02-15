@@ -1,0 +1,39 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main(int argc, char const *argv[])
+{
+    ll t;
+    cin >> t;
+    while (t--)
+    {
+        ll n;
+        cin >> n;
+        vector<ll> a(n+1);
+        vector<ll> sum(n + 1, 0);
+        
+        for (int i = 1; i<=n; i++)
+        {
+            cin >> a[i];
+            sum[i] = a[i] + sum[i-1];
+        }
+        
+        ll q;
+        cin >> q;
+        while (q--)
+        {
+            ll l, u;
+            cin >> l >> u;
+            u+=sum[l-1];
+           ll ans=lower_bound(sum.begin(),sum.end(),u)-sum.begin();
+			if(sum[ans]-u>u-sum[ans-1])	ans--;
+			ans=max(ans,l);
+			ans=min(ans,n);
+			cout<<ans<<" ";
+		}
+		cout<<endl;
+    }
+    return 0;
+}
+
