@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool check(string &num, int idx, int currsum, int original) {
+        if (idx == num.size()) {
+            return currsum == original;
+        }
+        int value = 0;  
+        for (int i=idx;i<num.size();i++) {
+            value=value*10+(num[i]-'0'); 
+            if (value>original) break; 
+            if (check(num,i+1,currsum+value,original)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    int punishmentNumber(int n) {
+        int ans = 0;
+        for (int i=1;i<=n;i++) {
+            int sqr =i*i;
+            string num = to_string(sqr);
+            if (check(num,0,0,i)) {
+                ans+=sqr;
+            }
+        }
+        return ans;
+    }
+};
