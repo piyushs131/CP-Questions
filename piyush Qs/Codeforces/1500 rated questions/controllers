@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+typedef long long int ll;
+
+int main() {
+    ll n;
+    cin >> n;
+    string s;
+    cin >> s;
+
+    ll pos = 0, neg = 0;
+    for (ll i = 0; i < n; i++) {
+        if (s[i] == '+') pos++;
+        else neg++;
+    }
+
+    ll q;
+    cin >> q;
+    while (q--) {
+        ll a, b;
+        cin >> a >> b;
+
+        if (pos == neg) {
+            cout << "YES" << endl;
+            continue;
+        }
+        if (a == b) {
+            cout << "NO" << endl;
+            continue;
+        }
+
+        ll p = max(pos, neg), q = min(pos, neg);
+        ll r = max(a, b), s = min(a, b);
+
+        if (p * s > q * r) {
+            cout << "NO" << endl;
+        } else {
+            ll diff = q * r - p * s;
+            if (diff % abs(a - b) == 0) cout << "YES" << endl;
+            else cout << "NO" << endl;
+        }
+    }
+    return 0;
+}
