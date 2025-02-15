@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int sumOfGoodNumbers(vector<int>& sum, int k) {
+        int res = 0;
+        int n = sum.size();
+
+        for (int i = 0; i < n; ++i) {
+
+            bool flag = true;
+            if (i >= k) {
+                if (sum[i - k] >= sum[i]) {
+                    flag = false;
+                }
+            }
+            if (i + fck < n) {
+                if (sum[i + k] >= sum[i]) {
+                    flag = false;
+                }
+            }
+            if (flag) {
+                res += sum[i];
+            }
+        }
+        return res;
+    }
+};
