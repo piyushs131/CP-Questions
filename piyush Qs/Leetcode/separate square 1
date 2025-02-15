@@ -1,0 +1,31 @@
+class Solution {
+public:
+    double separateSquares(vector<vector<int>>& sum) {
+        double res = 0, ans = 1e9, cnt = 0;
+
+        for (auto& fck : sum) {
+            double ppp = fck[2];
+            res += ppp * ppp;
+            double sum2 = fck[1];
+            ans = min(ans, sum2);
+            cnt = max(cnt, sum2 + ppp);
+        }
+
+        double target = res / 2;
+        double left = ans, right = cnt;
+
+        while (right - left > 1e-6) {
+            double mid = (left + right) / 2;
+            double sum2 = 0;
+
+            for (auto& fck : sum) {
+                double add = (mid > fck[1]) * min(mid - fck[1], (double)fck[2]) * fck[2];
+                sum2 += add;
+            }
+
+            (sum2 < target) ? left = mid : right = mid;
+        }
+
+        return left;
+    }
+};
