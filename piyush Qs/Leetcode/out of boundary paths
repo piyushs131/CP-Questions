@@ -1,0 +1,28 @@
+#define MOD 1000000007;
+class Solution {
+public:
+    int dp[51][51][51];
+    int solve(int m, int n, int move, int x, int y){
+
+        if(x>=m || x<0 || y >= n || y<0)
+            return 1;
+        
+        if(move == 0)
+            return 0;
+
+        if(dp[x][y][move] != -1)
+            return dp[x][y][move];
+        
+        long long a = solve(m,n,move-1, x+1, y) % MOD;
+        long long b = solve(m,n,move-1, x-1, y) % MOD;
+        long long c = solve(m,n,move-1, x, y+1) % MOD;
+        long long d = solve(m,n,move-1, x, y-1) % MOD;
+        
+        return dp[x][y][move] = (a+b+c+d) % MOD;
+
+    }
+    int findPaths(int m, int n, int maxMove, int startRow, int startColumn) {
+        memset(dp, -1, sizeof(dp));
+        return solve(m, n, maxMove, startRow, startColumn);
+    }
+};
