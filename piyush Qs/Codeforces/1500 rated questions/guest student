@@ -1,0 +1,50 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+#define ll long long
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while(t--) {
+        int k;
+        cin >> k;
+        
+        bool a[7];
+        int num = 0;
+        for (int i = 0; i < 7; i++) {
+            cin >> a[i];
+            num += a[i];
+        }
+        
+        ll ans = k / num;
+        ll totalClassesCovered = ans * num;
+        int remaining = k - totalClassesCovered;
+        if (k % num == 0)
+            remaining = num;
+        
+        int minExtraDays = 10;
+        for (int i = 0; i < 7; i++) {
+            int index = i, sum = 0;
+            for (int j = 0; j < 7; j++) {
+                sum += a[index];
+                index = (index + 1) % 7;
+                if (sum == remaining) {
+                    minExtraDays = min(minExtraDays, j);
+                    break;
+                }
+            }
+        }
+        
+        if (k % num == 0)
+            ans--;
+        
+        ans *= 7;
+        ans += (minExtraDays + 1);
+        
+        cout << ans << endl;
+    }
+    
+    return 0;
+}
