@@ -1,0 +1,13 @@
+class Solution {
+public:
+    long long maxWeight(vector<int>& piz) {
+        sort(piz.rbegin(), piz.rend());
+        long long w = 0, n = piz.size(), d = n / 4;
+
+        int i = 0;
+        for (int j = 0; j < (1 + d) / 2; ++j) w += piz[i++];  
+        for (int j = 0; j < d / 2; ++j) w += piz[i + 1], i += 2;  
+
+        return w;
+    }
+};
