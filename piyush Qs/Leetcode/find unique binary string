@@ -1,0 +1,30 @@
+class Solution {
+public:
+    string res = "";
+
+    string findDifferentBinaryString(vector<string>& nums) {
+        int n = nums[0].size();
+        back(nums, n, "");
+        return res;
+    }
+
+    bool back(vector<string>& nums, int n, string s) {
+        if (s.size() == n) {
+            if (find(nums.begin(), nums.end(), s) == nums.end()) {  
+                res = s;
+                return true;
+            }
+            return false;
+        }
+
+        for (char c = '0'; c <= '1'; c++) {
+            s += c;
+            if (back(nums, n, s)) {
+                return true;
+            }
+            s.pop_back();  
+        }
+
+        return false;
+    }
+};
