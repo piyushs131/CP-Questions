@@ -1,0 +1,30 @@
+class Solution {
+public:
+    bool hasSpecialSubstring(string s, int k) {
+        int n = s.size();
+        int c = 1;
+        
+        for (int i = 1; i < n; ++i) {
+            if (s[i] == s[i - 1]) {
+                c++;
+            } else {
+                if (c == k) {
+                    if ((i - k - 1 < 0 || s[i - k - 1] != s[i - 1]) && 
+                        (i >= n || s[i] != s[i - 1])) {
+                        return true;
+                    }
+                }
+                c = 1;
+            }
+        }
+        
+        if (c == k) {
+            if ((n - k - 1 < 0 || s[n - k - 1] != s[n - 1]) && 
+                (n >= n || s[n] != s[n - 1])) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+};
