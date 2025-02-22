@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+#define ll long long
+using namespace std;
+int main()
+{
+    ll n, m, k, i, sum = 0, x = 0;
+    cin >> n >> m >> k;
+    
+    vector<ll> v, v1;
+    ll a[n];
+
+    for (i = 0; i < n; i++) {
+        cin >> a[i];
+        v.push_back(a[i]);
+    }
+
+    map<ll, ll> mp;
+    
+    sort(v.begin(), v.end(), greater<ll>());
+    
+    for (i = 0; i < m * k; i++) {
+        mp[v[i]]++;
+        sum += v[i];
+    }
+
+    for (i = 0; i < n; i++) {
+        if (mp[a[i]] >= 1) {  
+            x++;  
+            mp[a[i]]--;  
+        }
+      
+        if (x == m) {  
+            v1.push_back(i + 1);  
+            x = 0;  
+        }
+      
+        if (v1.size() == k - 1) { 
+            break;
+        }
+    }
+
+    cout << sum << endl;
+    for (i = 0; i < v1.size(); i++) {
+        cout << v1[i] << " ";
+    }
+    cout << endl;
+}
