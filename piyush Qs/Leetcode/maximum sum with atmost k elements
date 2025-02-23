@@ -1,0 +1,27 @@
+class Solution {
+public:
+    long long maxSum(vector<vector<int>>& grid, vector<int>& limits, int k) {
+        int n = grid.size();
+        int m = grid[0].size();
+        priority_queue<pair<int,int>> pq;
+        long long maxi = 0;
+
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < m; j++) {  
+                pq.push({grid[i][j], i});
+            }
+        }
+
+        while (k != 0 && !pq.empty()) {  
+            int top = pq.top().first;
+            int idx = pq.top().second;
+            pq.pop();
+            if (limits[idx] > 0) {
+                maxi += top;
+                limits[idx]--;
+                k--;
+            }
+        }
+        return maxi;
+    }
+};
