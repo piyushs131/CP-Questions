@@ -1,0 +1,56 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+int main() {
+    int n;
+    cin >> n;
+    vector<vector<int>> a(27), b(27);
+
+    for (int i = 0; i < n; i++) {
+        char h;
+        cin >> h;
+        if (h == '?') a[26].push_back(i + 1);
+        else a[h - 'a'].push_back(i + 1);
+    }
+
+    for (int i = 0; i < n; i++) {
+        char h;
+        cin >> h;
+        if (h == '?') b[26].push_back(i + 1);
+        else b[h - 'a'].push_back(i + 1);
+    }
+
+    vector<pair<int, int>> ans;
+
+    for (int i = 0; i < 26; i++) {
+        while (!a[i].empty() && !b[i].empty()) {
+            ans.push_back({a[i].back(), b[i].back()});
+            a[i].pop_back();
+            b[i].pop_back();
+        }
+    }
+
+    for (int i = 0; i < 27; i++) {
+        while (!a[26].empty() && !b[i].empty()) {
+            ans.push_back({a[26].back(), b[i].back()});
+            a[26].pop_back();
+            b[i].pop_back();
+        }
+    }
+
+    for (int i = 0; i < 27; i++) {
+        while (!a[i].empty() && !b[26].empty()) {
+            ans.push_back({a[i].back(), b[26].back()});
+            a[i].pop_back();
+            b[26].pop_back();
+        }
+    }
+
+    cout << ans.size() << endl;
+    for (auto& p : ans) {
+        cout << p.first << " " << p.second << endl;
+    }
+
+    return 0;
+}
