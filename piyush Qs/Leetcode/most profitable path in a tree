@@ -1,0 +1,65 @@
+class Solution {
+public:
+    vector<vector<int>> graph;
+    vector<int> bob_steps;
+    int ans = INT_MIN;
+
+    bool dfs_bob(int u, int p, int steps) {
+        bob_steps[u] = steps;
+
+        if (u == 0)
+            return true;
+
+        for (int v : graph[u]) {
+            if (v == p)
+                continue;
+
+            if (dfs_bob(v, u, steps + 1))
+                return true;
+        }
+
+        bob_steps[u] = INT_MAX;
+        return false;
+    }
+
+    void dfs_alice(int u, int p, int steps, int income, vector<int>& amount) {
+        int cost = amount[u];
+
+        if (bob_steps[u] < steps)
+            cost = 0;
+            
+        else if (bob_steps[u] == steps)
+            cost /= 2;
+
+        income += cost;
+        bool is_leaf = true;
+
+        for (int v : graph[u]) {
+            if (v == p)
+                continue;
+
+            is_leaf = false;
+            dfs_alice(v, u, steps + 1, income, amount);
+        }
+
+        if (is_leaf)
+            ans = max(ans, income);
+    }
+
+    int mostProfitablePath(vector<vector<int>>& edges, int bob, vector<int>& amount) {
+        int n = amount.size();
+
+        graph = vector<vector<int>>(n);
+        bob_steps = vector<int>(n, INT_MAX);
+
+        for (const auto& edge : edges) {
+            graph[edge[0]].push_back(edge[1]);
+            graph[edge[1]].push_back(edge[0]);
+        }
+
+        dfs_bob(bob, -1, 0);
+        dfs_alice(0, -1, 0, 0, amount);
+
+        return ans;
+    }
+};
