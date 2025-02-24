@@ -1,0 +1,31 @@
+
+
+#include<iostream>
+using namespace std;
+
+int main()
+{
+    int T;
+    cin >> T;
+    for(int cas = 1; cas <= T; cas++)
+    {
+        int n;
+        cin >> n;
+        int l = 1, r = n;
+        while(l != r)
+        {
+            int mid = (l+r)>>1;
+            cout << "? " << l << " " << mid << endl;
+            int cnt = 0, x;
+            for(int i = l; i <= mid; i++)
+            {
+                cin >> x;
+                cnt += (x >= l && x <= mid);
+            }
+            if(cnt & 1) r = mid;
+            else l = mid+1;
+        }
+        cout << "! " << l << endl;
+    }
+    return 0;
+} 
