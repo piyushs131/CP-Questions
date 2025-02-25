@@ -1,0 +1,44 @@
+#include <bits/stdc++.h>
+using namespace std;
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    int t;
+    cin >> t;
+    while (t--) {
+        int k;
+        cin >> k;
+        vector<int> res;
+        if (k == 0) {
+            cout << "1\n0 0\n";
+            continue;
+        }
+        int sum = k;
+        while (sum > 0) {
+            int cnt = 2, ans = 500;
+            int m = 2;
+            while (cnt <= ans) {
+                int mid = (cnt + ans) / 2;
+                int temp = mid * (mid - 1) / 2;
+                if (temp <= sum) {
+                    m = mid;
+                    cnt = mid + 1;
+                } else {
+                    ans = mid - 1;
+                }
+            }
+            res.push_back(m);
+            sum -= m * (m - 1) / 2;
+        }
+        cout << accumulate(res.begin(), res.end(), 0) << "\n";
+        int cnt = 0;
+        for (int ans = 0; ans < (int)res.size(); ans++) {
+            int sum = res[ans];
+            for (int fck = 0; fck < sum; fck++) {
+                cout << ans * 1000 + fck << " " << ans << "\n";
+                cnt++;
+            }
+        }
+    }
+    return 0;
+}
