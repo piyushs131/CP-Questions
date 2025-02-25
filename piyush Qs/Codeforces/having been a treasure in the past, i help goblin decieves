@@ -1,0 +1,36 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        int _;
+        cin >> _;
+        
+        string c;
+        cin >> c;
+        
+        int a = 0;
+        for (char ch : c) {
+            if (ch == '-') a++;
+        }
+        
+        int b = c.length() - a;
+        
+        long long ans = 0;
+        if (a >= 2 && b > 0) {
+            ans = (1LL * (a / 2) * (a / 2 + (a % 2))) * b;
+        }
+        
+        cout << ans << "\n";
+    }
+    
+    return 0;
+}
