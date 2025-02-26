@@ -1,0 +1,22 @@
+#define ll long long
+class Solution {
+public:
+    ll fun(int node, int n, vector<int>& cost, ll &cnt) {
+        if (2 * node > n) {
+            return cost[node - 1];
+        }
+        
+        ll leftsum = fun(2 * node, n, cost, cnt);
+        ll rightsum = fun(2 * node + 1, n, cost, cnt);
+        
+        cnt += abs(leftsum - rightsum);
+        
+        return cost[node - 1] + max(leftsum, rightsum);
+    }
+    
+    int minIncrements(int n, vector<int>& cost) {
+        ll cnt = 0;
+        fun(1, n, cost, cnt);
+        return cnt;
+    }
+};
