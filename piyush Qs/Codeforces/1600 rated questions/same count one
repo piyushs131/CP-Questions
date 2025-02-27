@@ -1,0 +1,55 @@
+#include<bits/stdc++.h>
+using namespace std;
+typedef long long ll;
+
+int main()
+{
+    ios::sync_with_stdio(false), cin.tie(0), cout.tie(0);
+    int t = 1; cin >> t;
+    while (t--)
+    {
+        ll n, m;
+        cin >> n >> m;
+        vector<int> cnt(n + 1);
+        vector<vector<int>> a(n + 1, vector<int>(m + 1));
+        int sum = 0;
+        
+        for (int i = 1; i <= n; i++)
+        {
+            for (int j = 1; j <= m; j++)
+            {
+                cin >> a[i][j];
+                cnt[i] += a[i][j];
+            }
+            sum += cnt[i];
+        }
+        
+        if (sum % n != 0) cout << "-1\n";
+        else
+        {
+            int k = sum / n, ans = 0;
+            vector<int> x, y, z;
+            
+            for (int j = 1; j <= m; j++)
+            {
+                vector<int> v1, v2;
+                for (int i = 1; i <= n; i++)
+                {
+                    if (a[i][j] == 1 && cnt[i] > k) v1.push_back(i);
+                    if (a[i][j] == 0 && cnt[i] < k) v2.push_back(i);
+                }
+                
+                for (int i = 0; i < min(v1.size(), v2.size()); i++)
+                {
+                    ans++;
+                    x.push_back(v1[i]), y.push_back(v2[i]), z.push_back(j);
+                    cnt[v1[i]]--, cnt[v2[i]]++;
+                }
+            }
+            
+            cout << ans << "\n";
+            for (int i = 0; i < ans; i++) cout << x[i] << " " << y[i] << " " << z[i] << "\n";
+        }
+    }
+    return 0;
+}
