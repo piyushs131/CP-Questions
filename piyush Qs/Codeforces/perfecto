@@ -1,0 +1,63 @@
+#include <iostream>
+#include <set>
+#include <vector>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+using ll = long long;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        ll sum = (1LL * n * (n + 1)) / 2;
+        ll res = sqrt(sum);
+        if (res * res == sum) {
+            cout << "-1\n";
+            continue;
+        }
+
+        set<int> ans;
+        for (int i = 1; i <= n; i++) ans.insert(i);
+
+        ll cnt = 0;
+        vector<int> p;
+        p.reserve(n);
+
+        for (int i = 0; i < n; i++) {
+            vector<int> sum;
+            int res = *ans.rbegin();
+            for (int j = sqrt(cnt) + 1;; j++) {
+                int x = j * j - cnt;
+                if (x > res) break;
+                if (ans.count(x)) sum.push_back(x);
+            }
+
+            bool flag = false;
+            for (auto it = ans.rbegin(); it != ans.rend(); ++it) {
+                int x = *it;
+                if (find(sum.begin(), sum.end(), x) == sum.end()) {
+                    p.push_back(x);
+                    cnt += x;
+                    ans.erase(x);
+                    flag = true;
+                    break;
+                }
+            }
+            if (!flag) break;
+        }
+
+        if ((int)p.size() == n) {
+            for (int x : p) cout << x << " ";
+            cout << "\n";
+        } else {
+            cout << "-1\n";
+        }
+    }
+    return 0;
+}
