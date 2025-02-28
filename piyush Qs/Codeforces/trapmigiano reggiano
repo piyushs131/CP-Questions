@@ -1,0 +1,61 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+#include <climits>  
+
+using namespace std;
+using ll = long long;
+
+bool cmp(pair<int, int> a, pair<int, int> b) {
+    return a.first > b.first;
+}
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        int n, s, e;
+        cin >> n >> s >> e;
+        
+        vector<vector<int>> ans(n + 1);
+        for (int i = 1; i < n; i++) {
+            int u, v;
+            cin >> u >> v;
+            ans[u].push_back(v);
+            ans[v].push_back(u);
+        }
+        
+        vector<int> d(n + 1, INT_MAX);
+        d[e] = 0;
+        
+        queue<int> q;
+        q.push(e);
+        while (!q.empty()) {
+            int u = q.front();
+            q.pop();
+            for (int v : ans[u]) {
+                if (d[v] > d[u] + 1) {
+                    d[v] = d[u] + 1;
+                    q.push(v);
+                }
+            }
+        }
+        
+        vector<pair<int, int>> res;
+        for (int i = 1; i <= n; i++) {
+            res.push_back(make_pair(d[i] == INT_MAX ? -1 : d[i], i)); 
+        }
+        
+        sort(res.begin(), res.end(), cmp);
+        
+        for (int i = 0; i < n; i++) {
+            cout << res[i].second << " ";
+        }
+        cout << "\n";
+    }
+    return 0;
+}
