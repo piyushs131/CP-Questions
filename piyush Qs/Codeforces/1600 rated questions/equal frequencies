@@ -1,0 +1,100 @@
+#include <iostream>
+#include <vector>
+#include <string>
+#include <algorithm>
+using namespace std;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        int n;
+        cin >> n;
+        string s;
+        cin >> s;
+        
+        vector<int> sum(26, 0);
+        for (char c : s) {
+            sum[c - 'a']++;
+        }
+        
+        int res = n + 1, ans = -1;
+        for (int cnt = 1; cnt <= 26; cnt++) {
+            if (n % cnt != 0) continue;
+            int target = n / cnt;
+            vector<int> vec = sum;
+            sort(vec.begin(), vec.end(), greater<int>());
+            int keep = 0;
+            for (int i = 0; i < cnt; i++) {
+                keep += min(vec[i], target);
+            }
+            int changes = n - keep;
+            if (changes < res) {
+                res = changes;
+                ans = cnt;
+            }
+        }
+        
+        int target = n / ans;
+        vector<int> order(26);
+        for (int i = 0; i < 26; i++) {
+            order[i] = i;
+        }
+        sort(order.begin(), order.end(), [&](int a, int b) {
+            return sum[a] > sum[b];
+        });
+        
+        vector<bool> flag(26, false);
+        for (int i = 0; i < ans; i++) {
+            flag[order[i]] = true;
+        }
+        
+        string temp = s;
+        vector<int> used(26, 0);
+        vector<int> pos;
+        
+        for (char c : temp) {
+            int idx = c - 'a';
+            if (flag[idx]) {
+                used[idx]++;
+            }
+        }
+        
+        for (int i = 0; i < n; i++) {
+            int idx = temp[i] - 'a';
+            if (!flag[idx]) {
+                pos.push_back(i);
+            } else {
+                if (used[idx] > target) {
+                    pos.push_back(i);
+                    used[idx]--;
+                }
+            }
+        }
+        
+        vector<int> need(26, 0);
+        for (int i = 0; i < 26; i++) {
+            if (flag[i] && used[i] < target) {
+                need[i] = target - used[i];
+            }
+        }
+        
+        int idx = 0;
+        for (int i = 0; i < 26; i++) {
+            if (!flag[i]) continue;
+            while (need[i] > 0 && idx < (int)pos.size()) {
+                temp[pos[idx]] = 'a' + i;
+                need[i]--;
+                idx++;
+            }
+        }
+        
+        cout << res << "\n" << temp << "\n";
+    }
+    
+    return 0;
+}
