@@ -1,0 +1,35 @@
+#include <iostream>
+#include <algorithm> 
+#define ll long long
+using namespace std;
+
+int main() {
+    int t;
+    cin >> t;
+
+    while (t--) {
+       ll n, x;
+       cin >> n >> x;
+
+       ll m = n, y = n;
+
+       for ( int i = 0;  i < 62; i++){
+
+        if  ( y == x)
+            break;
+        
+        int g = __builtin_ctzll(m);
+
+        m+= (1LL<<g);
+        y&= m;
+       }
+
+       if ( y == x ){
+        cout << m << endl;
+       }
+       else{
+        cout << -1 << endl;
+       }
+    }
+    return 0;
+}
