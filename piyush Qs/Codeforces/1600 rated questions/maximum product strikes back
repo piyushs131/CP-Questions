@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+typedef long long LL;
+const int N = 2e5+10, M = 1e6+10, INF = 0x3f3f3f3f;
+int a[N], cnt[N], nums[N];
+
+int main(){
+	int t;
+	cin >> t;
+	while(t --){
+		int n;
+		cin >> n;
+		for (int i = 1; i <= n; i ++) {
+			cin >> a[i];
+			nums[i] = cnt[i] = 0;
+		}
+		for (int i = 1; i <= n; i ++) {
+			cnt[i] = cnt[i-1];
+			nums[i] = nums[i-1];
+			if (abs(a[i]) == 2) cnt[i] ++;
+			if (a[i] < 0) nums[i] ++;
+		}
+		int l = 0, r = 1, al=n, ar=n, ans = 0;
+		while(r <= n) {
+			if (a[r] != 0) {
+				int p = -1;
+				while(r <= n && a[r] != 0) {
+					if ((nums[r]-nums[l])%2 == 0) {
+						if (cnt[r]-cnt[l] > ans) {
+							ans = cnt[r] - cnt[l];
+							al = l, ar = r;
+						}
+					}
+					else if(p != -1) {
+						if (cnt[r]-cnt[p] > ans){
+							ans = cnt[r]-cnt[p];
+							al = p, ar = r;
+						}	
+					}
+					if (a[r] < 0 && p == -1) p = r;
+					r ++;
+				}
+			}
+			else {
+				l = r;
+				if (0 > ans) {
+					ans = 0;
+					al = l, ar = r;
+				}
+				r ++;
+			}
+			//cout << al << " -> " << ar << endl;
+		}
+		cout << al << " " << max(0, n-ar) << endl;
+		
+	}
+	return 0;
+}
