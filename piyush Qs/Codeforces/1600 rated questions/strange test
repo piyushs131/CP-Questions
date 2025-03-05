@@ -1,0 +1,24 @@
+#include<iostream>
+using namespace std;
+int s, d, mn=0; 
+int main()
+{  
+    int t;
+	cin>> t; 
+	while (t --) 
+	{   
+	    int s, d, mn=0; 
+		cin>>s >> d; 
+		mn = d -s; 
+		for ( int i = s ; i <=d ; i++) 
+		{ 
+			if ( ( i| d )== d ) mn = min ( mn , i - s+1 ); 
+		} 
+		for ( int i = d ; i<= ( s|d ) ; i++) 
+		{ 
+			if ( ( i |s ) == i ) mn = min ( mn , i - d+ 1 ); 
+		} 
+		cout<< mn << endl; 
+	} 
+	return 0; 
+}
