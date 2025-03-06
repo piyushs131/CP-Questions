@@ -1,0 +1,53 @@
+#include <iostream>
+
+using namespace std;
+
+#define ll long long
+const int N = 2e5 + 10;
+
+ll a[N], x[N], y[N];
+ll dp[N][2];
+
+int main() {
+    int t;
+    cin >> t;
+    
+    while (t--) {
+        int n, s;
+        cin >> n >> s;
+
+        for (int i = 1; i <= n; i++) {
+            cin >> a[i];
+
+            if (i == 1 || i == n) {
+                x[i] = a[i];
+                y[i] = a[i];
+            } else {
+                if (a[i] <= s) {
+                    x[i] = 0;
+                    y[i] = a[i];
+                } else {
+                    x[i] = s;
+                    y[i] = a[i] - s;
+                }
+            }
+        }
+
+        dp[1][0] = 0;
+        dp[1][1] = 0;
+
+        for (int i = 1; i <= n; i++) {
+            ll opt1 = dp[i - 1][0] + (y[i - 1] * x[i]);
+            ll opt2 = dp[i - 1][1] + (x[i - 1] * x[i]);
+            dp[i][0] = min(opt1, opt2);
+
+            ll opt3 = dp[i - 1][0] + (y[i - 1] * y[i]);
+            ll opt4 = dp[i - 1][1] + (x[i - 1] * y[i]);
+            dp[i][1] = min(opt3, opt4);
+        }
+
+        cout << min(dp[n][0], dp[n][1]) << endl;
+    }
+
+    return 0;
+}
