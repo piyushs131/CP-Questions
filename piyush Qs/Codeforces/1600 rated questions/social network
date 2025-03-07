@@ -1,0 +1,46 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+const int maxn = 1005;
+int n, t;
+int id[maxn];
+int ans = 1;
+
+int fun(int x) {
+    return id[x] < 0 ? x : id[x] = fun(id[x]);
+}
+
+bool mer(int x, int y) {
+    x = fun(x), y = fun(y);
+    if(x == y)
+    return true;
+    id[x] += id[y];
+    id[y] = x;
+    return false;
+}
+
+int main() {
+    cin.tie(0) -> sync_with_stdio(false);
+    cin >> n >> t;
+    memset(id, -1, sizeof id);
+    int cnt = 0;
+    while(t--) {
+        
+        int u, v;
+        cin >> u >> v;
+        cnt += mer(u, v);
+        
+        int ans = 0;
+        vector<int> vec;
+        for (int i = 1; i <= n; ++i) {
+            vec.push_back(id[i]);
+        }
+        
+        sort(begin(vec), end(vec));
+        for (int i = 0; i <= cnt; ++i)
+            ans += vec[i];
+            
+        cout << -ans - 1<< '\n';
+    }
+}
