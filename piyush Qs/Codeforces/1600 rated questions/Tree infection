@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <algorithm>
+using namespace std;
+
+int main(){
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    while(t--){
+        int n;
+        cin >> n;
+        vector<int> cnt(n + 1, 0);
+        for (int i = 2, p; i <= n; i++){
+            cin >> p;
+            cnt[p]++;
+        }
+        
+        vector<int> tasks;
+        tasks.push_back(1);
+        for (int i = 1; i <= n; i++){
+            if(cnt[i] > 0)
+                tasks.push_back(cnt[i]);
+        }
+        
+        sort(tasks.begin(), tasks.end());
+        
+        priority_queue<int> pq;
+        for (int i = 0; i < tasks.size(); i++){
+            pq.push(tasks[i] - i - 1);
+        }
+        
+        int res = tasks.size(), extra = 0;
+        while(!pq.empty() && pq.top() > extra){
+            extra++;
+            res++;
+            int x = pq.top();
+            pq.pop();
+            pq.push(x - 1);
+        }
+        
+        cout << res << "\n";
+    }
+    return 0;
+}
