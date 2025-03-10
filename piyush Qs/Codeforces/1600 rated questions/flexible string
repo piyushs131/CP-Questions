@@ -1,0 +1,57 @@
+#include <iostream>
+#include <vector>
+#include <set>
+#include <string>
+using namespace std;
+using ll = long long;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        ll n, k;
+        cin >> n >> k;
+        string a, b;
+        cin >> a >> b;
+        
+        set<char> s;
+        for (int i = 0; i < n; i++) {
+            if (a[i] != b[i]) s.insert(a[i]);
+        }
+        
+        int l = s.size();
+        vector<char> vec(s.begin(), s.end());
+
+        ll ans = 0;
+        for (int mask = 0; mask < (1 << l); mask++) {
+            if (__builtin_popcount(mask) > k) continue;
+            ll sum = 0, cnt = 0;
+            for (int j = 0; j < n; j++) {
+                if (a[j] == b[j]) {
+                    cnt++;
+                } else {
+                    int idx = -1;
+                    for (int x = 0; x < l; x++) {
+                        if (vec[x] == a[j]) {
+                            idx = x;
+                            break;
+                        }
+                    }
+                    if (idx != -1 && ((mask >> idx) & 1)) {
+                        cnt++;
+                    } else {
+                        sum += (cnt * (cnt + 1)) / 2;
+                        cnt = 0;
+                    }
+                }
+            }
+            sum += (cnt * (cnt + 1)) / 2;
+            ans = max(ans, sum);
+        }
+        cout << ans << "\n";
+    }
+    return 0;
+}
