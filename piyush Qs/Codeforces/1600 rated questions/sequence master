@@ -1,0 +1,42 @@
+#include <iostream>
+#include <cmath>
+#include <algorithm>
+
+using namespace std;
+
+int main() {
+    int n, arr[400005], tc;
+    long long diff, tmp;
+
+    cin >> tc;
+
+    while (tc--) {
+        cin >> n;
+        diff = 0;
+
+        for (int i = 0; i < 2 * n; i++) {
+            cin >> arr[i];
+            diff += abs(arr[i]);
+        }
+
+        if (n == 1) {
+            diff = abs(arr[0] - arr[1]);
+        } else if (n == 2) {
+            long long t = 0;
+            for (int i = 0; i < 4; i++)
+                t += abs(arr[i] - 2);
+            diff = min(t, diff);
+        }
+
+        if (n % 2 == 0) {
+            tmp = 0;
+            for (int i = 0; i < 2 * n; i++)
+                tmp += abs(arr[i] + 1);
+
+            for (int i = 0; i < 2 * n; i++)
+                diff = min(diff, tmp - abs(arr[i] + 1) + abs(arr[i] - n));
+        }
+
+        cout << diff << "\n";
+    }
+}
