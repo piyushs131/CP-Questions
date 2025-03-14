@@ -1,0 +1,40 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+vector<ll> cnt(1000005);
+
+int main() {
+	cin.tie(0);
+	ios::sync_with_stdio(0);
+	int t;
+	cin >> t;
+	while (t--) {
+		int n; string s;
+		cin >> n >> s;
+
+		int alp[26]{ 0 };
+		bool flag = 1;
+		for (int i = 0; i < n; i++) {
+			alp[s[i] - 'a']++;
+			if (alp[s[i]-'a'] > n / 2) flag = 0;
+		}
+		if (!flag || n % 2 == 1) {
+			cout << "-1\n";
+			continue;
+		}
+		fill(alp, alp + 26, 0);
+		int k = 0, m = 0;
+		for (int i = 0; i < n / 2; i++) {
+			if (s[i] == s[n - 1 - i]) {
+				k++;
+				alp[s[i] - 'a']++;
+				m = max(m, alp[s[i] - 'a']);
+			}
+		}
+
+		cout << max((k+1) / 2, m) << '\n';
+	}
+	
+	
+}
