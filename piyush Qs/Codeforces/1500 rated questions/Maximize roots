@@ -1,0 +1,48 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define int long long int 
+
+int dfs(int node,vector<vector<int>>&adj,vector<int>&v)
+{
+	if(adj[node].size()==0) return v[node];
+	int temp=1e9+7;
+	for(auto i:adj[node])
+	{
+		temp=min(temp,dfs(i,adj,v));
+	}
+	if(node==0)
+	{
+		return v[node]+temp;
+	}
+	int ans=temp;
+	if(temp>v[node])
+	{
+		int diff=temp-v[node];
+		diff/=2;
+		ans=v[node]+diff;
+	}
+	return ans;
+}
+int32_t main()
+{
+	int t;
+	cin>>t;
+	while(t--)
+	{
+		int n;
+		cin>>n;
+		vector<int>v(n);
+		for(int i=0;i<n;i++) cin>>v[i];
+		vector<vector<int>>adj(n);
+		for(int i=1;i<n;i++)
+		{
+			int p;
+			cin>>p;
+			p-=1;
+			adj[p].push_back(i);
+		}
+		cout<<dfs(0,adj,v)<<endl;
+	}
+	return 0;
+}
