@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+#define ll long long
+using namespace std;
+
+int main() {
+    ll n, k, q;
+    cin >> n >> k >> q;
+
+    vector<vector<ll>> arr(n, vector<ll>(k));
+    for (ll i = 0; i < n; i++)
+        for (ll j = 0; j < k; j++)
+            cin >> arr[i][j];
+
+    for (ll i = 1; i < n; i++)
+        for (ll j = 0; j < k; j++)
+            arr[i][j] |= arr[i - 1][j];
+
+    while (q--) {
+        ll m;
+        cin >> m;
+        ll left_pos = 0, right_pos = n - 1;
+
+        while (m--) {
+            ll r, c;
+            char o;
+            cin >> r >> o >> c;
+            r--;
+
+            if (o == '<') {
+                ll le = -1, ri = n, mid;
+                while (le + 1 != ri) {
+                    mid = (le + ri) / 2;
+                    if (arr[mid][r] < c) le = mid;
+                    else ri = mid;
+                }
+                right_pos = min(right_pos, le);
+            } else {
+                ll le = -1, ri = n, mid;
+                while (le + 1 != ri) {
+                    mid = (le + ri) / 2;
+                    if (arr[mid][r] <= c) le = mid;
+                    else ri = mid;
+                }
+                left_pos = max(left_pos, ri);
+            }
+        }
+
+        cout << (left_pos <= right_pos ? left_pos + 1 : -1) << "\n";
+    }
+
+    return 0;
+}
