@@ -1,0 +1,32 @@
+
+#include<bits/stdc++.h>
+using namespace std;
+int n;long long k;
+deque <int> q;
+void solve()
+{
+	scanf("%d %lld",&n,&k);k--;
+	q.push_front(n);
+	for(int i = n - 1;i;i--)
+	{
+		if(k & 1)
+			q.push_back(i);
+		else q.push_front(i);
+		k /= 2;
+	}
+	if(k)
+	{
+		while(!q.empty())q.pop_front();
+		puts("-1");
+		return;
+	}
+	while(!q.empty())
+		cout<<q.front()<<" ",q.pop_front();
+	puts("");
+}
+int main()
+{
+	int t;
+	scanf("%d",&t);
+	while(t--)solve();
+}
