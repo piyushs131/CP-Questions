@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+int main() {
+	ios::sync_with_stdio(0);
+	cin.tie(0);
+	int t;
+	cin >> t;
+	while(t--) {
+		int n, k;
+		cin >> n >> k;
+		string s;
+		cin >> s;
+		vector<int> l(k), r(k);
+		for(int i = 0; i < k; i++) {
+			cin >> l[i];
+		}
+		for(int i = 0; i < k; i++) {
+			cin >> r[i];
+		}
+		int q;
+		cin >> q;
+		int a[n + 1] {};
+		while(q--) {
+			int x;
+			cin >> x;
+			int X = lower_bound(r.begin(), r.end(), x) - r.begin();
+			int y = min(x, l[X] + r[X] - x);
+			a[y]++;
+			a[y] %= 2;
+		}
+		for(int i = 0; i < k; i++) {
+			for(int j = l[i]; j <= (l[i] + r[i]) / 2; j++) {
+				if(a[j] == 1) swap(s[j - 1], s[l[i] + r[i] - j - 1]);
+				if(j + 1 <= r[i]) {
+					a[j + 1] += a[j];
+					a[j + 1] %= 2;
+				}
+			}
+		}
+		cout << s << '\n';
+	}
+	return 0;
+}
