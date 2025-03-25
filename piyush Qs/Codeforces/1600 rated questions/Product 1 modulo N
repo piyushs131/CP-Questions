@@ -1,0 +1,24 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int main(){
+    long long n,tot=1;
+    vector<int> ans;
+    cin>>n;
+    for(long long i=1;i<n;i++)
+        if(__gcd(i,n)==1){
+            ans.push_back(i);
+            tot*=i;
+            tot%=n;
+        }
+    
+    if(tot!=1)
+        ans.pop_back();
+    
+    cout<<ans.size()<<endl;
+    for(auto val:ans)
+        cout<<val<<' ';
+    
+    
+    return 0;
+}
