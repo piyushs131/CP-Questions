@@ -1,0 +1,30 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define int long long
+
+int n, m, arr[1500][1500];
+int dp[2000000];
+
+
+int32_t main() {
+
+	arr[1][1] = 1;
+	int num = 2;
+	dp[1] = 1;
+	for (int i = 2; i <= 1450; i++) 
+	{
+		for (int j = 1; j <= i; j++) 
+		{
+			arr[i][j] += num * num;
+			arr[i][j] += arr[i - 1][j] + arr[i - 1][j - 1] - arr[i - 2][j - 1];
+			dp[num++] = arr[i][j]; 
+		}
+	}
+	int t; cin >> t;
+	while (t--)
+	{
+		int n; cin >> n;
+		cout << dp[n] << endl;
+	}
+
+}
