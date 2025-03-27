@@ -1,0 +1,32 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+using ll = long long;
+
+const int mod = 1e9 + 7;
+const int maxn = 2e5 + 10;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+
+    int t;
+    cin >> t;
+
+    vector<int> dp(maxn, 1);
+    for (int i = 10; i < maxn; i++) dp[i] = (dp[i - 10] + dp[i - 9]) % mod;
+
+    while (t--) {
+        int n, m;
+        cin >> n >> m;
+        int ans = 0;
+        while (n > 0) {
+            ans = (ans + dp[(n % 10) + m]) % mod;
+            n /= 10;
+        }
+        cout << ans << "\n";
+    }
+
+    return 0;
+}
