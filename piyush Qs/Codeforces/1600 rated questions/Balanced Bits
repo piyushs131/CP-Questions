@@ -1,0 +1,45 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+using ll = long long;
+
+const int INF = 0x3f3f3f3f;
+const int maxn = 2e3 + 10;
+
+int main() {
+    ios::sync_with_stdio(false);
+    cin.tie(nullptr);
+    
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        string s, a, b;
+        cin >> n >> s;
+        int cnt = 0, k = 0;
+        for (char i : s) cnt += i == '1';
+        if (cnt & 1 || s[0] == '0' || s.back() == '0') {
+            cout << "NO" << endl;
+            continue;
+        }
+        a = b = "";
+        bool flip = false;
+        for (char i : s) {
+            if (i == '1') {
+                a += k << 1 < cnt ? '(' : ')';
+                b += a.back();
+                k++;
+            } else {
+                a += flip ? '(' : ')';
+                b += flip ? ')' : '(';
+                flip = !flip;
+            }
+        }
+        cout << "YES" << endl;  
+        cout << a << endl;  
+        cout << b << endl;
+    }
+    
+    return 0;
+}
