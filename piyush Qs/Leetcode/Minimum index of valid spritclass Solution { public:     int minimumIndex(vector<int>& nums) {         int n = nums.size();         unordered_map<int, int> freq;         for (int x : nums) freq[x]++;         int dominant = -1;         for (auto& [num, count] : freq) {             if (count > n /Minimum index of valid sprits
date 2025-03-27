@@ -1,0 +1,24 @@
+class Solution {
+public:
+    int minimumIndex(vector<int>& nums) {
+        int n = nums.size();
+        unordered_map<int, int> freq;
+        for (int x : nums) freq[x]++;
+        int dominant = -1;
+        for (auto& [num, count] : freq) {
+            if (count > n / 2) {
+                dominant = num;
+                break;
+            }
+        }
+        if (dominant == -1) return -1;
+        int cnt = 0, j = 0;
+        for (; j < n; j++) {
+            if (nums[j] == dominant) cnt++;
+            if (cnt * 2 > j + 1 && (freq[dominant] - cnt) * 2 > (n - j - 1)) {
+                return j;
+            }
+        }
+        return -1;
+    }
+};
